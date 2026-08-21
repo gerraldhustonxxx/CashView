@@ -3,11 +3,60 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>CashView Pro - Personal Finance</title>
+    <title>CashView Pro - Ultimate Personal Finance</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ============================================================
+           CSS VARIABLES & RESET
+           ============================================================ */
+        :root {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #0a1628;
+            --text-secondary: #4a5a6f;
+            --text-muted: #8a9aa8;
+            --border-color: #e8ecf0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --nav-bg: #0a1628;
+            --nav-text: #ffffff;
+            --card-gradient-1: linear-gradient(145deg, #0a1628, #1a2a4a);
+            --card-gradient-2: linear-gradient(145deg, #064e3b, #065f46);
+            --card-gradient-3: linear-gradient(145deg, #78350f, #92400e);
+            --card-gradient-4: linear-gradient(145deg, #1e3a5f, #1a4b6d);
+            --success: #065f46;
+            --danger: #b91c1c;
+            --warning: #d97706;
+            --info: #1a4b6d;
+            --chart-grid: #e8ecf0;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #141b2d;
+            --bg-card: #1a2340;
+            --text-primary: #e8edf5;
+            --text-secondary: #a8b8d0;
+            --text-muted: #6a7a90;
+            --border-color: #2a3a5a;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --nav-bg: #060a18;
+            --nav-text: #e8edf5;
+            --card-gradient-1: linear-gradient(145deg, #0a1628, #1a2a4a);
+            --card-gradient-2: linear-gradient(145deg, #064e3b, #065f46);
+            --card-gradient-3: linear-gradient(145deg, #78350f, #92400e);
+            --card-gradient-4: linear-gradient(145deg, #1e3a5f, #1a4b6d);
+            --chart-grid: #2a3a5a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,70 +65,111 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f0f2f5;
-            color: #1a1a2e;
-            padding: 0;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            min-height: 100vh;
         }
 
-        /* Top Navigation */
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* ============================================================
+           TOP NAVIGATION
+           ============================================================ */
         .top-nav {
-            background: #0a1628;
-            padding: 12px 40px;
+            background: var(--nav-bg);
+            padding: 12px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
+            color: var(--nav-text);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             flex-wrap: wrap;
             gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .top-nav .logo {
-            font-size: 24px;
-            font-weight: 800;
+            font-size: 22px;
+            font-weight: 900;
             letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .top-nav .logo span {
             color: #00b894;
         }
 
+        .top-nav .logo i {
+            font-size: 24px;
+            color: #00b894;
+        }
+
         .top-nav .nav-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        .top-nav .nav-actions select {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
+        .top-nav .nav-actions select,
+        .top-nav .nav-actions button {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 7px 14px;
             border-radius: 8px;
-            color: white;
+            color: var(--nav-text);
             font-weight: 500;
+            font-size: 12px;
             cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .top-nav .nav-actions select:hover,
+        .top-nav .nav-actions button:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .top-nav .nav-actions select option {
             color: #1a1a2e;
         }
 
-        /* Live Rates Bar */
+        /* ============================================================
+           LIVE RATES BAR
+           ============================================================ */
         .rates-bar {
-            background: #1a2a4a;
-            padding: 6px 40px;
+            background: var(--bg-secondary);
+            padding: 6px 32px;
             display: flex;
-            gap: 25px;
+            gap: 24px;
             overflow-x: auto;
-            color: #a8c8e8;
+            color: var(--text-secondary);
             font-size: 12px;
-            border-bottom: 1px solid #2a3a5a;
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 60px;
             z-index: 99;
+            transition: var(--transition);
         }
 
         .rates-bar .rate-item {
@@ -90,31 +180,38 @@
         }
 
         .rates-bar .rate-item .rate-value {
-            color: #4ade80;
+            color: var(--text-primary);
             font-weight: 600;
         }
 
         .rates-bar .rate-item .rate-change {
             font-size: 10px;
-            padding: 0 4px;
+            padding: 1px 6px;
             border-radius: 4px;
+            font-weight: 600;
         }
 
         .rates-bar .rate-item .rate-change.up {
-            color: #4ade80;
+            color: var(--success);
+            background: rgba(6, 95, 70, 0.1);
         }
         .rates-bar .rate-item .rate-change.down {
-            color: #f87171;
+            color: var(--danger);
+            background: rgba(185, 28, 28, 0.1);
         }
 
-        /* Main Container */
+        /* ============================================================
+           MAIN CONTAINER
+           ============================================================ */
         .container {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 20px 32px;
+            padding: 20px 28px;
         }
 
-        /* Welcome Section */
+        /* ============================================================
+           WELCOME SECTION
+           ============================================================ */
         .welcome-section {
             display: flex;
             justify-content: space-between;
@@ -125,36 +222,120 @@
         }
 
         .welcome-section h1 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0a1628;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
         }
 
         .welcome-section .date-display {
-            color: #6b7a8f;
+            color: var(--text-secondary);
             font-weight: 500;
+            font-size: 14px;
         }
 
-        /* Balance Cards */
+        .welcome-section .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            padding: 8px 18px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--nav-bg);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 11px;
+        }
+
+        .btn-xs {
+            padding: 3px 8px;
+            font-size: 10px;
+        }
+
+        /* ============================================================
+           BALANCE CARDS
+           ============================================================ */
         .balance-cards {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 24px;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
         .balance-card {
-            background: linear-gradient(145deg, #0a1628, #1a2a4a);
-            border-radius: 20px;
-            padding: 22px 26px;
+            border-radius: var(--radius);
+            padding: 20px 22px;
             color: white;
             position: relative;
             overflow: hidden;
-            transition: transform 0.2s;
+            transition: var(--transition);
+            cursor: pointer;
+            min-height: 120px;
         }
 
         .balance-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
         }
 
         .balance-card::before {
@@ -164,108 +345,135 @@
             right: -30%;
             width: 200px;
             height: 200px;
-            background: radial-gradient(circle, rgba(0, 184, 148, 0.1), transparent);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent);
             border-radius: 50%;
         }
 
         .balance-card .card-label {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             opacity: 0.7;
             margin-bottom: 6px;
+            font-weight: 600;
         }
 
         .balance-card .card-amount {
-            font-size: 30px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             margin-bottom: 4px;
+            letter-spacing: -0.5px;
         }
 
         .balance-card .card-sub {
-            font-size: 13px;
-            opacity: 0.6;
+            font-size: 12px;
+            opacity: 0.7;
             display: flex;
             gap: 14px;
             flex-wrap: wrap;
         }
 
-        .balance-card .card-sub .change.positive {
+        .balance-card .card-icon {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            font-size: 32px;
+            opacity: 0.12;
+        }
+
+        .balance-card.bg-dark {
+            background: var(--card-gradient-1);
+        }
+        .balance-card.bg-green {
+            background: var(--card-gradient-2);
+        }
+        .balance-card.bg-gold {
+            background: var(--card-gradient-3);
+        }
+        .balance-card.bg-blue {
+            background: var(--card-gradient-4);
+        }
+
+        .balance-card .change.positive {
             color: #4ade80;
         }
-        .balance-card .card-sub .change.negative {
+        .balance-card .change.negative {
             color: #f87171;
         }
 
-        .balance-card .card-icon {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            font-size: 28px;
-            opacity: 0.15;
-        }
-
-        .balance-card.green {
-            background: linear-gradient(145deg, #064e3b, #065f46);
-        }
-
-        .balance-card.gold {
-            background: linear-gradient(145deg, #78350f, #92400e);
-        }
-
-        /* Stats Grid */
+        /* ============================================================
+           STATS GRID
+           ============================================================ */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            margin-bottom: 24px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
-            background: white;
-            border-radius: 16px;
-            padding: 16px 20px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e8ecf0;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
         .stat-card .stat-label {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
-            color: #6b7a8f;
+            color: var(--text-muted);
             letter-spacing: 0.5px;
             font-weight: 600;
         }
 
         .stat-card .stat-value {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 700;
-            margin-top: 4px;
-            color: #0a1628;
+            margin-top: 3px;
+            color: var(--text-primary);
         }
 
         .stat-card .stat-value.positive {
-            color: #065f46;
+            color: var(--success);
         }
         .stat-card .stat-value.negative {
-            color: #b91c1c;
+            color: var(--danger);
+        }
+        .stat-card .stat-value.warning {
+            color: var(--warning);
         }
 
-        /* Two Column */
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 24px;
+        .stat-card .stat-change {
+            font-size: 10px;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .stat-card .stat-change.up {
+            color: var(--success);
+        }
+        .stat-card .stat-change.down {
+            color: var(--danger);
         }
 
-        /* Box */
+        /* ============================================================
+           BOX / CARD
+           ============================================================ */
         .box {
-            background: white;
-            border-radius: 20px;
-            padding: 20px 22px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e8ecf0;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .box:hover {
+            box-shadow: var(--shadow);
         }
 
         .box .box-header {
@@ -274,27 +482,37 @@
             align-items: center;
             margin-bottom: 14px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f0f2f5;
+            border-bottom: 2px solid var(--bg-primary);
             flex-wrap: wrap;
             gap: 6px;
         }
 
         .box .box-header h3 {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            color: #0a1628;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box .box-header h3 i {
+            color: var(--text-muted);
+            font-size: 16px;
         }
 
         .box .box-header .badge {
-            background: #e8ecf0;
+            background: var(--bg-primary);
             padding: 3px 12px;
             border-radius: 20px;
             font-size: 10px;
             font-weight: 600;
-            color: #4a5a6f;
+            color: var(--text-secondary);
         }
 
-        /* Inputs */
+        /* ============================================================
+           INPUTS
+           ============================================================ */
         .input-group {
             display: flex;
             flex-wrap: wrap;
@@ -305,25 +523,31 @@
         .input-group input,
         .input-group select {
             flex: 1;
-            min-width: 90px;
+            min-width: 80px;
             padding: 8px 12px;
-            border-radius: 10px;
-            border: 1.5px solid #dce0e6;
-            font-size: 13px;
-            transition: 0.2s;
-            background: #fafbfc;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-color);
+            font-size: 12px;
+            transition: var(--transition);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
         }
 
         .input-group input:focus,
         .input-group select:focus {
             outline: none;
-            border-color: #0a1628;
+            border-color: var(--text-primary);
             box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.08);
+        }
+
+        .input-group input::placeholder {
+            color: var(--text-muted);
         }
 
         .input-group .currency-select-small {
             flex: 0.4;
-            min-width: 65px;
+            min-width: 60px;
         }
 
         .input-group .date-input {
@@ -331,64 +555,9 @@
             min-width: 110px;
         }
 
-        .btn {
-            padding: 8px 18px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .btn-primary {
-            background: #0a1628;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #1a2a4a;
-            transform: translateY(-1px);
-        }
-
-        .btn-success {
-            background: #065f46;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #047857;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #dce0e6;
-            color: #4a5a6f;
-        }
-
-        .btn-outline:hover {
-            border-color: #0a1628;
-            color: #0a1628;
-        }
-
-        .btn-danger {
-            background: #b91c1c;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #991b1b;
-        }
-
-        .btn-sm {
-            padding: 5px 12px;
-            font-size: 11px;
-        }
-
-        /* Tables */
+        /* ============================================================
+           TABLES
+           ============================================================ */
         .table-wrap {
             max-height: 220px;
             overflow-y: auto;
@@ -404,70 +573,111 @@
         th {
             text-align: left;
             padding: 6px 8px;
-            background: #f8f9fa;
+            background: var(--bg-primary);
             font-weight: 600;
-            color: #4a5a6f;
+            color: var(--text-secondary);
             position: sticky;
             top: 0;
             z-index: 5;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         td {
             padding: 8px 8px;
-            border-bottom: 1px solid #f0f2f5;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
         }
 
         .delete-btn {
             background: none;
             border: none;
-            color: #b91c1c;
+            color: var(--danger);
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.4;
-            transition: 0.2s;
+            transition: var(--transition);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .delete-btn:hover {
             opacity: 1;
+            background: rgba(185, 28, 28, 0.08);
         }
 
-        /* Daily Summary */
+        /* ============================================================
+           TWO COLUMN LAYOUT
+           ============================================================ */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        /* ============================================================
+           DAILY SUMMARY
+           ============================================================ */
         .daily-summary {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 8px;
-            margin: 10px 0;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 6px;
+            margin: 8px 0;
+            padding: 8px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
         }
 
         .daily-summary .day-item {
-            padding: 6px 10px;
-            background: white;
+            padding: 6px 8px;
+            background: var(--bg-card);
             border-radius: 8px;
-            border: 1px solid #e8ecf0;
+            border: 1px solid var(--border-color);
             text-align: center;
+            transition: var(--transition);
+        }
+
+        .daily-summary .day-item:hover {
+            transform: scale(1.02);
         }
 
         .daily-summary .day-item .day-label {
-            font-size: 10px;
-            color: #6b7a8f;
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         .daily-summary .day-item .day-amount {
-            font-weight: 600;
-            font-size: 13px;
+            font-weight: 700;
+            font-size: 12px;
             margin-top: 2px;
+            color: var(--text-primary);
         }
 
-        /* Goal Items with Deadline */
+        .daily-summary .day-item .day-count {
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+           GOAL ITEMS
+           ============================================================ */
         .goal-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #f0f2f5;
+            border-bottom: 1px solid var(--border-color);
             flex-wrap: wrap;
             gap: 6px;
         }
@@ -480,76 +690,103 @@
         .goal-item .goal-name {
             font-weight: 600;
             font-size: 13px;
+            color: var(--text-primary);
         }
 
         .goal-item .goal-target {
-            font-size: 12px;
-            color: #6b7a8f;
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
         .goal-item .goal-deadline {
-            font-size: 11px;
-            color: #4a5a6f;
-            background: #f0f2f5;
+            font-size: 10px;
             padding: 2px 10px;
             border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .goal-item .goal-deadline.normal {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
         }
 
         .goal-item .goal-deadline.urgent {
             background: #fef2f2;
-            color: #b91c1c;
+            color: var(--danger);
+        }
+
+        .goal-item .goal-deadline.overdue {
+            background: var(--danger);
+            color: white;
         }
 
         .goal-item .goal-progress {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .progress-bar {
-            width: 100px;
-            height: 5px;
-            background: #e8ecf0;
+            width: 80px;
+            height: 4px;
+            background: var(--bg-primary);
             border-radius: 10px;
             overflow: hidden;
         }
 
         .progress-bar .fill {
             height: 100%;
-            background: #065f46;
+            background: var(--success);
             border-radius: 10px;
-            transition: width 0.5s;
+            transition: width 0.8s ease;
         }
 
-        /* Income & Budget Items */
+        /* ============================================================
+           INCOME & BUDGET ITEMS
+           ============================================================ */
         .income-source-item,
         .budget-alloc-item {
             display: flex;
             justify-content: space-between;
             padding: 6px 0;
-            border-bottom: 1px solid #f0f2f5;
+            border-bottom: 1px solid var(--border-color);
             flex-wrap: wrap;
             gap: 4px;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .income-source-item .source-name,
         .budget-alloc-item .budget-cat {
             font-weight: 500;
+            color: var(--text-primary);
         }
 
         .income-source-item .source-amount,
         .budget-alloc-item .budget-amount {
             font-weight: 600;
+            color: var(--text-primary);
         }
 
-        /* Chart */
+        .income-source-item .source-type {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            background: var(--bg-primary);
+            padding: 0 8px;
+            border-radius: 10px;
+        }
+
+        /* ============================================================
+           CHART
+           ============================================================ */
         .chart-wrapper {
             height: 180px;
             margin-top: 6px;
         }
 
-        /* History */
+        /* ============================================================
+           HISTORY LIST
+           ============================================================ */
         .history-list {
             max-height: 100px;
             overflow-y: auto;
@@ -559,36 +796,42 @@
         .history-item {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
-            border-bottom: 1px solid #f0f2f5;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border-color);
             font-size: 12px;
         }
 
         .history-item .month {
-            color: #4a5a6f;
+            color: var(--text-secondary);
         }
 
         .history-item .amount {
             font-weight: 600;
+            color: var(--text-primary);
         }
 
-        /* Notification */
+        /* ============================================================
+           NOTIFICATION
+           ============================================================ */
         .notification {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 14px 22px;
-            border-radius: 12px;
-            background: #0a1628;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            background: var(--nav-bg);
             color: white;
             font-weight: 500;
             font-size: 13px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
+            box-shadow: var(--shadow-hover);
+            z-index: 9999;
             transform: translateY(100px);
             opacity: 0;
-            transition: all 0.3s;
-            max-width: 400px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 420px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .notification.show {
@@ -597,202 +840,377 @@
         }
 
         .notification.success {
-            background: #065f46;
+            background: var(--success);
         }
-
         .notification.error {
-            background: #b91c1c;
+            background: var(--danger);
+        }
+        .notification.warning {
+            background: var(--warning);
         }
 
-        /* Language Selector Label */
-        .lang-label {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 11px;
-            margin-right: 4px;
+        /* ============================================================
+           DARK MODE TOGGLE
+           ============================================================ */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 7px 12px;
+            border-radius: 8px;
+            color: var(--nav-text);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ============================================================
+           SUMMARY CARD
+           ============================================================ */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 12px;
+        }
+
+        .summary-item .label {
+            color: var(--text-secondary);
+        }
+
+        .summary-item .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1200px) {
             .balance-cards {
                 grid-template-columns: 1fr 1fr;
             }
             .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .three-col {
                 grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .two-col {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
             .container {
-                padding: 14px;
+                padding: 12px 14px;
             }
             .top-nav {
-                padding: 10px 16px;
+                padding: 10px 14px;
             }
             .balance-cards {
-                grid-template-columns: 1fr;
-            }
-            .two-col {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            .three-col {
+                grid-template-columns: 1fr;
+            }
             .rates-bar {
-                padding: 6px 14px;
+                padding: 4px 14px;
                 gap: 12px;
                 font-size: 10px;
                 top: 56px;
             }
             .balance-card .card-amount {
-                font-size: 22px;
+                font-size: 20px;
+            }
+            .welcome-section h1 {
+                font-size: 18px;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr;
             }
             .input-group input,
             .input-group select {
-                min-width: 60px;
-                font-size: 12px;
-                padding: 6px 10px;
+                min-width: 50px;
+                font-size: 11px;
+                padding: 6px 8px;
             }
-            .welcome-section h1 {
-                font-size: 20px;
+            .daily-summary {
+                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
             }
         }
 
         @media (max-width: 480px) {
-            .stats-grid {
+            .balance-cards {
                 grid-template-columns: 1fr;
             }
-            .daily-summary {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .top-nav .logo {
+                font-size: 18px;
+            }
+            .top-nav .nav-actions select,
+            .top-nav .nav-actions button {
+                font-size: 10px;
+                padding: 4px 10px;
             }
         }
 
-        .table-wrap::-webkit-scrollbar,
-        .history-list::-webkit-scrollbar {
-            width: 4px;
+        /* ============================================================
+           EMPTY STATE
+           ============================================================ */
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 12px;
         }
 
-        .table-wrap::-webkit-scrollbar-thumb,
-        .history-list::-webkit-scrollbar-thumb {
-            background: #dce0e6;
+        .empty-state i {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 8px;
+            opacity: 0.3;
+        }
+
+        /* ============================================================
+           RECURRING BADGE
+           ============================================================ */
+        .recurring-badge {
+            font-size: 9px;
+            background: #dbeafe;
+            color: var(--info);
+            padding: 1px 8px;
             border-radius: 10px;
+            font-weight: 600;
+        }
+
+        [data-theme="dark"] .recurring-badge {
+            background: rgba(26, 75, 109, 0.3);
+            color: #6aafff;
+        }
+
+        /* ============================================================
+           CATEGORY COLOR DOTS
+           ============================================================ */
+        .cat-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        /* ============================================================
+           TOOLTIP
+           ============================================================ */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--nav-bg);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 10px;
+            white-space: nowrap;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
-    <!-- TOP NAV -->
+    <!-- ============================================================
+    TOP NAVIGATION
+    ============================================================ -->
     <nav class="top-nav">
-        <div class="logo">Cash<span>View</span></div>
+        <div class="logo">
+            <i class="fas fa-wallet"></i>
+            Cash<span>View</span>
+        </div>
         <div class="nav-actions">
-            <span class="lang-label">🌐</span>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
             <select id="languageSelector" onchange="changeLanguage(this.value)">
-                <option value="id">🇮🇩 Indonesia</option>
-                <option value="en">🇬🇧 English</option>
+                <option value="id">🇮🇩 ID</option>
+                <option value="en">🇬🇧 EN</option>
                 <option value="zh">🇨🇳 中文</option>
             </select>
-            <select class="currency-selector" id="mainCurrency" onchange="changeCurrency(this.value)">
+            <select id="mainCurrency" onchange="changeCurrency(this.value)">
                 <option value="IDR">🇮🇩 IDR</option>
                 <option value="USD">🇺🇸 USD</option>
                 <option value="PHP">🇵🇭 PHP</option>
             </select>
-            <button class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.2);" onclick="syncToSheet()">🔄 Sync</button>
+            <button class="btn-sm" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.15);" onclick="syncToSheet()">
+                <i class="fas fa-cloud-upload-alt"></i> Sync
+            </button>
+            <button class="btn-sm" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.15);" onclick="exportCSV()">
+                <i class="fas fa-file-export"></i> Export
+            </button>
         </div>
     </nav>
 
-    <!-- LIVE RATES BAR -->
+    <!-- ============================================================
+    LIVE RATES BAR
+    ============================================================ -->
     <div class="rates-bar" id="ratesBar">
         <div class="rate-item">
-            <span class="rate-label">💵 USD/IDR</span>
+            <span>💵 USD/IDR</span>
             <span class="rate-value" id="usdIdrRate">--</span>
             <span class="rate-change" id="usdIdrChange">0%</span>
         </div>
         <div class="rate-item">
-            <span class="rate-label">💵 USD/PHP</span>
+            <span>💵 USD/PHP</span>
             <span class="rate-value" id="usdPhpRate">--</span>
             <span class="rate-change" id="usdPhpChange">0%</span>
         </div>
         <div class="rate-item">
-            <span class="rate-label">💵 EUR/USD</span>
+            <span>💵 EUR/USD</span>
             <span class="rate-value" id="eurUsdRate">--</span>
             <span class="rate-change" id="eurUsdChange">0%</span>
         </div>
         <div class="rate-item">
-            <span class="rate-label">💵 GBP/USD</span>
+            <span>💵 GBP/USD</span>
             <span class="rate-value" id="gbpUsdRate">--</span>
             <span class="rate-change" id="gbpUsdChange">0%</span>
         </div>
         <div class="rate-item">
-            <span class="rate-label">🪙 BTC/USD</span>
+            <span>🪙 BTC/USD</span>
             <span class="rate-value" id="btcUsdRate">--</span>
             <span class="rate-change" id="btcUsdChange">0%</span>
         </div>
         <div class="rate-item">
-            <span class="rate-label" id="rateUpdateLabel">Last Update</span>
+            <span>📊</span>
             <span class="rate-value" id="rateUpdateTime">--</span>
         </div>
     </div>
 
+    <!-- ============================================================
+    MAIN CONTAINER
+    ============================================================ -->
     <div class="container">
-        <!-- WELCOME -->
+
+        <!-- ============================================================
+        WELCOME
+        ============================================================ -->
         <div class="welcome-section">
             <h1 id="welcomeTitle">👋 Selamat Datang di CashView</h1>
-            <span class="date-display" id="dateDisplay"></span>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                <span class="date-display" id="dateDisplay"></span>
+                <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtn">
+                    <i class="fas fa-save"></i> <span>Rekam Bulan Ini</span>
+                </button>
+            </div>
         </div>
 
-        <!-- BALANCE CARDS -->
+        <!-- ============================================================
+        BALANCE CARDS
+        ============================================================ -->
         <div class="balance-cards">
-            <div class="balance-card">
+            <div class="balance-card bg-dark">
                 <div class="card-label" id="labelTotalBalance">💰 Total Balance</div>
                 <div class="card-amount" id="totalBalance">Rp0</div>
                 <div class="card-sub">
                     <span id="labelSalary">💼 Salary: <strong id="salaryTotal">Rp0</strong></span>
                     <span id="labelPassive">📈 Passive: <strong id="passiveTotal">Rp0</strong></span>
                 </div>
-                <div class="card-icon">🏦</div>
+                <div class="card-icon"><i class="fas fa-wallet"></i></div>
             </div>
-            <div class="balance-card green">
+            <div class="balance-card bg-green">
                 <div class="card-label" id="labelTotalAsset">📊 Total Aset</div>
                 <div class="card-amount" id="totalAssetDisplay">Rp0</div>
                 <div class="card-sub">
                     <span id="labelDepreciation">📉 Depresiasi/th: <strong id="depTotal">Rp0</strong></span>
                 </div>
-                <div class="card-icon">📈</div>
+                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
             </div>
-            <div class="balance-card gold">
+            <div class="balance-card bg-gold">
                 <div class="card-label" id="labelNetWorth">🎯 Net Worth</div>
                 <div class="card-amount" id="netWorthDisplay">Rp0</div>
                 <div class="card-sub">
                     <span id="labelMonthChange">📆 Bulan ini: <span id="monthChange" class="change positive">+0%</span></span>
                 </div>
-                <div class="card-icon">⭐</div>
+                <div class="card-icon"><i class="fas fa-star"></i></div>
+            </div>
+            <div class="balance-card bg-blue">
+                <div class="card-label" id="labelMonthlyBudget">📋 Budget Bulanan</div>
+                <div class="card-amount" id="budgetDisplay">Rp0</div>
+                <div class="card-sub">
+                    <span id="labelBudgetUsed">Terpakai: <strong id="budgetUsedPercent">0%</strong></span>
+                    <span id="labelRemainingBudget">Sisa: <strong id="remainingBudgetDisplay">Rp0</strong></span>
+                </div>
+                <div class="card-icon"><i class="fas fa-coins"></i></div>
             </div>
         </div>
 
-        <!-- QUICK STATS -->
+        <!-- ============================================================
+        STATS GRID
+        ============================================================ -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-label" id="labelBudget">📋 Budget Bulanan</div>
-                <div class="stat-value" id="budgetDisplay">Rp0</div>
+                <div class="stat-label" id="labelTotalIncome">💵 Total Income</div>
+                <div class="stat-value positive" id="statTotalIncome">Rp0</div>
+                <div class="stat-change up" id="statIncomeChange">+0% vs last month</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label" id="labelTotalExpenses">📉 Total Expenses</div>
-                <div class="stat-value negative" id="expenseDisplay">Rp0</div>
+                <div class="stat-value negative" id="statTotalExpenses">Rp0</div>
+                <div class="stat-change down" id="statExpenseChange">+0% vs last month</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label" id="labelRemaining">✅ Sisa Budget</div>
-                <div class="stat-value positive" id="remainingDisplay">Rp0</div>
+                <div class="stat-label" id="labelMonthlyAverage">📊 Rata-rata Harian</div>
+                <div class="stat-value" id="statDailyAvg">Rp0</div>
+                <div class="stat-change" id="statDailyChange">Hari ini: Rp0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label" id="labelBiggestExpense">💳 Terbesar Bulan Ini</div>
+                <div class="stat-value warning" id="statBiggestExpense">-</div>
+                <div class="stat-change" id="statBiggestDesc">-</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label" id="labelGoalProgress">🎯 Goals Progress</div>
-                <div class="stat-value" id="goalProgress">0%</div>
+                <div class="stat-value" id="statGoalProgress">0%</div>
+                <div class="stat-change" id="statGoalCount">0 goals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label" id="labelTransactionCount">📝 Transaksi</div>
+                <div class="stat-value" id="statTransactionCount">0</div>
+                <div class="stat-change" id="statTransactionMonth">Bulan ini: 0</div>
             </div>
         </div>
 
-        <!-- INCOME & BUDGET -->
+        <!-- ============================================================
+        INCOME & BUDGET
+        ============================================================ -->
         <div class="two-col">
             <div class="box">
                 <div class="box-header">
-                    <h3 id="incomeTitle">💼 Sumber Pendapatan</h3>
-                    <span class="badge" id="incomeBalanceLabel">Balance</span>
+                    <h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3>
+                    <span class="badge" id="incomeCount">0 sources</span>
                 </div>
                 <div class="input-group">
                     <input type="text" id="incomeSource" placeholder="Sumber (Salary, Freelance...)" style="flex:2;">
@@ -805,15 +1223,17 @@
                     <select id="incomeType" class="currency-select-small">
                         <option value="salary">💰 Salary</option>
                         <option value="passive">📈 Passive</option>
+                        <option value="business">🏢 Business</option>
+                        <option value="investment">📊 Investment</option>
                     </select>
-                    <button class="btn btn-sm btn-success" onclick="addIncome()" id="incomeAddBtn">➕</button>
+                    <button class="btn btn-sm btn-success" onclick="addIncome()"><i class="fas fa-plus"></i></button>
                 </div>
-                <div id="incomeList" style="margin-top:8px;"></div>
+                <div id="incomeList"></div>
             </div>
             <div class="box">
                 <div class="box-header">
-                    <h3 id="budgetTitle">📊 Alokasi Budget</h3>
-                    <span class="badge" id="budgetPerMonth">Per Bulan</span>
+                    <h3><i class="fas fa-sliders-h"></i> <span id="budgetTitle">Alokasi Budget</span></h3>
+                    <span class="badge" id="budgetCount">0 categories</span>
                 </div>
                 <div class="input-group">
                     <input type="text" id="budgetCategory" placeholder="Kategori (Makan, Transport...)" style="flex:2;">
@@ -823,18 +1243,26 @@
                         <option value="USD">USD</option>
                         <option value="PHP">PHP</option>
                     </select>
-                    <button class="btn btn-sm btn-primary" onclick="addBudgetAllocation()" id="budgetAddBtn">➕</button>
+                    <input type="color" id="budgetColor" value="#065f46" style="flex:0.3;min-width:40px;padding:2px;border-radius:6px;border:1px solid var(--border-color);background:transparent;cursor:pointer;">
+                    <button class="btn btn-sm btn-primary" onclick="addBudgetAllocation()"><i class="fas fa-plus"></i></button>
                 </div>
-                <div id="budgetAllocList" style="margin-top:8px;"></div>
+                <div id="budgetAllocList"></div>
             </div>
         </div>
 
-        <!-- EXPENSES & ASSETS -->
+        <!-- ============================================================
+        EXPENSES & ASSETS
+        ============================================================ -->
         <div class="two-col">
             <div class="box">
                 <div class="box-header">
-                    <h3 id="expenseTitle">📆 Lacak Pengeluaran (Harian & Bulanan)</h3>
-                    <span class="badge" id="expenseCount">0 items</span>
+                    <h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3>
+                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                        <span class="badge" id="expenseCount">0 items</span>
+                        <button class="btn btn-xs btn-outline" onclick="toggleRecurring()" id="recurringToggle">
+                            <i class="fas fa-sync-alt"></i> <span id="recurringLabel">Bulanan</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="input-group">
                     <input type="text" id="expenseDesc" placeholder="Deskripsi" style="flex:2;">
@@ -844,26 +1272,37 @@
                         <option value="USD">USD</option>
                         <option value="PHP">PHP</option>
                     </select>
+                    <select id="expenseCategory" style="flex:1;min-width:80px;">
+                        <option value="Makanan">🍔 Makanan</option>
+                        <option value="Transport">🚗 Transport</option>
+                        <option value="Rumah">🏠 Rumah</option>
+                        <option value="Kesehatan">💊 Kesehatan</option>
+                        <option value="Pendidikan">📚 Pendidikan</option>
+                        <option value="Hiburan">🎮 Hiburan</option>
+                        <option value="Belanja">🛍️ Belanja</option>
+                        <option value="Tagihan">📄 Tagihan</option>
+                        <option value="Lainnya">📌 Lainnya</option>
+                    </select>
                     <input type="date" id="expenseDate" class="date-input">
-                    <button class="btn btn-sm btn-primary" onclick="addExpense()" id="expenseAddBtn">➕</button>
+                    <button class="btn btn-sm btn-primary" onclick="addExpense()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div class="daily-summary" id="dailySummary"></div>
                 <div class="table-wrap">
                     <table>
-                        <thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thAmount">Jumlah</th><th></th></tr></thead>
+                        <thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th></th></tr></thead>
                         <tbody id="expenseTableBody"></tbody>
                     </table>
                 </div>
-                <div style="margin-top:10px;font-size:12px;background:#f8f9fa;padding:8px 14px;border-radius:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+                <div style="margin-top:10px;font-size:11px;background:var(--bg-primary);padding:8px 14px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">
                     <span id="monthlyTotalLabel">📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
                     <span id="budgetUsedLabel">📊 Budget terpakai: <strong id="budgetUsed">0%</strong></span>
-                    <span id="biggestLabel">💳 Pengeluaran terbesar: <strong id="biggestExpense">-</strong></span>
+                    <span id="biggestLabel">💳 Terbesar: <strong id="biggestExpense">-</strong></span>
                 </div>
             </div>
 
             <div class="box">
                 <div class="box-header">
-                    <h3 id="assetTitle">🏦 Aset & Penyusutan</h3>
+                    <h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3>
                     <span class="badge" id="assetCount">0 items</span>
                 </div>
                 <div class="input-group">
@@ -875,10 +1314,11 @@
                         <option value="PHP">PHP</option>
                     </select>
                     <select id="assetType" style="flex:1;">
-                        <option value="bergerak" id="assetMoving">Bergerak</option>
-                        <option value="tidak bergerak" id="assetFixed">Tidak Bergerak</option>
+                        <option value="bergerak">🔄 Bergerak</option>
+                        <option value="tidak bergerak">🏛️ Tidak Bergerak</option>
                     </select>
-                    <button class="btn btn-sm btn-primary" onclick="addAsset()" id="assetAddBtn">➕</button>
+                    <input type="number" id="assetDepreciation" placeholder="Dep %" style="flex:0.5;min-width:50px;" value="5">
+                    <button class="btn btn-sm btn-primary" onclick="addAsset()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div class="table-wrap">
                     <table>
@@ -886,18 +1326,20 @@
                         <tbody id="assetTableBody"></tbody>
                     </table>
                 </div>
-                <div style="margin-top:10px;font-size:12px;background:#ecfdf5;padding:8px 14px;border-radius:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+                <div style="margin-top:10px;font-size:11px;background:var(--bg-primary);padding:8px 14px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">
                     <span id="totalAssetLabel">💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
                     <span id="totalDepLabel">📉 Total penyusutan/th: <strong id="totalDepreciation">Rp0</strong></span>
                 </div>
             </div>
         </div>
 
-        <!-- GOALS & HISTORY -->
+        <!-- ============================================================
+        GOALS & HISTORY
+        ============================================================ -->
         <div class="two-col">
             <div class="box">
                 <div class="box-header">
-                    <h3 id="goalTitle">🎯 Goals Finansial</h3>
+                    <h3><i class="fas fa-bullseye"></i> <span id="goalTitle">Goals Finansial</span></h3>
                     <span class="badge" id="goalCount">0 goals</span>
                 </div>
                 <div class="input-group">
@@ -909,19 +1351,19 @@
                         <option value="PHP">PHP</option>
                     </select>
                     <input type="date" id="goalDeadline" class="date-input" style="flex:1.2;">
-                    <button class="btn btn-sm btn-success" onclick="addGoal()" id="goalAddBtn">➕</button>
+                    <button class="btn btn-sm btn-success" onclick="addGoal()"><i class="fas fa-plus"></i></button>
                 </div>
-                <div id="goalList" style="margin-top:10px;"></div>
+                <div id="goalList"></div>
             </div>
 
             <div class="box">
                 <div class="box-header">
-                    <h3 id="historyTitle">📈 Net Worth History</h3>
+                    <h3><i class="fas fa-chart-area"></i> <span id="historyTitle">Net Worth History</span></h3>
                     <span class="badge" id="historyCount">0 months</span>
                 </div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
-                    <button class="btn btn-sm btn-primary" onclick="recordHistory()" id="recordBtn">📌 Rekam Bulan Ini</button>
-                    <button class="btn btn-sm btn-outline" onclick="resetHistory()" id="resetHistoryBtn">↺ Reset</button>
+                    <button class="btn btn-sm btn-success" onclick="recordHistory()"><i class="fas fa-save"></i> <span id="recordBtnText">Rekam Bulan Ini</span></button>
+                    <button class="btn btn-sm btn-outline" onclick="resetHistory()"><i class="fas fa-undo"></i> <span id="resetBtnText">Reset</span></button>
                 </div>
                 <div class="chart-wrapper">
                     <canvas id="wealthChart"></canvas>
@@ -929,10 +1371,55 @@
                 <div class="history-list" id="historyList"></div>
             </div>
         </div>
+
+        <!-- ============================================================
+        MONTHLY SUMMARY (NEW)
+        ============================================================ -->
+        <div class="box" style="margin-top:10px;">
+            <div class="box-header">
+                <h3><i class="fas fa-file-alt"></i> <span id="summaryTitle">Ringkasan Bulanan</span></h3>
+                <span class="badge" id="summaryMonth"></span>
+            </div>
+            <div class="summary-grid" id="summaryGrid">
+                <div class="summary-item">
+                    <span class="label" id="summaryIncome">💵 Total Income</span>
+                    <span class="value" id="summaryIncomeValue">Rp0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label" id="summaryExpense">📉 Total Expenses</span>
+                    <span class="value" id="summaryExpenseValue">Rp0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label" id="summarySavings">🏦 Savings Rate</span>
+                    <span class="value" id="summarySavingsValue">0%</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label" id="summaryNetWorth">🎯 Net Worth</span>
+                    <span class="value" id="summaryNetWorthValue">Rp0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label" id="summaryAvgDaily">📊 Rata-rata Harian</span>
+                    <span class="value" id="summaryAvgDailyValue">Rp0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label" id="summaryTopCategory">🏷️ Kategori Terbanyak</span>
+                    <span class="value" id="summaryTopCategoryValue">-</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="notification" id="notification"></div>
+    <!-- ============================================================
+    NOTIFICATION
+    ============================================================ -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Success</span>
+    </div>
 
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
     <script>
         // ============================================================
         //  LANGUAGE DATA
@@ -943,20 +1430,26 @@
                 totalBalance: '💰 Total Balance',
                 totalAsset: '📊 Total Aset',
                 netWorth: '🎯 Net Worth',
+                monthlyBudget: '📋 Budget Bulanan',
                 salary: '💼 Salary',
                 passive: '📈 Passive',
                 depreciation: '📉 Depresiasi/th',
                 monthChange: '📆 Bulan ini',
-                budget: '📋 Budget Bulanan',
+                budgetUsed: 'Terpakai',
+                remainingBudget: 'Sisa',
+                totalIncome: '💵 Total Income',
                 totalExpenses: '📉 Total Expenses',
-                remaining: '✅ Sisa Budget',
+                monthlyAverage: '📊 Rata-rata Harian',
+                biggestExpense: '💳 Terbesar Bulan Ini',
                 goalProgress: '🎯 Goals Progress',
-                incomeTitle: '💼 Sumber Pendapatan',
-                budgetTitle: '📊 Alokasi Budget',
-                expenseTitle: '📆 Lacak Pengeluaran (Harian & Bulanan)',
-                assetTitle: '🏦 Aset & Penyusutan',
-                goalTitle: '🎯 Goals Finansial',
-                historyTitle: '📈 Net Worth History',
+                transactionCount: '📝 Transaksi',
+                incomeTitle: 'Sumber Pendapatan',
+                budgetTitle: 'Alokasi Budget',
+                expenseTitle: 'Lacak Pengeluaran',
+                assetTitle: 'Aset & Penyusutan',
+                goalTitle: 'Goals Finansial',
+                historyTitle: 'Net Worth History',
+                summaryTitle: 'Ringkasan Bulanan',
                 incomePlaceholder: 'Sumber (Salary, Freelance...)',
                 incomeAmount: 'Jumlah',
                 budgetPlaceholder: 'Kategori (Makan, Transport...)',
@@ -965,16 +1458,14 @@
                 expenseAmount: 'Jumlah',
                 assetName: 'Nama aset',
                 assetValue: 'Nilai',
-                assetMoving: 'Bergerak',
-                assetFixed: 'Tidak Bergerak',
+                assetMoving: '🔄 Bergerak',
+                assetFixed: '🏛️ Tidak Bergerak',
                 goalName: 'Goal',
                 goalTarget: 'Target',
                 goalDeadline: 'Tenggat Waktu',
-                add: '➕',
-                balance: 'Balance',
-                perMonth: 'Per Bulan',
                 date: 'Tanggal',
                 desc: 'Deskripsi',
+                category: 'Kategori',
                 amount: 'Jumlah',
                 name: 'Nama',
                 type: 'Jenis',
@@ -982,12 +1473,12 @@
                 dep: 'Penyusutan/th',
                 final: 'Nilai akhir',
                 monthlyTotal: '📌 Total bulan ini',
-                budgetUsed: '📊 Budget terpakai',
-                biggest: '💳 Pengeluaran terbesar',
-                totalAsset: '💰 Total Aset',
-                totalDep: '📉 Total penyusutan/th',
-                record: '📌 Rekam Bulan Ini',
-                reset: '↺ Reset',
+                budgetUsedLabel: '📊 Budget terpakai',
+                biggestLabel: '💳 Terbesar',
+                totalAssetLabel: '💰 Total Aset',
+                totalDepLabel: '📉 Total penyusutan/th',
+                recordBtn: 'Rekam Bulan Ini',
+                resetBtn: 'Reset',
                 noIncome: 'Belum ada sumber pendapatan',
                 noBudget: 'Belum ada alokasi budget',
                 noExpense: 'Belum ada pengeluaran',
@@ -998,27 +1489,42 @@
                 urgent: '⚠️ Mendesak!',
                 daysUntil: 'hari lagi',
                 overdue: 'Terlambat!',
-                rateLastUpdate: 'Last Update'
+                summaryIncome: '💵 Total Income',
+                summaryExpense: '📉 Total Expenses',
+                summarySavings: '🏦 Savings Rate',
+                summaryNetWorth: '🎯 Net Worth',
+                summaryAvgDaily: '📊 Rata-rata Harian',
+                summaryTopCategory: '🏷️ Kategori Terbanyak',
+                recurring: '🔄 Berulang',
+                oneTime: '📌 Sekali',
+                vsLastMonth: 'vs last month',
+                today: 'Hari ini'
             },
             en: {
                 welcome: '👋 Welcome to CashView',
                 totalBalance: '💰 Total Balance',
                 totalAsset: '📊 Total Assets',
                 netWorth: '🎯 Net Worth',
+                monthlyBudget: '📋 Monthly Budget',
                 salary: '💼 Salary',
                 passive: '📈 Passive',
                 depreciation: '📉 Depreciation/year',
                 monthChange: '📆 This month',
-                budget: '📋 Monthly Budget',
+                budgetUsed: 'Used',
+                remainingBudget: 'Remaining',
+                totalIncome: '💵 Total Income',
                 totalExpenses: '📉 Total Expenses',
-                remaining: '✅ Remaining Budget',
+                monthlyAverage: '📊 Daily Average',
+                biggestExpense: '💳 Biggest This Month',
                 goalProgress: '🎯 Goals Progress',
-                incomeTitle: '💼 Income Sources',
-                budgetTitle: '📊 Budget Allocation',
-                expenseTitle: '📆 Track Expenses (Daily & Monthly)',
-                assetTitle: '🏦 Assets & Depreciation',
-                goalTitle: '🎯 Financial Goals',
-                historyTitle: '📈 Net Worth History',
+                transactionCount: '📝 Transactions',
+                incomeTitle: 'Income Sources',
+                budgetTitle: 'Budget Allocation',
+                expenseTitle: 'Track Expenses',
+                assetTitle: 'Assets & Depreciation',
+                goalTitle: 'Financial Goals',
+                historyTitle: 'Net Worth History',
+                summaryTitle: 'Monthly Summary',
                 incomePlaceholder: 'Source (Salary, Freelance...)',
                 incomeAmount: 'Amount',
                 budgetPlaceholder: 'Category (Food, Transport...)',
@@ -1027,16 +1533,14 @@
                 expenseAmount: 'Amount',
                 assetName: 'Asset name',
                 assetValue: 'Value',
-                assetMoving: 'Moving',
-                assetFixed: 'Fixed',
+                assetMoving: '🔄 Moving',
+                assetFixed: '🏛️ Fixed',
                 goalName: 'Goal',
                 goalTarget: 'Target',
                 goalDeadline: 'Deadline',
-                add: '➕',
-                balance: 'Balance',
-                perMonth: 'Per Month',
                 date: 'Date',
                 desc: 'Description',
+                category: 'Category',
                 amount: 'Amount',
                 name: 'Name',
                 type: 'Type',
@@ -1044,12 +1548,12 @@
                 dep: 'Depreciation/year',
                 final: 'Final value',
                 monthlyTotal: '📌 Monthly total',
-                budgetUsed: '📊 Budget used',
-                biggest: '💳 Biggest expense',
-                totalAsset: '💰 Total Assets',
-                totalDep: '📉 Total depreciation/year',
-                record: '📌 Record This Month',
-                reset: '↺ Reset',
+                budgetUsedLabel: '📊 Budget used',
+                biggestLabel: '💳 Biggest',
+                totalAssetLabel: '💰 Total Assets',
+                totalDepLabel: '📉 Total depreciation/year',
+                recordBtn: 'Record This Month',
+                resetBtn: 'Reset',
                 noIncome: 'No income sources yet',
                 noBudget: 'No budget allocations yet',
                 noExpense: 'No expenses yet',
@@ -1060,27 +1564,42 @@
                 urgent: '⚠️ Urgent!',
                 daysUntil: 'days left',
                 overdue: 'Overdue!',
-                rateLastUpdate: 'Last Update'
+                summaryIncome: '💵 Total Income',
+                summaryExpense: '📉 Total Expenses',
+                summarySavings: '🏦 Savings Rate',
+                summaryNetWorth: '🎯 Net Worth',
+                summaryAvgDaily: '📊 Daily Average',
+                summaryTopCategory: '🏷️ Top Category',
+                recurring: '🔄 Recurring',
+                oneTime: '📌 One-time',
+                vsLastMonth: 'vs last month',
+                today: 'Today'
             },
             zh: {
                 welcome: '👋 欢迎来到 CashView',
                 totalBalance: '💰 总余额',
                 totalAsset: '📊 总资产',
                 netWorth: '🎯 净资产',
+                monthlyBudget: '📋 月度预算',
                 salary: '💼 工资',
                 passive: '📈 被动收入',
                 depreciation: '📉 年折旧',
                 monthChange: '📆 本月',
-                budget: '📋 月度预算',
+                budgetUsed: '已用',
+                remainingBudget: '剩余',
+                totalIncome: '💵 总收入',
                 totalExpenses: '📉 总支出',
-                remaining: '✅ 剩余预算',
+                monthlyAverage: '📊 日均支出',
+                biggestExpense: '💳 本月最大支出',
                 goalProgress: '🎯 目标进度',
-                incomeTitle: '💼 收入来源',
-                budgetTitle: '📊 预算分配',
-                expenseTitle: '📆 追踪支出 (每日和每月)',
-                assetTitle: '🏦 资产与折旧',
-                goalTitle: '🎯 财务目标',
-                historyTitle: '📈 净资产历史',
+                transactionCount: '📝 交易',
+                incomeTitle: '收入来源',
+                budgetTitle: '预算分配',
+                expenseTitle: '追踪支出',
+                assetTitle: '资产与折旧',
+                goalTitle: '财务目标',
+                historyTitle: '净资产历史',
+                summaryTitle: '月度总结',
                 incomePlaceholder: '来源 (工资, 自由职业...)',
                 incomeAmount: '金额',
                 budgetPlaceholder: '类别 (餐饮, 交通...)',
@@ -1089,16 +1608,14 @@
                 expenseAmount: '金额',
                 assetName: '资产名称',
                 assetValue: '价值',
-                assetMoving: '流动资产',
-                assetFixed: '固定资产',
+                assetMoving: '🔄 流动资产',
+                assetFixed: '🏛️ 固定资产',
                 goalName: '目标',
                 goalTarget: '目标金额',
                 goalDeadline: '截止日期',
-                add: '➕',
-                balance: '余额',
-                perMonth: '每月',
                 date: '日期',
                 desc: '描述',
+                category: '类别',
                 amount: '金额',
                 name: '名称',
                 type: '类型',
@@ -1106,12 +1623,12 @@
                 dep: '年折旧',
                 final: '最终价值',
                 monthlyTotal: '📌 本月总计',
-                budgetUsed: '📊 已用预算',
-                biggest: '💳 最大支出',
-                totalAsset: '💰 总资产',
-                totalDep: '📉 年折旧总计',
-                record: '📌 记录本月',
-                reset: '↺ 重置',
+                budgetUsedLabel: '📊 已用预算',
+                biggestLabel: '💳 最大支出',
+                totalAssetLabel: '💰 总资产',
+                totalDepLabel: '📉 年折旧总计',
+                recordBtn: '记录本月',
+                resetBtn: '重置',
                 noIncome: '暂无收入来源',
                 noBudget: '暂无预算分配',
                 noExpense: '暂无支出',
@@ -1122,7 +1639,16 @@
                 urgent: '⚠️ 紧急！',
                 daysUntil: '天后到期',
                 overdue: '已过期！',
-                rateLastUpdate: '最后更新'
+                summaryIncome: '💵 总收入',
+                summaryExpense: '📉 总支出',
+                summarySavings: '🏦 储蓄率',
+                summaryNetWorth: '🎯 净资产',
+                summaryAvgDaily: '📊 日均支出',
+                summaryTopCategory: '🏷️ 最多类别',
+                recurring: '🔄 重复',
+                oneTime: '📌 一次性',
+                vsLastMonth: '对比上月',
+                today: '今天'
             }
         };
 
@@ -1139,14 +1665,23 @@
         let history = JSON.parse(localStorage.getItem('cv_history')) || [];
         let mainCurrency = localStorage.getItem('cv_mainCurrency') || 'IDR';
         let lang = localStorage.getItem('cv_lang') || 'id';
+        let theme = localStorage.getItem('cv_theme') || 'light';
+        let isRecurringMode = false;
 
-        let rates = {
-            USD_IDR: 15500,
-            USD_PHP: 56,
-            EUR_USD: 1.08,
-            GBP_USD: 1.27,
-            BTC_USD: 60000
+        // Category colors
+        const categoryColors = {
+            'Makanan': '#065f46',
+            'Transport': '#1a4b6d',
+            'Rumah': '#78350f',
+            'Kesehatan': '#b91c1c',
+            'Pendidikan': '#6b21a8',
+            'Hiburan': '#d97706',
+            'Belanja': '#7c3aed',
+            'Tagihan': '#0d9488',
+            'Lainnya': '#4a5a6f'
         };
+
+        let rates = { USD_IDR: 15500, USD_PHP: 56, EUR_USD: 1.08, GBP_USD: 1.27, BTC_USD: 60000 };
         let previousRates = { ...rates };
 
         // ============================================================
@@ -1161,30 +1696,85 @@
 
         function applyLanguage() {
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
+            const elements = {
+                welcomeTitle: t.welcome,
+                labelTotalBalance: t.totalBalance,
+                labelTotalAsset: t.totalAsset,
+                labelNetWorth: t.netWorth,
+                labelMonthlyBudget: t.monthlyBudget,
+                labelSalary: `💼 ${t.salary}: <strong id="salaryTotal">Rp0</strong>`,
+                labelPassive: `📈 ${t.passive}: <strong id="passiveTotal">Rp0</strong>`,
+                labelDepreciation: `📉 ${t.depreciation}: <strong id="depTotal">Rp0</strong>`,
+                labelMonthChange: `📆 ${t.monthChange}: <span id="monthChange" class="change positive">+0%</span>`,
+                labelBudgetUsed: `${t.budgetUsed}: <strong id="budgetUsedPercent">0%</strong>`,
+                labelRemainingBudget: `${t.remainingBudget}: <strong id="remainingBudgetDisplay">Rp0</strong>`,
+                labelTotalIncome: t.totalIncome,
+                labelTotalExpenses: t.totalExpenses,
+                labelMonthlyAverage: t.monthlyAverage,
+                labelBiggestExpense: t.biggestExpense,
+                labelGoalProgress: t.goalProgress,
+                labelTransactionCount: t.transactionCount,
+                incomeTitle: t.incomeTitle,
+                budgetTitle: t.budgetTitle,
+                expenseTitle: t.expenseTitle,
+                assetTitle: t.assetTitle,
+                goalTitle: t.goalTitle,
+                historyTitle: t.historyTitle,
+                summaryTitle: t.summaryTitle,
+                incomePlaceholder: t.incomePlaceholder,
+                incomeAmount: t.incomeAmount,
+                budgetPlaceholder: t.budgetPlaceholder,
+                budgetAlloc: t.budgetAlloc,
+                expenseDesc: t.expenseDesc,
+                expenseAmount: t.expenseAmount,
+                assetName: t.assetName,
+                assetValue: t.assetValue,
+                assetMoving: t.assetMoving,
+                assetFixed: t.assetFixed,
+                goalName: t.goalName,
+                goalTarget: t.goalTarget,
+                goalDeadline: t.goalDeadline,
+                thDate: t.date,
+                thDesc: t.desc,
+                thCategory: t.category,
+                thAmount: t.amount,
+                assetThName: t.name,
+                assetThType: t.type,
+                assetThValue: t.value,
+                assetThDep: t.dep,
+                assetThFinal: t.final,
+                monthlyTotalLabel: `📌 ${t.monthlyTotal}: <strong id="monthlyExpenseTotal">Rp0</strong>`,
+                budgetUsedLabel: `📊 ${t.budgetUsedLabel}: <strong id="budgetUsed">0%</strong>`,
+                biggestLabel: `💳 ${t.biggestLabel}: <strong id="biggestExpense">-</strong>`,
+                totalAssetLabel: `💰 ${t.totalAssetLabel}: <strong id="totalAssetNow">Rp0</strong>`,
+                totalDepLabel: `📉 ${t.totalDepLabel}: <strong id="totalDepreciation">Rp0</strong>`,
+                recordBtnText: t.recordBtn,
+                resetBtnText: t.resetBtn,
+                summaryIncome: t.summaryIncome,
+                summaryExpense: t.summaryExpense,
+                summarySavings: t.summarySavings,
+                summaryNetWorth: t.summaryNetWorth,
+                summaryAvgDaily: t.summaryAvgDaily,
+                summaryTopCategory: t.summaryTopCategory,
+                recurringLabel: isRecurringMode ? t.recurring : t.oneTime,
+                vsLastMonth: t.vsLastMonth
+            };
 
-            document.getElementById('welcomeTitle').textContent = t.welcome;
-            document.getElementById('labelTotalBalance').textContent = t.totalBalance;
-            document.getElementById('labelTotalAsset').textContent = t.totalAsset;
-            document.getElementById('labelNetWorth').textContent = t.netWorth;
-            document.getElementById('labelSalary').innerHTML = `${t.salary}: <strong id="salaryTotal">Rp0</strong>`;
-            document.getElementById('labelPassive').innerHTML = `${t.passive}: <strong id="passiveTotal">Rp0</strong>`;
-            document.getElementById('labelDepreciation').innerHTML = `${t.depreciation}: <strong id="depTotal">Rp0</strong>`;
-            document.getElementById('labelMonthChange').innerHTML = `${t.monthChange}: <span id="monthChange" class="change positive">+0%</span>`;
-            document.getElementById('labelBudget').textContent = t.budget;
-            document.getElementById('labelTotalExpenses').textContent = t.totalExpenses;
-            document.getElementById('labelRemaining').textContent = t.remaining;
-            document.getElementById('labelGoalProgress').textContent = t.goalProgress;
+            for (const [id, value] of Object.entries(elements)) {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (id === 'labelSalary' || id === 'labelPassive' || id === 'labelDepreciation' ||
+                        id === 'labelMonthChange' || id === 'labelBudgetUsed' || id === 'labelRemainingBudget' ||
+                        id === 'monthlyTotalLabel' || id === 'budgetUsedLabel' || id === 'biggestLabel' ||
+                        id === 'totalAssetLabel' || id === 'totalDepLabel') {
+                        el.innerHTML = value;
+                    } else {
+                        el.textContent = value;
+                    }
+                }
+            }
 
-            document.getElementById('incomeTitle').textContent = t.incomeTitle;
-            document.getElementById('budgetTitle').textContent = t.budgetTitle;
-            document.getElementById('expenseTitle').textContent = t.expenseTitle;
-            document.getElementById('assetTitle').textContent = t.assetTitle;
-            document.getElementById('goalTitle').textContent = t.goalTitle;
-            document.getElementById('historyTitle').textContent = t.historyTitle;
-
-            document.getElementById('incomeBalanceLabel').textContent = t.balance;
-            document.getElementById('budgetPerMonth').textContent = t.perMonth;
-
+            // Placeholders
             document.getElementById('incomeSource').placeholder = t.incomePlaceholder;
             document.getElementById('incomeAmount').placeholder = t.incomeAmount;
             document.getElementById('budgetCategory').placeholder = t.budgetPlaceholder;
@@ -1197,36 +1787,18 @@
             document.getElementById('goalTarget').placeholder = t.goalTarget;
             document.getElementById('goalDeadline').placeholder = t.goalDeadline;
 
-            document.getElementById('assetMoving').textContent = t.assetMoving;
-            document.getElementById('assetFixed').textContent = t.assetFixed;
-
-            document.getElementById('incomeAddBtn').textContent = t.add;
-            document.getElementById('budgetAddBtn').textContent = t.add;
-            document.getElementById('expenseAddBtn').textContent = t.add;
-            document.getElementById('assetAddBtn').textContent = t.add;
-            document.getElementById('goalAddBtn').textContent = t.add;
-
-            document.getElementById('thDate').textContent = t.date;
-            document.getElementById('thDesc').textContent = t.desc;
-            document.getElementById('thAmount').textContent = t.amount;
-            document.getElementById('assetThName').textContent = t.name;
-            document.getElementById('assetThType').textContent = t.type;
-            document.getElementById('assetThValue').textContent = t.value;
-            document.getElementById('assetThDep').textContent = t.dep;
-            document.getElementById('assetThFinal').textContent = t.final;
-
-            document.getElementById('monthlyTotalLabel').innerHTML = `${t.monthlyTotal}: <strong id="monthlyExpenseTotal">Rp0</strong>`;
-            document.getElementById('budgetUsedLabel').innerHTML = `${t.budgetUsed}: <strong id="budgetUsed">0%</strong>`;
-            document.getElementById('biggestLabel').innerHTML = `${t.biggest}: <strong id="biggestExpense">-</strong>`;
-            document.getElementById('totalAssetLabel').innerHTML = `${t.totalAsset}: <strong id="totalAssetNow">Rp0</strong>`;
-            document.getElementById('totalDepLabel').innerHTML = `${t.totalDep}: <strong id="totalDepreciation">Rp0</strong>`;
-
-            document.getElementById('recordBtn').textContent = t.record;
-            document.getElementById('resetHistoryBtn').textContent = t.reset;
-
-            document.getElementById('rateUpdateLabel').textContent = t.rateLastUpdate;
-
             document.getElementById('languageSelector').value = currentLang;
+        }
+
+        // ============================================================
+        //  THEME FUNCTIONS
+        // ============================================================
+        function toggleTheme() {
+            theme = theme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('cv_theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            renderAll();
         }
 
         // ============================================================
@@ -1244,7 +1816,6 @@
             if (from === 'IDR') usd = amount / rates.USD_IDR;
             else if (from === 'PHP') usd = amount / rates.USD_PHP;
             else if (from === 'USD') usd = amount;
-
             if (to === 'IDR') return usd * rates.USD_IDR;
             if (to === 'PHP') return usd * rates.USD_PHP;
             return usd;
@@ -1253,6 +1824,7 @@
         function changeCurrency(value) {
             mainCurrency = value;
             localStorage.setItem('cv_mainCurrency', mainCurrency);
+            document.getElementById('mainCurrency').value = value;
             renderAll();
         }
 
@@ -1262,75 +1834,68 @@
         function fetchRates() {
             previousRates = { ...rates };
             fetch('https://api.exchangerate-api.com/v4/latest/USD')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.rates) {
-                        const newRates = {
-                            USD_IDR: data.rates.IDR || 15500,
-                            USD_PHP: data.rates.PHP || 56,
-                            EUR_USD: data.rates.EUR ? 1 / data.rates.EUR : 1.08,
-                            GBP_USD: data.rates.GBP ? 1 / data.rates.GBP : 1.27,
+                .then(r => r.json())
+                .then(d => {
+                    if (d.rates) {
+                        const nr = {
+                            USD_IDR: d.rates.IDR || 15500,
+                            USD_PHP: d.rates.PHP || 56,
+                            EUR_USD: d.rates.EUR ? 1 / d.rates.EUR : 1.08,
+                            GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27,
                         };
-                        updateRates(newRates);
+                        updateRates(nr);
                     }
                 })
                 .catch(() => {
                     fetch('https://api.frankfurter.app/latest?from=USD')
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.rates) {
-                                const newRates = {
-                                    USD_IDR: data.rates.IDR || 15500,
-                                    USD_PHP: data.rates.PHP || 56,
-                                    EUR_USD: data.rates.EUR ? 1 / data.rates.EUR : 1.08,
-                                    GBP_USD: data.rates.GBP ? 1 / data.rates.GBP : 1.27,
+                        .then(r => r.json())
+                        .then(d => {
+                            if (d.rates) {
+                                const nr = {
+                                    USD_IDR: d.rates.IDR || 15500,
+                                    USD_PHP: d.rates.PHP || 56,
+                                    EUR_USD: d.rates.EUR ? 1 / d.rates.EUR : 1.08,
+                                    GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27,
                                 };
-                                updateRates(newRates);
+                                updateRates(nr);
                             }
                         })
-                        .catch(() => console.log('Rate API fallback'));
+                        .catch(() => {});
                 });
-
             fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
-                .then(res => res.json())
-                .then(data => {
-                    if (data.bitcoin && data.bitcoin.usd) {
-                        const newBtcRate = data.bitcoin.usd;
-                        if (newBtcRate !== rates.BTC_USD) {
+                .then(r => r.json())
+                .then(d => {
+                    if (d.bitcoin && d.bitcoin.usd) {
+                        const newBtc = d.bitcoin.usd;
+                        if (newBtc !== rates.BTC_USD) {
                             previousRates.BTC_USD = rates.BTC_USD;
-                            rates.BTC_USD = newBtcRate;
+                            rates.BTC_USD = newBtc;
                             updateRatesDisplay();
                         }
                     }
                 })
-                .catch(() => console.log('BTC API failed'));
+                .catch(() => {});
         }
 
-        function updateRates(newRates) {
+        function updateRates(nr) {
             let changed = false;
-            for (const key in newRates) {
-                if (newRates[key] !== rates[key]) {
-                    previousRates[key] = rates[key];
-                    rates[key] = newRates[key];
+            for (const k in nr) {
+                if (nr[k] !== rates[k]) {
+                    previousRates[k] = rates[k];
+                    rates[k] = nr[k];
                     changed = true;
                 }
             }
-            if (changed) {
-                updateRatesDisplay();
-                renderAll();
-            }
+            if (changed) { updateRatesDisplay();
+                renderAll(); }
         }
 
-        function getRateChange(key) {
-            const current = rates[key];
-            const previous = previousRates[key] || current;
+        function getRateChange(k) {
+            const current = rates[k],
+                previous = previousRates[k] || current;
             if (previous === 0) return { change: 0, percentage: '0%', direction: 'up' };
-            const change = ((current - previous) / previous) * 100;
-            return {
-                change: change,
-                percentage: (change > 0 ? '+' : '') + change.toFixed(2) + '%',
-                direction: change >= 0 ? 'up' : 'down'
-            };
+            const c = ((current - previous) / previous) * 100;
+            return { change: c, percentage: (c > 0 ? '+' : '') + c.toFixed(2) + '%', direction: c >= 0 ? 'up' : 'down' };
         }
 
         function updateRatesDisplay() {
@@ -1341,32 +1906,27 @@
                 { id: 'gbpUsdRate', value: '$ ' + rates.GBP_USD.toFixed(4), key: 'GBP_USD' },
                 { id: 'btcUsdRate', value: '$ ' + Math.round(rates.BTC_USD).toLocaleString(), key: 'BTC_USD' },
             ];
-
             configs.forEach(c => {
                 const el = document.getElementById(c.id);
                 if (el) el.textContent = c.value;
-                const changeEl = document.getElementById(c.id + 'Change');
-                if (changeEl) {
-                    const change = getRateChange(c.key);
-                    changeEl.textContent = change.percentage;
-                    changeEl.className = 'rate-change ' + change.direction;
+                const ce = document.getElementById(c.id + 'Change');
+                if (ce) {
+                    const ch = getRateChange(c.key);
+                    ce.textContent = ch.percentage;
+                    ce.className = 'rate-change ' + ch.direction;
                 }
             });
-
-            const timeEl = document.getElementById('rateUpdateTime');
-            if (timeEl) {
-                const now = new Date();
-                timeEl.textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit',
-                    second: '2-digit' });
-            }
+            const te = document.getElementById('rateUpdateTime');
+            if (te) te.textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit',
+                second: '2-digit' });
         }
 
         // ============================================================
         //  NOTIFICATION
         // ============================================================
-        function showNotification(message, type = 'success') {
+        function showNotification(msg, type = 'success') {
             const el = document.getElementById('notification');
-            el.textContent = message;
+            document.getElementById('notificationText').textContent = msg;
             el.className = 'notification show ' + type;
             setTimeout(() => el.classList.remove('show'), 3000);
         }
@@ -1379,14 +1939,19 @@
             return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
         }
 
-        function getToday() {
+        function getLastMonth() {
             const d = new Date();
-            return d.toISOString().split('T')[0];
+            d.setMonth(d.getMonth() - 1);
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+        }
+
+        function getToday() {
+            return new Date().toISOString().split('T')[0];
         }
 
         function getTotalIncome(currency = mainCurrency) {
             let total = 0;
-            incomes.forEach(inc => total += convertCurrency(inc.amount, inc.currency, currency));
+            incomes.forEach(i => total += convertCurrency(i.amount, i.currency, currency));
             return total;
         }
 
@@ -1397,10 +1962,21 @@
         }
 
         function getTotalExpenses(month, currency = mainCurrency) {
-            const monthExp = expenses.filter(e => e.month === month);
+            const me = expenses.filter(e => e.month === month);
             let total = 0;
-            monthExp.forEach(e => total += convertCurrency(e.amount, e.currency, currency));
+            me.forEach(e => total += convertCurrency(e.amount, e.currency, currency));
             return total;
+        }
+
+        function getExpensesByCategory(month, currency = mainCurrency) {
+            const me = expenses.filter(e => e.month === month);
+            const cat = {};
+            me.forEach(e => {
+                const key = e.category || 'Lainnya';
+                const val = convertCurrency(e.amount, e.currency, currency);
+                cat[key] = (cat[key] || 0) + val;
+            });
+            return cat;
         }
 
         function getTotalAssetValue(currency = mainCurrency) {
@@ -1431,22 +2007,22 @@
 
         function getGoalProgress() {
             if (goals.length === 0) return 0;
-            let totalTarget = 0;
-            let totalProgress = 0;
-            const netWorth = getNetWorth(mainCurrency);
+            let totalTarget = 0,
+                totalProgress = 0;
+            const nw = getNetWorth(mainCurrency);
             goals.forEach(g => {
                 const target = convertCurrency(g.target, g.currency, mainCurrency);
                 totalTarget += target;
-                totalProgress += Math.min(netWorth / target, 1);
+                totalProgress += Math.min(nw / target, 1);
             });
             return Math.round((totalProgress / goals.length) * 100);
         }
 
         function getBiggestExpense(month) {
-            const monthExp = expenses.filter(e => e.month === month);
-            if (monthExp.length === 0) return null;
-            let max = monthExp[0];
-            monthExp.forEach(e => { if (e.amount > max.amount) max = e; });
+            const me = expenses.filter(e => e.month === month);
+            if (me.length === 0) return null;
+            let max = me[0];
+            me.forEach(e => { if (e.amount > max.amount) max = e; });
             return max;
         }
 
@@ -1454,8 +2030,15 @@
             const target = new Date(dateStr + 'T00:00:00');
             const now = new Date();
             now.setHours(0, 0, 0, 0);
-            const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-            return diff;
+            return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+        }
+
+        function getDailyAverage(month, currency = mainCurrency) {
+            const total = getTotalExpenses(month, currency);
+            const days = new Date(month + '-01').getMonth() === new Date().getMonth() ?
+                new Date().getDate() :
+                new Date(month + '-01').getDaysInMonth();
+            return days > 0 ? total / days : 0;
         }
 
         // ============================================================
@@ -1463,21 +2046,26 @@
         // ============================================================
         function renderAll() {
             const currentMonth = getCurrentMonth();
+            const lastMonth = getLastMonth();
             const currency = mainCurrency;
-            const today = getToday();
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
 
+            // Totals
             const balance = getBalance(currency);
             const totalIncome = getTotalIncome(currency);
             const totalBudget = getTotalBudget(currency);
             const totalExp = getTotalExpenses(currentMonth, currency);
+            const totalExpLast = getTotalExpenses(lastMonth, currency);
             const totalAsset = getTotalAssetValue(currency);
             const totalDep = getTotalDepreciation(currency);
             const netWorth = getNetWorth(currency);
             const remaining = totalBudget - totalExp;
             const goalProgress = getGoalProgress();
             const biggest = getBiggestExpense(currentMonth);
+            const dailyAvg = getDailyAverage(currentMonth, currency);
+            const topCategory = getTopCategory(currentMonth, currency);
 
+            // Balance Cards
             document.getElementById('totalBalance').textContent = formatCurrency(balance, currency);
             document.getElementById('salaryTotal').textContent = formatCurrency(
                 incomes.filter(i => i.type === 'salary').reduce((s, i) => s + convertCurrency(i.amount, i.currency,
@@ -1492,12 +2080,32 @@
             document.getElementById('totalAssetDisplay').textContent = formatCurrency(totalAsset, currency);
             document.getElementById('depTotal').textContent = formatCurrency(totalDep, currency);
             document.getElementById('netWorthDisplay').textContent = formatCurrency(netWorth, currency);
-
             document.getElementById('budgetDisplay').textContent = formatCurrency(totalBudget, currency);
-            document.getElementById('expenseDisplay').textContent = formatCurrency(totalExp, currency);
-            document.getElementById('remainingDisplay').textContent = formatCurrency(remaining, currency);
-            document.getElementById('goalProgress').textContent = goalProgress + '%';
+            document.getElementById('budgetUsedPercent').textContent = totalBudget > 0 ? Math.round((totalExp / totalBudget) *
+                100) + '%' : '0%';
+            document.getElementById('remainingBudgetDisplay').textContent = formatCurrency(remaining, currency);
 
+            // Stats
+            document.getElementById('statTotalIncome').textContent = formatCurrency(totalIncome, currency);
+            document.getElementById('statTotalExpenses').textContent = formatCurrency(totalExp, currency);
+            const expChange = totalExpLast > 0 ? ((totalExp - totalExpLast) / totalExpLast * 100) : 0;
+            document.getElementById('statExpenseChange').textContent =
+                (expChange > 0 ? '+' : '') + expChange.toFixed(1) + '% ' + t.vsLastMonth;
+            document.getElementById('statExpenseChange').className = 'stat-change ' + (expChange > 0 ? 'down' : 'up');
+            document.getElementById('statDailyAvg').textContent = formatCurrency(dailyAvg, currency);
+            document.getElementById('statBiggestExpense').textContent = biggest ?
+                formatCurrency(biggest.amount, biggest.currency) : '-';
+            document.getElementById('statBiggestDesc').textContent = biggest ? biggest.desc : '-';
+            document.getElementById('statGoalProgress').textContent = goalProgress + '%';
+            document.getElementById('statGoalCount').textContent = goals.length + ' goals';
+            document.getElementById('statTransactionCount').textContent = expenses.length;
+            document.getElementById('statTransactionMonth').textContent = `Bulan ini: ${expenses.filter(e=>e.month===currentMonth).length}`;
+
+            // Income & Budget count
+            document.getElementById('incomeCount').textContent = incomes.length + ' sources';
+            document.getElementById('budgetCount').textContent = budgetAllocs.length + ' categories';
+
+            // Monthly expense total
             document.getElementById('monthlyExpenseTotal').textContent = formatCurrency(totalExp, currency);
             const budgetUsed = totalBudget > 0 ? Math.round((totalExp / totalBudget) * 100) : 0;
             document.getElementById('budgetUsed').textContent = budgetUsed + '%';
@@ -1505,24 +2113,39 @@
                 `${biggest.desc}: ${formatCurrency(biggest.amount, biggest.currency)}` :
                 '-';
 
-            renderDailySummary();
+            // Summary
+            document.getElementById('summaryMonth').textContent = currentMonth;
+            document.getElementById('summaryIncomeValue').textContent = formatCurrency(totalIncome, currency);
+            document.getElementById('summaryExpenseValue').textContent = formatCurrency(totalExp, currency);
+            const savingsRate = totalIncome > 0 ? ((totalIncome - totalExp) / totalIncome * 100) : 0;
+            document.getElementById('summarySavingsValue').textContent = savingsRate.toFixed(1) + '%';
+            document.getElementById('summaryNetWorthValue').textContent = formatCurrency(netWorth, currency);
+            document.getElementById('summaryAvgDailyValue').textContent = formatCurrency(dailyAvg, currency);
+            document.getElementById('summaryTopCategoryValue').textContent = topCategory ? `${topCategory.name} (${formatCurrency(topCategory.amount, currency)})` :
+                '-';
+
+            // Render lists
             renderIncomeList();
             renderBudgetAllocList();
             renderExpenseTable();
+            renderDailySummary();
             renderAssetTable();
             renderGoalList();
             renderHistoryAndChart();
 
+            // Counts
             document.getElementById('expenseCount').textContent = expenses.length + ' items';
             document.getElementById('assetCount').textContent = assets.length + ' items';
             document.getElementById('goalCount').textContent = goals.length + ' goals';
             document.getElementById('historyCount').textContent = history.length + ' months';
 
+            // Date
             const now = new Date();
             const dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
             document.getElementById('dateDisplay').textContent =
                 `${dayNames[now.getDay()]}, ${now.toLocaleDateString('id-ID', { year:'numeric', month:'long', day:'numeric' })}`;
 
+            // Save
             localStorage.setItem('cv_incomes', JSON.stringify(incomes));
             localStorage.setItem('cv_budgetAllocs', JSON.stringify(budgetAllocs));
             localStorage.setItem('cv_expenses', JSON.stringify(expenses));
@@ -1538,103 +2161,121 @@
         function renderDailySummary() {
             const container = document.getElementById('dailySummary');
             const currentMonth = getCurrentMonth();
-            const monthExpenses = expenses.filter(e => e.month === currentMonth);
+            const me = expenses.filter(e => e.month === currentMonth);
+            const t = LANGUAGES[currentLang] || LANGUAGES.id;
 
-            if (monthExpenses.length === 0) {
-                const t = LANGUAGES[currentLang] || LANGUAGES.id;
-                container.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#6b7a8f;font-size:12px;padding:6px;">${t.noExpense}</div>`;
+            if (me.length === 0) {
+                container.innerHTML =
+                    `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:11px;padding:4px;">${t.noExpense}</div>`;
                 return;
             }
 
-            const dailyGroups = {};
-            monthExpenses.forEach(e => {
-                if (!dailyGroups[e.date]) dailyGroups[e.date] = [];
-                dailyGroups[e.date].push(e);
+            const groups = {};
+            me.forEach(e => {
+                if (!groups[e.date]) groups[e.date] = [];
+                groups[e.date].push(e);
             });
 
-            const dates = Object.keys(dailyGroups).sort().reverse().slice(0, 7);
-            const t = LANGUAGES[currentLang] || LANGUAGES.id;
+            const dates = Object.keys(groups).sort().reverse().slice(0, 7);
             const dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
             container.innerHTML = dates.map(date => {
-                const total = dailyGroups[date].reduce((sum, e) => sum + convertCurrency(e.amount, e.currency,
+                const total = groups[date].reduce((s, e) => s + convertCurrency(e.amount, e.currency,
                     mainCurrency), 0);
-                const dayName = dayNames[new Date(date + 'T00:00:00').getDay()];
+                const dn = dayNames[new Date(date + 'T00:00:00').getDay()];
                 return `
                     <div class="day-item">
-                        <div class="day-label">${dayName} ${date.slice(5)}</div>
+                        <div class="day-label">${dn}</div>
                         <div class="day-amount">${formatCurrency(total, mainCurrency)}</div>
-                        <div style="font-size:9px;color:#6b7a8f;">${dailyGroups[date].length} items</div>
+                        <div class="day-count">${groups[date].length} items</div>
                     </div>
                 `;
             }).join('');
         }
 
         // ============================================================
-        //  RENDER LISTS
+        //  RENDER: INCOME
         // ============================================================
         function renderIncomeList() {
             const div = document.getElementById('incomeList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (incomes.length === 0) {
-                div.innerHTML = `<div style="color:#6b7a8f;font-size:12px;text-align:center;padding:6px;">${t.noIncome}</div>`;
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-money-bill-wave"></i>${t.noIncome}</div>`;
                 return;
             }
             div.innerHTML = incomes.map((inc, idx) => `
                 <div class="income-source-item">
-                    <span class="source-name">${inc.source} <span style="font-size:10px;color:#6b7a8f;">(${inc.type})</span></span>
+                    <span class="source-name">${inc.source} <span class="source-type">${inc.type}</span></span>
                     <span class="source-amount">${formatCurrency(inc.amount, inc.currency)} 
-                        <button class="delete-btn" onclick="deleteIncome(${idx})">✕</button>
+                        <button class="delete-btn" onclick="deleteIncome(${idx})"><i class="fas fa-times"></i></button>
                     </span>
                 </div>
             `).join('');
         }
 
+        // ============================================================
+        //  RENDER: BUDGET ALLOCATION
+        // ============================================================
         function renderBudgetAllocList() {
             const div = document.getElementById('budgetAllocList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (budgetAllocs.length === 0) {
-                div.innerHTML = `<div style="color:#6b7a8f;font-size:12px;text-align:center;padding:6px;">${t.noBudget}</div>`;
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-sliders-h"></i>${t.noBudget}</div>`;
                 return;
             }
             div.innerHTML = budgetAllocs.map((b, idx) => `
                 <div class="budget-alloc-item">
-                    <span class="budget-cat">${b.category}</span>
+                    <span class="budget-cat">
+                        <span class="cat-dot" style="background:${b.color || '#065f46'}"></span>
+                        ${b.category}
+                    </span>
                     <span class="budget-amount">${formatCurrency(b.amount, b.currency)}
-                        <button class="delete-btn" onclick="deleteBudgetAlloc(${idx})">✕</button>
+                        <button class="delete-btn" onclick="deleteBudgetAlloc(${idx})"><i class="fas fa-times"></i></button>
                     </span>
                 </div>
             `).join('');
         }
 
+        // ============================================================
+        //  RENDER: EXPENSES
+        // ============================================================
         function renderExpenseTable() {
             const tbody = document.getElementById('expenseTableBody');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (expenses.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#6b7a8f;padding:16px;">${t.noExpense}</td></tr>`;
+                tbody.innerHTML =
+                    `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:16px;">${t.noExpense}</td></tr>`;
                 return;
             }
             const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
-            tbody.innerHTML = sorted.map(e => `
-                <tr>
-                    <td>${e.date}</td>
-                    <td>${e.desc}</td>
-                    <td>${formatCurrency(e.amount, e.currency)}</td>
-                    <td><button class="delete-btn" onclick="deleteExpense(${e.id})">✕</button></td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = sorted.map(e => {
+                const color = categoryColors[e.category] || '#4a5a6f';
+                return `
+                    <tr>
+                        <td>${e.date}</td>
+                        <td>${e.desc} ${e.recurring ? '<span class="recurring-badge">🔄</span>' : ''}</td>
+                        <td><span class="cat-dot" style="background:${color}"></span>${e.category || 'Lainnya'}</td>
+                        <td>${formatCurrency(e.amount, e.currency)}</td>
+                        <td><button class="delete-btn" onclick="deleteExpense(${e.id})"><i class="fas fa-times"></i></button></td>
+                    </tr>
+                `;
+            }).join('');
         }
 
+        // ============================================================
+        //  RENDER: ASSETS
+        // ============================================================
         function renderAssetTable() {
             const tbody = document.getElementById('assetTableBody');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (assets.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#6b7a8f;padding:16px;">${t.noAsset}</td></tr>`;
+                tbody.innerHTML =
+                    `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:16px;">${t.noAsset}</td></tr>`;
                 return;
             }
             tbody.innerHTML = assets.map(a => {
-                const depValue = a.value * a.depreciation / 100;
-                const finalVal = a.value - depValue;
+                const depVal = a.value * a.depreciation / 100;
+                const finalVal = a.value - depVal;
                 return `
                     <tr>
                         <td>${a.name}</td>
@@ -1642,40 +2283,35 @@
                         <td>${formatCurrency(a.value, a.currency)}</td>
                         <td>${a.depreciation}%</td>
                         <td>${formatCurrency(finalVal, a.currency)}</td>
-                        <td><button class="delete-btn" onclick="deleteAsset(${a.id})">✕</button></td>
+                        <td><button class="delete-btn" onclick="deleteAsset(${a.id})"><i class="fas fa-times"></i></button></td>
                     </tr>
                 `;
             }).join('');
         }
 
         // ============================================================
-        //  RENDER: GOALS WITH DEADLINE
+        //  RENDER: GOALS
         // ============================================================
         function renderGoalList() {
             const div = document.getElementById('goalList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (goals.length === 0) {
-                div.innerHTML = `<div style="color:#6b7a8f;font-size:12px;text-align:center;padding:6px;">${t.noGoal}</div>`;
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-bullseye"></i>${t.noGoal}</div>`;
                 return;
             }
 
-            const netWorth = getNetWorth(mainCurrency);
+            const nw = getNetWorth(mainCurrency);
             div.innerHTML = goals.map(g => {
                 const targetInMain = convertCurrency(g.target, g.currency, mainCurrency);
-                const progress = Math.min((netWorth / targetInMain) * 100, 100);
+                const progress = Math.min((nw / targetInMain) * 100, 100);
                 const daysLeft = getDaysUntil(g.deadline);
-                let deadlineText = '';
-                let deadlineClass = '';
-
-                if (daysLeft < 0) {
-                    deadlineText = `${t.overdue} (${Math.abs(daysLeft)} ${t.daysUntil})`;
-                    deadlineClass = 'urgent';
-                } else if (daysLeft <= 7) {
-                    deadlineText = `${t.urgent} ${daysLeft} ${t.daysUntil}`;
-                    deadlineClass = 'urgent';
-                } else {
-                    deadlineText = `${daysLeft} ${t.daysUntil}`;
-                }
+                let deadlineText = '',
+                    deadlineClass = 'normal';
+                if (daysLeft < 0) { deadlineText =
+                        `${t.overdue} (${Math.abs(daysLeft)} ${t.daysUntil})`;
+                    deadlineClass = 'overdue'; } else if (daysLeft <= 7) { deadlineText =
+                        `${t.urgent} ${daysLeft} ${t.daysUntil}`;
+                    deadlineClass = 'urgent'; } else { deadlineText = `${daysLeft} ${t.daysUntil}`; }
 
                 return `
                     <div class="goal-item">
@@ -1686,11 +2322,9 @@
                         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                             <span class="goal-deadline ${deadlineClass}">📅 ${g.deadline} ${deadlineText}</span>
                             <div class="goal-progress">
-                                <div class="progress-bar">
-                                    <div class="fill" style="width:${progress}%"></div>
-                                </div>
-                                <span style="font-size:11px;font-weight:600;min-width:35px;">${Math.round(progress)}%</span>
-                                <button class="delete-btn" onclick="deleteGoal(${g.id})">✕</button>
+                                <div class="progress-bar"><div class="fill" style="width:${progress}%"></div></div>
+                                <span style="font-size:10px;font-weight:600;min-width:32px;">${Math.round(progress)}%</span>
+                                <button class="delete-btn" onclick="deleteGoal(${g.id})"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
                     </div>
@@ -1704,21 +2338,18 @@
         let chartInstance = null;
 
         function renderHistoryAndChart() {
-            const historyDiv = document.getElementById('historyList');
+            const div = document.getElementById('historyList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (history.length === 0) {
-                historyDiv.innerHTML = `<div style="color:#6b7a8f;font-size:12px;text-align:center;padding:6px;">${t.noHistory}</div>`;
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-chart-area"></i>${t.noHistory}</div>`;
                 if (chartInstance) { chartInstance.destroy();
                     chartInstance = null; }
                 return;
             }
 
             const sorted = [...history].sort((a, b) => a.month.localeCompare(b.month));
-            historyDiv.innerHTML = sorted.map(h =>
-                `<div class="history-item">
-                    <span class="month">${h.month}</span>
-                    <span class="amount">${formatCurrency(h.netWorth, mainCurrency)}</span>
-                </div>`
+            div.innerHTML = sorted.map(h =>
+                `<div class="history-item"><span class="month">${h.month}</span><span class="amount">${formatCurrency(h.netWorth, mainCurrency)}</span></div>`
             ).join('');
 
             const ctx = document.getElementById('wealthChart').getContext('2d');
@@ -1736,9 +2367,9 @@
                         data: data,
                         backgroundColor: 'rgba(10,22,40,0.06)',
                         borderColor: '#0a1628',
-                        borderWidth: 3,
+                        borderWidth: 2.5,
                         pointBackgroundColor: '#0a1628',
-                        pointRadius: 4,
+                        pointRadius: 3,
                         tension: 0.3,
                         fill: true,
                     }]
@@ -1750,11 +2381,27 @@
                     scales: {
                         y: {
                             beginAtZero: false,
-                            ticks: { callback: v => formatCurrency(v, mainCurrency) }
-                        }
+                            grid: { color: 'var(--chart-grid)' },
+                            ticks: { callback: v => formatCurrency(v, mainCurrency), font: { size: 9 } }
+                        },
+                        x: { grid: { display: false }, ticks: { font: { size: 9 } } }
                     }
                 }
             });
+        }
+
+        // ============================================================
+        //  HELPERS
+        // ============================================================
+        function getTopCategory(month, currency = mainCurrency) {
+            const cats = getExpensesByCategory(month, currency);
+            let max = 0,
+                name = null;
+            for (const [k, v] of Object.entries(cats)) {
+                if (v > max) { max = v;
+                    name = k; }
+            }
+            return name ? { name, amount: max } : null;
         }
 
         // ============================================================
@@ -1786,11 +2433,12 @@
             const category = document.getElementById('budgetCategory').value.trim();
             const amount = parseFloat(document.getElementById('budgetAlloc').value);
             const currency = document.getElementById('budgetCurrency').value;
+            const color = document.getElementById('budgetColor').value;
             if (!category || isNaN(amount) || amount <= 0) {
                 showNotification('Isi kategori dan alokasi dengan benar', 'error');
                 return;
             }
-            budgetAllocs.push({ category, amount, currency });
+            budgetAllocs.push({ category, amount, currency, color });
             document.getElementById('budgetCategory').value = '';
             document.getElementById('budgetAlloc').value = '';
             renderAll();
@@ -1803,11 +2451,20 @@
                 showNotification('Alokasi budget dihapus'); }
         }
 
+        function toggleRecurring() {
+            isRecurringMode = !isRecurringMode;
+            const t = LANGUAGES[currentLang] || LANGUAGES.id;
+            document.getElementById('recurringLabel').textContent = isRecurringMode ? t.recurring : t.oneTime;
+            document.getElementById('recurringToggle').style.borderColor = isRecurringMode ? 'var(--success)' : 'var(--border-color)';
+        }
+
         function addExpense() {
             const desc = document.getElementById('expenseDesc').value.trim();
             const amount = parseFloat(document.getElementById('expenseAmount').value);
             const currency = document.getElementById('expenseCurrency').value;
+            const category = document.getElementById('expenseCategory').value;
             const date = document.getElementById('expenseDate').value || getToday();
+            const recurring = isRecurringMode;
 
             if (!desc || isNaN(amount) || amount <= 0) {
                 showNotification('Isi deskripsi dan jumlah dengan benar', 'error');
@@ -1817,13 +2474,34 @@
             const balance = getBalance(mainCurrency);
             const expenseInMain = convertCurrency(amount, currency, mainCurrency);
             if (expenseInMain > balance) {
-                if (!confirm(`⚠️ Pengeluaran ini (${formatCurrency(amount, currency)}) melebihi balance Anda (${formatCurrency(balance, mainCurrency)}). Lanjutkan?`)) {
-                    return;
-                }
+                if (!confirm(
+                        `⚠️ Pengeluaran ini (${formatCurrency(amount, currency)}) melebihi balance Anda (${formatCurrency(balance, mainCurrency)}). Lanjutkan?`
+                        )) { return; }
             }
 
             const month = date.slice(0, 7);
-            expenses.push({ id: Date.now(), desc, amount, currency, date, month });
+            const id = Date.now();
+            expenses.push({ id, desc, amount, currency, date, month, category, recurring });
+
+            // If recurring, add for next month too
+            if (recurring) {
+                const nextDate = new Date(date);
+                nextDate.setMonth(nextDate.getMonth() + 1);
+                const nextMonth = `${nextDate.getFullYear()}-${String(nextDate.getMonth()+1).padStart(2,'0')}`;
+                const nextDateStr = nextDate.toISOString().split('T')[0];
+                expenses.push({
+                    id: Date.now() + 1,
+                    desc: desc + ' (🔄)',
+                    amount,
+                    currency,
+                    date: nextDateStr,
+                    month: nextMonth,
+                    category,
+                    recurring: true
+                });
+                showNotification(`🔄 Pengeluaran berulang untuk ${desc} ditambahkan!`);
+            }
+
             document.getElementById('expenseDesc').value = '';
             document.getElementById('expenseAmount').value = '';
             renderAll();
@@ -1843,11 +2521,11 @@
             const value = parseFloat(document.getElementById('assetValue').value);
             const currency = document.getElementById('assetCurrency').value;
             const type = document.getElementById('assetType').value;
+            const depreciation = parseFloat(document.getElementById('assetDepreciation').value) || 5;
             if (!name || isNaN(value) || value <= 0) {
                 showNotification('Isi nama dan nilai aset dengan benar', 'error');
                 return;
             }
-            const depreciation = type === 'bergerak' ? 5 : 2;
             assets.push({ id: Date.now(), name, value, currency, type, depreciation });
             document.getElementById('assetName').value = '';
             document.getElementById('assetValue').value = '';
@@ -1896,8 +2574,8 @@
                 if (!confirm(`History untuk ${currentMonth} sudah ada. Timpa?`)) return;
                 history = history.filter(h => h.month !== currentMonth);
             }
-            const netWorth = getNetWorth(mainCurrency);
-            history.push({ month: currentMonth, netWorth: netWorth });
+            const nw = getNetWorth(mainCurrency);
+            history.push({ month: currentMonth, netWorth: nw });
             renderAll();
             showNotification(`📊 Net worth untuk ${currentMonth} berhasil direkam!`);
         }
@@ -1916,25 +2594,59 @@
         }
 
         // ============================================================
+        //  EXPORT CSV
+        // ============================================================
+        function exportCSV() {
+            if (expenses.length === 0) {
+                showNotification('Tidak ada data untuk diexport', 'error');
+                return;
+            }
+
+            let csv = 'Tanggal,Deskripsi,Kategori,Jumlah,Mata Uang,Berulang\n';
+            expenses.forEach(e => {
+                csv +=
+                    `${e.date},${e.desc},${e.category || 'Lainnya'},${e.amount},${e.currency},${e.recurring ? 'Ya' : 'Tidak'}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `CashView_Export_${getCurrentMonth()}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('📤 Data berhasil diexport ke CSV!');
+        }
+
+        // ============================================================
         //  INIT
         // ============================================================
         function init() {
+            // Set dates
             document.getElementById('expenseDate').value = getToday();
             document.getElementById('goalDeadline').value = getToday();
 
+            // Set currency and language
             document.getElementById('mainCurrency').value = mainCurrency;
             document.getElementById('languageSelector').value = lang;
+
+            // Set theme
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
             currentLang = lang;
             applyLanguage();
 
+            // Fetch rates
             fetchRates();
-            setInterval(fetchRates, 1000);
+            setInterval(fetchRates, 2000);
 
+            // Render
             renderAll();
 
+            // Welcome notification
             setTimeout(() => {
-                showNotification('👋 Selamat datang di CashView! Mulai catat keuangan Anda.');
+                showNotification('👋 Selamat datang di CashView! Kelola keuangan Anda dengan mudah.');
             }, 1000);
         }
 
