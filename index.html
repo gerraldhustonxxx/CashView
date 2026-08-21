@@ -292,7 +292,7 @@
             font-size: 9px;
         }
 
-        /* Balance Cards - 6 Cards */
+        /* Balance Cards */
         .balance-cards {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -501,7 +501,7 @@
         .input-group input,
         .input-group select {
             flex: 1;
-            min-width: 60px;
+            min-width: 50px;
             padding: 5px 8px;
             border-radius: var(--radius-sm);
             border: 1.5px solid var(--border-color);
@@ -525,17 +525,46 @@
 
         .input-group .currency-select-small {
             flex: 0.3;
-            min-width: 50px;
+            min-width: 45px;
         }
 
         .input-group .date-input {
             flex: 0.5;
-            min-width: 90px;
+            min-width: 85px;
+        }
+
+        /* Search & Filter */
+        .search-filter {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+        }
+
+        .search-filter input,
+        .search-filter select {
+            flex: 1;
+            min-width: 80px;
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-color);
+            font-size: 10px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .search-filter input:focus,
+        .search-filter select:focus {
+            outline: none;
+            border-color: var(--text-primary);
         }
 
         /* Tables */
         .table-wrap {
-            max-height: 180px;
+            max-height: 200px;
             overflow-y: auto;
             margin-top: 4px;
         }
@@ -566,21 +595,112 @@
             color: var(--text-primary);
         }
 
-        .delete-btn {
+        .action-btn {
             background: none;
             border: none;
-            color: var(--danger);
             cursor: pointer;
             font-size: 10px;
-            opacity: 0.4;
-            transition: var(--transition);
-            padding: 1px 4px;
+            padding: 2px 4px;
             border-radius: 4px;
+            transition: var(--transition);
         }
 
-        .delete-btn:hover {
-            opacity: 1;
-            background: rgba(185, 28, 28, 0.08);
+        .action-btn.edit-btn {
+            color: var(--info);
+        }
+
+        .action-btn.edit-btn:hover {
+            background: rgba(26, 75, 109, 0.1);
+        }
+
+        .action-btn.delete-btn {
+            color: var(--danger);
+        }
+
+        .action-btn.delete-btn:hover {
+            background: rgba(185, 28, 28, 0.1);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .modal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal .modal-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .modal .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal .form-group {
+            margin-bottom: 12px;
+        }
+
+        .modal .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+        }
+
+        .modal .form-group input,
+        .modal .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-color);
+            font-size: 12px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .modal .form-group input:focus,
+        .modal .form-group select:focus {
+            outline: none;
+            border-color: var(--text-primary);
         }
 
         /* Layouts */
@@ -598,10 +718,103 @@
             margin-bottom: 14px;
         }
 
+        /* Chart Containers */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .chart-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-container .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .chart-container .chart-header h4 {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .chart-container .chart-wrapper {
+            height: 200px;
+        }
+
+        /* Budget vs Actual */
+        .budget-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border-color);
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .budget-item .budget-name {
+            font-size: 10px;
+            font-weight: 500;
+            min-width: 80px;
+        }
+
+        .budget-item .budget-bar-wrap {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .budget-item .budget-bar {
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .budget-item .budget-bar .fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        .budget-item .budget-bar .fill.over {
+            background: var(--danger);
+        }
+
+        .budget-item .budget-bar .fill.under {
+            background: var(--success);
+        }
+
+        .budget-item .budget-bar .fill.warning {
+            background: var(--warning);
+        }
+
+        .budget-item .budget-numbers {
+            font-size: 9px;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .budget-item .budget-numbers .actual {
+            color: var(--text-primary);
+        }
+
+        .budget-item .budget-numbers .budget {
+            color: var(--text-muted);
+        }
+
         /* Daily Summary */
         .daily-summary {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
             gap: 4px;
             margin: 5px 0;
             padding: 5px;
@@ -711,7 +924,7 @@
             transition: width 0.8s ease;
         }
 
-        /* Income & Budget & Liability Items */
+        /* Income & Budget Items */
         .income-source-item,
         .budget-alloc-item,
         .liability-item,
@@ -753,12 +966,6 @@
         .liability-item .liability-remain {
             font-size: 8px;
             color: var(--text-muted);
-        }
-
-        /* Chart */
-        .chart-wrapper {
-            height: 140px;
-            margin-top: 4px;
         }
 
         /* History List */
@@ -838,45 +1045,6 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        /* Summary Grid */
-        .summary-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-            gap: 8px;
-            margin-top: 5px;
-        }
-
-        .summary-item {
-            display: flex;
-            flex-direction: column;
-            padding: 6px 10px;
-            background: var(--bg-primary);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-        }
-
-        .summary-item .label {
-            font-size: 8px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        .summary-item .value {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-top: 2px;
-        }
-
-        .summary-item .value.positive {
-            color: var(--success);
-        }
-        .summary-item .value.negative {
-            color: var(--danger);
-        }
-
         /* Empty State */
         .empty-state {
             text-align: center;
@@ -916,26 +1084,38 @@
             margin-right: 3px;
         }
 
-        /* Debt Progress */
-        .debt-progress {
+        /* Savings Target */
+        .savings-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            margin-top: 6px;
+        }
+
+        .savings-card .savings-row {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
+            padding: 3px 0;
+            font-size: 10px;
+            flex-wrap: wrap;
             gap: 4px;
         }
 
-        .debt-progress .mini-bar {
-            width: 40px;
-            height: 3px;
-            background: var(--bg-primary);
-            border-radius: 10px;
-            overflow: hidden;
+        .savings-card .savings-row .label {
+            color: var(--text-secondary);
         }
 
-        .debt-progress .mini-bar .fill {
-            height: 100%;
-            background: var(--success);
-            border-radius: 10px;
-            transition: width 0.8s ease;
+        .savings-card .savings-row .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .savings-card .savings-row .value.positive {
+            color: var(--success);
+        }
+
+        .savings-card .savings-row .value.negative {
+            color: var(--danger);
         }
 
         /* Responsive */
@@ -946,8 +1126,8 @@
             .stats-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
-            .summary-grid {
-                grid-template-columns: 1fr 1fr 1fr;
+            .chart-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -979,9 +1159,6 @@
             .three-col {
                 grid-template-columns: 1fr;
             }
-            .summary-grid {
-                grid-template-columns: 1fr 1fr;
-            }
             .rates-bar {
                 padding: 4px 12px;
                 gap: 10px;
@@ -996,12 +1173,20 @@
             }
             .input-group input,
             .input-group select {
-                min-width: 40px;
+                min-width: 35px;
                 font-size: 9px;
                 padding: 4px 6px;
             }
             .daily-summary {
-                grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            }
+            .search-filter input,
+            .search-filter select {
+                min-width: 60px;
+                font-size: 9px;
+            }
+            .chart-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1011,9 +1196,6 @@
             }
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
-            }
-            .summary-grid {
-                grid-template-columns: 1fr;
             }
             .top-nav .logo {
                 font-size: 15px;
@@ -1025,6 +1207,9 @@
             }
             .balance-card .card-amount {
                 font-size: 14px;
+            }
+            .modal {
+                padding: 16px;
             }
         }
     </style>
@@ -1106,7 +1291,7 @@
             </div>
         </div>
 
-        <!-- BALANCE CARDS - 6 CARDS -->
+        <!-- BALANCE CARDS -->
         <div class="balance-cards">
             <div class="balance-card bg-dark">
                 <div class="card-label" id="labelTotalBalance">💰 Total Balance</div>
@@ -1194,9 +1379,8 @@
             </div>
         </div>
 
-        <!-- INCOME, BUDGET, LIABILITIES - 3 COLUMNS -->
+        <!-- INCOME, BUDGET, LIABILITIES -->
         <div class="three-col">
-            <!-- INCOME -->
             <div class="box">
                 <div class="box-header">
                     <h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3>
@@ -1221,7 +1405,6 @@
                 <div id="incomeList"></div>
             </div>
 
-            <!-- BUDGET -->
             <div class="box">
                 <div class="box-header">
                     <h3><i class="fas fa-sliders-h"></i> <span id="budgetTitle">Alokasi Budget</span></h3>
@@ -1241,7 +1424,6 @@
                 <div id="budgetAllocList"></div>
             </div>
 
-            <!-- LIABILITIES (UTANG) -->
             <div class="box">
                 <div class="box-header">
                     <h3><i class="fas fa-credit-card"></i> <span id="liabilityTitle">Utang / Kewajiban</span></h3>
@@ -1264,7 +1446,6 @@
 
         <!-- EXPENSES & DEBT PAYMENTS -->
         <div class="two-col">
-            <!-- EXPENSES -->
             <div class="box">
                 <div class="box-header">
                     <h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3>
@@ -1275,6 +1456,26 @@
                         </button>
                     </div>
                 </div>
+                
+                <!-- SEARCH & FILTER - FITUR 4 -->
+                <div class="search-filter">
+                    <input type="text" id="searchInput" placeholder="🔍 Cari transaksi..." style="flex:2;">
+                    <select id="filterCategory" style="flex:1;">
+                        <option value="">Semua Kategori</option>
+                        <option value="Makanan">🍔 Makanan</option>
+                        <option value="Transport">🚗 Transport</option>
+                        <option value="Rumah">🏠 Rumah</option>
+                        <option value="Kesehatan">💊 Kesehatan</option>
+                        <option value="Pendidikan">📚 Pendidikan</option>
+                        <option value="Hiburan">🎮 Hiburan</option>
+                        <option value="Belanja">🛍️ Belanja</option>
+                        <option value="Tagihan">📄 Tagihan</option>
+                        <option value="Lainnya">📌 Lainnya</option>
+                    </select>
+                    <input type="month" id="filterMonth" style="flex:0.8;min-width:100px;">
+                    <button class="btn btn-sm btn-outline" onclick="clearFilters()"><i class="fas fa-times"></i> Reset</button>
+                </div>
+
                 <div class="input-group">
                     <input type="text" id="expenseDesc" placeholder="Deskripsi" style="flex:2;">
                     <input type="number" id="expenseAmount" placeholder="Jumlah" style="flex:1;">
@@ -1297,10 +1498,11 @@
                     <input type="date" id="expenseDate" class="date-input">
                     <button class="btn btn-sm btn-primary" onclick="addExpense()"><i class="fas fa-plus"></i></button>
                 </div>
+
                 <div class="daily-summary" id="dailySummary"></div>
                 <div class="table-wrap">
                     <table>
-                        <thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th></th></tr></thead>
+                        <thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th style="width:60px;">Aksi</th></tr></thead>
                         <tbody id="expenseTableBody"></tbody>
                     </table>
                 </div>
@@ -1311,7 +1513,6 @@
                 </div>
             </div>
 
-            <!-- DEBT PAYMENTS (CICILAN) - NEW -->
             <div class="box">
                 <div class="box-header">
                     <h3><i class="fas fa-hand-holding-usd"></i> <span id="paymentTitle">Pembayaran Utang (Cicilan)</span></h3>
@@ -1379,7 +1580,30 @@
             </div>
         </div>
 
-        <!-- GOALS & HISTORY -->
+        <!-- CHARTS: PIE + BUDGET VS ACTUAL -->
+        <div class="chart-grid">
+            <!-- FITUR 1: Grafik Pie -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h4><i class="fas fa-chart-pie"></i> <span id="pieChartTitle">Breakdown Pengeluaran</span></h4>
+                    <span class="badge" id="pieCount">0 kategori</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- FITUR 2: Budget vs Actual -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h4><i class="fas fa-chart-bar"></i> <span id="budgetVsActualTitle">Budget vs Actual</span></h4>
+                    <span class="badge" id="budgetVsCount">0 kategori</span>
+                </div>
+                <div id="budgetVsActualList" style="max-height:200px;overflow-y:auto;"></div>
+            </div>
+        </div>
+
+        <!-- GOALS & HISTORY + SAVINGS -->
         <div class="two-col">
             <div class="box">
                 <div class="box-header">
@@ -1409,10 +1633,41 @@
                     <button class="btn btn-sm btn-success" onclick="recordHistory()"><i class="fas fa-save"></i> <span id="recordBtnText">Rekam Bulan Ini</span></button>
                     <button class="btn btn-sm btn-outline" onclick="resetHistory()"><i class="fas fa-undo"></i> <span id="resetBtnText">Reset</span></button>
                 </div>
-                <div class="chart-wrapper">
+                <div class="chart-wrapper" style="height:150px;">
                     <canvas id="wealthChart"></canvas>
                 </div>
                 <div class="history-list" id="historyList"></div>
+
+                <!-- FITUR 5: Target Tabungan Otomatis -->
+                <div style="margin-top:10px;border-top:1px solid var(--border-color);padding-top:10px;">
+                    <h4 style="font-size:11px;font-weight:700;margin-bottom:6px;"><i class="fas fa-piggy-bank"></i> <span id="savingsTitle">Target Tabungan Otomatis</span></h4>
+                    <div class="savings-card" id="savingsCard">
+                        <div class="savings-row">
+                            <span class="label" id="savingsIncome">💵 Pendapatan Bulanan</span>
+                            <span class="value positive" id="savingsIncomeValue">Rp0</span>
+                        </div>
+                        <div class="savings-row">
+                            <span class="label" id="savingsExpense">📉 Pengeluaran Bulanan</span>
+                            <span class="value negative" id="savingsExpenseValue">Rp0</span>
+                        </div>
+                        <div class="savings-row" style="border-top:1px solid var(--border-color);padding-top:4px;margin-top:2px;">
+                            <span class="label" id="savingsPotential">💰 Potensi Tabungan</span>
+                            <span class="value positive" id="savingsPotentialValue">Rp0</span>
+                        </div>
+                        <div class="savings-row">
+                            <span class="label" id="savingsRate">📊 Savings Rate</span>
+                            <span class="value positive" id="savingsRateValue">0%</span>
+                        </div>
+                        <div class="savings-row">
+                            <span class="label" id="savingsTarget">🎯 Target Tabungan (6 bulan)</span>
+                            <span class="value" id="savingsTargetValue">Rp0</span>
+                        </div>
+                        <div class="savings-row">
+                            <span class="label" id="savingsTimeline">⏱️ Waktu mencapai target</span>
+                            <span class="value" id="savingsTimelineValue">0 bulan</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1446,6 +1701,58 @@
                 <div class="summary-item">
                     <span class="label" id="summaryTopCategory">🏷️ Kategori Terbanyak</span>
                     <span class="value" id="summaryTopCategoryValue">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT MODAL - FITUR 3 -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="editModalTitle">✏️ Edit Transaksi</h3>
+                <button class="modal-close" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="editForm">
+                <input type="hidden" id="editId">
+                <input type="hidden" id="editType">
+                <div class="form-group">
+                    <label id="editDescLabel">Deskripsi</label>
+                    <input type="text" id="editDesc">
+                </div>
+                <div class="form-group">
+                    <label id="editAmountLabel">Jumlah</label>
+                    <input type="number" id="editAmount">
+                </div>
+                <div class="form-group">
+                    <label id="editCurrencyLabel">Mata Uang</label>
+                    <select id="editCurrency">
+                        <option value="IDR">IDR</option>
+                        <option value="USD">USD</option>
+                        <option value="PHP">PHP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="editCategoryLabel">Kategori</label>
+                    <select id="editCategory">
+                        <option value="Makanan">🍔 Makanan</option>
+                        <option value="Transport">🚗 Transport</option>
+                        <option value="Rumah">🏠 Rumah</option>
+                        <option value="Kesehatan">💊 Kesehatan</option>
+                        <option value="Pendidikan">📚 Pendidikan</option>
+                        <option value="Hiburan">🎮 Hiburan</option>
+                        <option value="Belanja">🛍️ Belanja</option>
+                        <option value="Tagihan">📄 Tagihan</option>
+                        <option value="Lainnya">📌 Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="editDateLabel">Tanggal</label>
+                    <input type="date" id="editDate">
+                </div>
+                <div style="display:flex;gap:8px;margin-top:12px;">
+                    <button class="btn btn-success" onclick="saveEdit()" id="saveEditBtn">💾 Simpan</button>
+                    <button class="btn btn-outline" onclick="closeEditModal()" id="cancelEditBtn">Batal</button>
                 </div>
             </div>
         </div>
@@ -1494,6 +1801,15 @@
                 goalTitle: 'Goals Finansial',
                 historyTitle: 'Net Worth History',
                 summaryTitle: 'Ringkasan Bulanan',
+                pieChartTitle: 'Breakdown Pengeluaran',
+                budgetVsActualTitle: 'Budget vs Actual',
+                savingsTitle: 'Target Tabungan Otomatis',
+                savingsIncome: '💵 Pendapatan Bulanan',
+                savingsExpense: '📉 Pengeluaran Bulanan',
+                savingsPotential: '💰 Potensi Tabungan',
+                savingsRate: '📊 Savings Rate',
+                savingsTarget: '🎯 Target Tabungan (6 bulan)',
+                savingsTimeline: '⏱️ Waktu mencapai target',
                 incomePlaceholder: 'Sumber (Salary, Freelance...)',
                 incomeAmount: 'Jumlah',
                 budgetPlaceholder: 'Kategori (Makan, Transport...)',
@@ -1553,7 +1869,21 @@
                 oneTime: '📌 Sekali',
                 vsLastMonth: 'vs last month',
                 today: 'Hari ini',
-                debt: '💳 Utang'
+                debt: '💳 Utang',
+                searchPlaceholder: '🔍 Cari transaksi...',
+                allCategories: 'Semua Kategori',
+                resetFilter: 'Reset',
+                editTitle: '✏️ Edit Transaksi',
+                editDescLabel: 'Deskripsi',
+                editAmountLabel: 'Jumlah',
+                editCurrencyLabel: 'Mata Uang',
+                editCategoryLabel: 'Kategori',
+                editDateLabel: 'Tanggal',
+                saveEdit: '💾 Simpan',
+                cancelEdit: 'Batal',
+                actions: 'Aksi',
+                pieCount: 'kategori',
+                budgetVsCount: 'kategori'
             },
             en: {
                 welcome: '👋 Welcome to CashView',
@@ -1587,6 +1917,15 @@
                 goalTitle: 'Financial Goals',
                 historyTitle: 'Net Worth History',
                 summaryTitle: 'Monthly Summary',
+                pieChartTitle: 'Expense Breakdown',
+                budgetVsActualTitle: 'Budget vs Actual',
+                savingsTitle: 'Automatic Savings Target',
+                savingsIncome: '💵 Monthly Income',
+                savingsExpense: '📉 Monthly Expenses',
+                savingsPotential: '💰 Savings Potential',
+                savingsRate: '📊 Savings Rate',
+                savingsTarget: '🎯 Savings Target (6 months)',
+                savingsTimeline: '⏱️ Time to reach target',
                 incomePlaceholder: 'Source (Salary, Freelance...)',
                 incomeAmount: 'Amount',
                 budgetPlaceholder: 'Category (Food, Transport...)',
@@ -1646,7 +1985,21 @@
                 oneTime: '📌 One-time',
                 vsLastMonth: 'vs last month',
                 today: 'Today',
-                debt: '💳 Debt'
+                debt: '💳 Debt',
+                searchPlaceholder: '🔍 Search transactions...',
+                allCategories: 'All Categories',
+                resetFilter: 'Reset',
+                editTitle: '✏️ Edit Transaction',
+                editDescLabel: 'Description',
+                editAmountLabel: 'Amount',
+                editCurrencyLabel: 'Currency',
+                editCategoryLabel: 'Category',
+                editDateLabel: 'Date',
+                saveEdit: '💾 Save',
+                cancelEdit: 'Cancel',
+                actions: 'Actions',
+                pieCount: 'categories',
+                budgetVsCount: 'categories'
             },
             zh: {
                 welcome: '👋 欢迎来到 CashView',
@@ -1680,6 +2033,15 @@
                 goalTitle: '财务目标',
                 historyTitle: '净资产历史',
                 summaryTitle: '月度总结',
+                pieChartTitle: '支出分类',
+                budgetVsActualTitle: '预算 vs 实际',
+                savingsTitle: '自动储蓄目标',
+                savingsIncome: '💵 月收入',
+                savingsExpense: '📉 月支出',
+                savingsPotential: '💰 储蓄潜力',
+                savingsRate: '📊 储蓄率',
+                savingsTarget: '🎯 储蓄目标 (6个月)',
+                savingsTimeline: '⏱️ 达成目标时间',
                 incomePlaceholder: '来源 (工资, 自由职业...)',
                 incomeAmount: '金额',
                 budgetPlaceholder: '类别 (餐饮, 交通...)',
@@ -1739,7 +2101,21 @@
                 oneTime: '📌 一次性',
                 vsLastMonth: '对比上月',
                 today: '今天',
-                debt: '💳 负债'
+                debt: '💳 负债',
+                searchPlaceholder: '🔍 搜索交易...',
+                allCategories: '所有类别',
+                resetFilter: '重置',
+                editTitle: '✏️ 编辑交易',
+                editDescLabel: '描述',
+                editAmountLabel: '金额',
+                editCurrencyLabel: '货币',
+                editCategoryLabel: '类别',
+                editDateLabel: '日期',
+                saveEdit: '💾 保存',
+                cancelEdit: '取消',
+                actions: '操作',
+                pieCount: '类别',
+                budgetVsCount: '类别'
             }
         };
 
@@ -1761,6 +2137,10 @@
         let theme = localStorage.getItem('cv_theme') || 'light';
         let isRecurringMode = false;
 
+        // Chart instances
+        let pieChartInstance = null;
+        let wealthChartInstance = null;
+
         const categoryColors = {
             'Makanan': '#065f46',
             'Transport': '#1a4b6d',
@@ -1771,6 +2151,18 @@
             'Belanja': '#7c3aed',
             'Tagihan': '#0d9488',
             'Lainnya': '#4a5a6f'
+        };
+
+        const categoryEmojis = {
+            'Makanan': '🍔',
+            'Transport': '🚗',
+            'Rumah': '🏠',
+            'Kesehatan': '💊',
+            'Pendidikan': '📚',
+            'Hiburan': '🎮',
+            'Belanja': '🛍️',
+            'Tagihan': '📄',
+            'Lainnya': '📌'
         };
 
         let rates = { USD_IDR: 15500, USD_PHP: 56, EUR_USD: 1.08, GBP_USD: 1.27, BTC_USD: 60000 };
@@ -1820,6 +2212,15 @@
                 goalTitle: t.goalTitle,
                 historyTitle: t.historyTitle,
                 summaryTitle: t.summaryTitle,
+                pieChartTitle: t.pieChartTitle,
+                budgetVsActualTitle: t.budgetVsActualTitle,
+                savingsTitle: t.savingsTitle,
+                savingsIncome: t.savingsIncome,
+                savingsExpense: t.savingsExpense,
+                savingsPotential: t.savingsPotential,
+                savingsRate: t.savingsRate,
+                savingsTarget: t.savingsTarget,
+                savingsTimeline: t.savingsTimeline,
                 incomePlaceholder: t.incomePlaceholder,
                 incomeAmount: t.incomeAmount,
                 budgetPlaceholder: t.budgetPlaceholder,
@@ -1865,7 +2266,20 @@
                 summaryTopCategory: t.summaryTopCategory,
                 recurringLabel: isRecurringMode ? t.recurring : t.oneTime,
                 vsLastMonth: t.vsLastMonth,
-                paymentSelectPlaceholder: t.paymentSelect
+                searchPlaceholder: t.searchPlaceholder,
+                allCategories: t.allCategories,
+                resetFilter: t.resetFilter,
+                editTitle: t.editTitle,
+                editDescLabel: t.editDescLabel,
+                editAmountLabel: t.editAmountLabel,
+                editCurrencyLabel: t.editCurrencyLabel,
+                editCategoryLabel: t.editCategoryLabel,
+                editDateLabel: t.editDateLabel,
+                saveEdit: t.saveEdit,
+                cancelEdit: t.cancelEdit,
+                actions: t.actions,
+                pieCount: t.pieCount,
+                budgetVsCount: t.budgetVsCount
             };
 
             for (const [id, val] of Object.entries(els)) {
@@ -1877,8 +2291,6 @@
                             'totalAssetLabel', 'totalDepLabel', 'totalPaymentLabel', 'paymentProgressLabel'
                         ].includes(id)) {
                         el.innerHTML = val;
-                    } else if (id === 'paymentSelectPlaceholder') {
-                        // Handle select placeholder
                     } else {
                         el.textContent = val;
                     }
@@ -1901,6 +2313,21 @@
             document.getElementById('goalTarget').placeholder = t.goalTarget;
             document.getElementById('goalDeadline').placeholder = t.goalDeadline;
             document.getElementById('paymentInfo').textContent = t.paymentInfo;
+
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('editModalTitle').textContent = t.editTitle;
+            document.getElementById('editDescLabel').textContent = t.editDescLabel;
+            document.getElementById('editAmountLabel').textContent = t.editAmountLabel;
+            document.getElementById('editCurrencyLabel').textContent = t.editCurrencyLabel;
+            document.getElementById('editCategoryLabel').textContent = t.editCategoryLabel;
+            document.getElementById('editDateLabel').textContent = t.editDateLabel;
+            document.getElementById('saveEditBtn').textContent = t.saveEdit;
+            document.getElementById('cancelEditBtn').textContent = t.cancelEdit;
+
+            // Update filter category placeholder
+            const filterCat = document.getElementById('filterCategory');
+            const firstOption = filterCat.options[0];
+            if (firstOption) firstOption.textContent = t.allCategories;
 
             document.getElementById('languageSelector').value = currentLang;
             updatePaymentSelect();
@@ -2048,7 +2475,7 @@
         }
 
         // ============================================================
-        //  CORE FUNCTIONS - KONSEP YANG BENAR!
+        //  CORE FUNCTIONS
         // ============================================================
         function getCurrentMonth() {
             const d = new Date();
@@ -2065,9 +2492,7 @@
             return new Date().toISOString().split('T')[0];
         }
 
-        // ============================================================
-        //  ✅ BALANCE = Income - Expenses (UTANG TIDAK MASUK!)
-        // ============================================================
+        // BALANCE = Income - Expenses - Debt Payments
         function getBalance(currency = mainCurrency) {
             let totalIncome = 0;
             incomes.forEach(i => totalIncome += convertCurrency(i.amount, i.currency, currency));
@@ -2075,16 +2500,13 @@
             let totalExpenses = 0;
             expenses.forEach(e => totalExpenses += convertCurrency(e.amount, e.currency, currency));
 
-            // DEBT PAYMENTS juga mengurangi Balance (karena uang keluar)
             let totalPayments = 0;
             debtPayments.forEach(p => totalPayments += convertCurrency(p.amount, p.currency, currency));
 
             return totalIncome - totalExpenses - totalPayments;
         }
 
-        // ============================================================
-        //  ✅ NET WORTH = Aset - Utang (UTANG MEMPENGARUHI!)
-        // ============================================================
+        // NET WORTH = Assets - Liabilities
         function getNetWorth(currency = mainCurrency) {
             let totalAsset = 0;
             assets.forEach(a => totalAsset += convertCurrency(a.value, a.currency, currency));
@@ -2095,9 +2517,6 @@
             return totalAsset - totalLiabilities;
         }
 
-        // ============================================================
-        //  OTHER HELPERS
-        // ============================================================
         function getTotalIncome(currency = mainCurrency) {
             let total = 0;
             incomes.forEach(i => total += convertCurrency(i.amount, i.currency, currency));
@@ -2228,6 +2647,93 @@
         }
 
         // ============================================================
+        //  FILTER FUNCTIONS - FITUR 4
+        // ============================================================
+        function getFilteredExpenses() {
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            const category = document.getElementById('filterCategory').value;
+            const month = document.getElementById('filterMonth').value;
+
+            let filtered = [...expenses];
+
+            if (search) {
+                filtered = filtered.filter(e => e.desc.toLowerCase().includes(search));
+            }
+
+            if (category) {
+                filtered = filtered.filter(e => e.category === category);
+            }
+
+            if (month) {
+                filtered = filtered.filter(e => e.month === month);
+            }
+
+            return filtered;
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('filterCategory').value = '';
+            document.getElementById('filterMonth').value = '';
+            renderAll();
+        }
+
+        // ============================================================
+        //  EDIT FUNCTIONS - FITUR 3
+        // ============================================================
+        function openEditModal(id, type) {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('active');
+
+            document.getElementById('editId').value = id;
+            document.getElementById('editType').value = type;
+
+            let item = null;
+            if (type === 'expense') {
+                item = expenses.find(e => e.id === id);
+            }
+
+            if (item) {
+                document.getElementById('editDesc').value = item.desc || '';
+                document.getElementById('editAmount').value = item.amount || '';
+                document.getElementById('editCurrency').value = item.currency || 'IDR';
+                document.getElementById('editCategory').value = item.category || 'Lainnya';
+                document.getElementById('editDate').value = item.date || getToday();
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function saveEdit() {
+            const id = parseInt(document.getElementById('editId').value);
+            const type = document.getElementById('editType').value;
+            const desc = document.getElementById('editDesc').value.trim();
+            const amount = parseFloat(document.getElementById('editAmount').value);
+            const currency = document.getElementById('editCurrency').value;
+            const category = document.getElementById('editCategory').value;
+            const date = document.getElementById('editDate').value;
+
+            if (!desc || isNaN(amount) || amount <= 0) {
+                showNotification('Isi semua field dengan benar', 'error');
+                return;
+            }
+
+            if (type === 'expense') {
+                const index = expenses.findIndex(e => e.id === id);
+                if (index !== -1) {
+                    const month = date.slice(0, 7);
+                    expenses[index] = { ...expenses[index], desc, amount, currency, category, date, month };
+                    showNotification('✅ Transaksi berhasil diupdate!');
+                }
+            }
+
+            closeEditModal();
+            renderAll();
+        }
+
+        // ============================================================
         //  UPDATE PAYMENT SELECT
         // ============================================================
         function updatePaymentSelect() {
@@ -2254,7 +2760,7 @@
             const currency = mainCurrency;
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
 
-            // ✅ KONSEP BENAR
+            // Core calculations
             const balance = getBalance(currency);
             const totalIncome = getTotalIncome(currency);
             const totalBudget = getTotalBudget(currency);
@@ -2271,6 +2777,12 @@
             const dailyAvg = getDailyAverage(currentMonth, currency);
             const topCategory = getTopCategory(currentMonth, currency);
             const paymentProgress = getDebtPaymentProgress(currency);
+
+            // Savings calculations
+            const potentialSavings = totalIncome - totalExp - totalPayments;
+            const savingsRate = totalIncome > 0 ? ((totalIncome - totalExp - totalPayments) / totalIncome * 100) : 0;
+            const savingsTarget6Months = potentialSavings * 6;
+            const timelineToTarget = potentialSavings > 0 ? Math.ceil(savingsTarget6Months / potentialSavings) : 0;
 
             // BALANCE CARDS
             document.getElementById('totalBalance').textContent = formatCurrency(balance, currency);
@@ -2317,10 +2829,12 @@
             document.getElementById('budgetCount').textContent = budgetAllocs.length + ' categories';
             document.getElementById('liabilityCountBadge').textContent = liabilities.length + ' debts';
             document.getElementById('paymentCountBadge').textContent = debtPayments.length + ' payments';
-            document.getElementById('expenseCount').textContent = expenses.length + ' items';
             document.getElementById('assetCount').textContent = assets.length + ' items';
             document.getElementById('goalCount').textContent = goals.length + ' goals';
-            document.getElementById('historyCount').textContent = history.length + ' months';
+            document.getElementById('historyCount').textContent + history.length + ' months';
+            document.getElementById('pieCount').textContent = Object.keys(getExpensesByCategory(currentMonth)).length + ' ' +
+                t.pieCount;
+            document.getElementById('budgetVsCount').textContent = budgetAllocs.length + ' ' + t.budgetVsCount;
 
             // MONTHLY EXPENSE
             document.getElementById('monthlyExpenseTotal').textContent = formatCurrency(totalExp, currency);
@@ -2333,12 +2847,21 @@
             document.getElementById('totalPaymentAmount').textContent = formatCurrency(totalPayments, currency);
             document.getElementById('paymentProgress').textContent = paymentProgress + '%';
 
+            // SAVINGS
+            document.getElementById('savingsIncomeValue').textContent = formatCurrency(totalIncome, currency);
+            document.getElementById('savingsExpenseValue').textContent = formatCurrency(totalExp + totalPayments, currency);
+            document.getElementById('savingsPotentialValue').textContent = formatCurrency(Math.max(0, potentialSavings),
+            currency);
+            document.getElementById('savingsRateValue').textContent = Math.max(0, savingsRate).toFixed(1) + '%';
+            document.getElementById('savingsTargetValue').textContent = formatCurrency(Math.max(0, savingsTarget6Months),
+                currency);
+            document.getElementById('savingsTimelineValue').textContent = timelineToTarget + ' bulan';
+
             // SUMMARY
             document.getElementById('summaryMonth').textContent = currentMonth;
             document.getElementById('summaryIncomeValue').textContent = formatCurrency(totalIncome, currency);
-            document.getElementById('summaryExpenseValue').textContent = formatCurrency(totalExp, currency);
-            const savingsRate = totalIncome > 0 ? ((totalIncome - totalExp - totalPayments) / totalIncome * 100) : 0;
-            document.getElementById('summarySavingsValue').textContent = savingsRate.toFixed(1) + '%';
+            document.getElementById('summaryExpenseValue').textContent = formatCurrency(totalExp + totalPayments, currency);
+            document.getElementById('summarySavingsValue').textContent = Math.max(0, savingsRate).toFixed(1) + '%';
             document.getElementById('summaryNetWorthValue').textContent = formatCurrency(netWorth, currency);
             document.getElementById('summaryAvgDailyValue').textContent = formatCurrency(dailyAvg, currency);
             document.getElementById('summaryTopCategoryValue').textContent = topCategory ? `${topCategory.name} (${formatCurrency(topCategory.amount, currency)})` :
@@ -2354,6 +2877,10 @@
             renderAssetTable();
             renderGoalList();
             renderHistoryAndChart();
+
+            // RENDER CHARTS
+            renderPieChart();
+            renderBudgetVsActual();
 
             // Update payment select
             updatePaymentSelect();
@@ -2501,12 +3028,16 @@
         function renderExpenseTable() {
             const tbody = document.getElementById('expenseTableBody');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
-            if (expenses.length === 0) {
+
+            const filtered = getFilteredExpenses();
+
+            if (filtered.length === 0) {
                 tbody.innerHTML =
                     `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noExpense}</td></tr>`;
                 return;
             }
-            const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
+
+            const sorted = filtered.sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
             tbody.innerHTML = sorted.map(e => {
                 const color = categoryColors[e.category] || '#4a5a6f';
                 return `
@@ -2515,10 +3046,20 @@
                         <td>${e.desc} ${e.recurring ? '<span class="recurring-badge">🔄</span>' : ''}</td>
                         <td><span class="cat-dot" style="background:${color}"></span>${e.category || 'Lainnya'}</td>
                         <td>${formatCurrency(e.amount, e.currency)}</td>
-                        <td><button class="delete-btn" onclick="deleteExpense(${e.id})"><i class="fas fa-times"></i></button></td>
+                        <td>
+                            <button class="action-btn edit-btn" onclick="openEditModal(${e.id}, 'expense')" title="Edit">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteExpense(${e.id})" title="Hapus">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
                     </tr>
                 `;
             }).join('');
+
+            // Update expense count
+            document.getElementById('expenseCount').textContent = filtered.length + ' items';
         }
 
         function renderAssetTable() {
@@ -2590,8 +3131,8 @@
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (history.length === 0) {
                 div.innerHTML = `<div class="empty-state"><i class="fas fa-chart-area"></i>${t.noHistory}</div>`;
-                if (chartInstance) { chartInstance.destroy();
-                    chartInstance = null; }
+                if (wealthChartInstance) { wealthChartInstance.destroy();
+                    wealthChartInstance = null; }
                 return;
             }
 
@@ -2601,12 +3142,12 @@
             ).join('');
 
             const ctx = document.getElementById('wealthChart').getContext('2d');
-            if (chartInstance) chartInstance.destroy();
+            if (wealthChartInstance) wealthChartInstance.destroy();
 
             const labels = sorted.map(h => h.month);
             const data = sorted.map(h => h.netWorth);
 
-            chartInstance = new Chart(ctx, {
+            wealthChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
@@ -2636,6 +3177,127 @@
                     }
                 }
             });
+        }
+
+        // ============================================================
+        //  FITUR 1: PIE CHART
+        // ============================================================
+        function renderPieChart() {
+            const currentMonth = getCurrentMonth();
+            const cats = getExpensesByCategory(currentMonth, mainCurrency);
+
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            if (pieChartInstance) pieChartInstance.destroy();
+
+            if (Object.keys(cats).length === 0) {
+                pieChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Tidak ada data'],
+                        datasets: [{
+                            data: [1],
+                            backgroundColor: ['#e8ecf0'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true, position: 'bottom', labels: { font: { size: 9 } } }
+                        }
+                    }
+                });
+                return;
+            }
+
+            const labels = Object.keys(cats);
+            const data = Object.values(cats);
+            const colors = labels.map(cat => categoryColors[cat] || '#4a5a6f');
+
+            pieChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels.map(c => `${categoryEmojis[c] || '📌'} ${c}`),
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderWidth: 2,
+                        borderColor: 'var(--bg-card)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 9 },
+                                padding: 8,
+                                boxWidth: 10
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? ((context.parsed / total) * 100).toFixed(1) :
+                                        0;
+                                    return `${context.label}: ${formatCurrency(context.parsed, mainCurrency)} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+
+        // ============================================================
+        //  FITUR 2: BUDGET VS ACTUAL
+        // ============================================================
+        function renderBudgetVsActual() {
+            const container = document.getElementById('budgetVsActualList');
+            const currentMonth = getCurrentMonth();
+            const t = LANGUAGES[currentLang] || LANGUAGES.id;
+
+            if (budgetAllocs.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="fas fa-chart-bar"></i>${t.noBudget}</div>`;
+                return;
+            }
+
+            const actuals = getExpensesByCategory(currentMonth, mainCurrency);
+
+            let html = '';
+            budgetAllocs.forEach(b => {
+                const budgetAmount = convertCurrency(b.amount, b.currency, mainCurrency);
+                const actualAmount = actuals[b.category] || 0;
+                const percentage = budgetAmount > 0 ? Math.min((actualAmount / budgetAmount) * 100, 100) : 0;
+                const isOver = actualAmount > budgetAmount;
+                const statusClass = isOver ? 'over' : (percentage > 80 ? 'warning' : 'under');
+
+                html += `
+                    <div class="budget-item">
+                        <span class="budget-name">
+                            <span class="cat-dot" style="background:${b.color || '#065f46'}"></span>
+                            ${b.category}
+                        </span>
+                        <div class="budget-bar-wrap">
+                            <div class="budget-bar">
+                                <div class="fill ${statusClass}" style="width:${Math.min(percentage, 100)}%"></div>
+                            </div>
+                        </div>
+                        <div class="budget-numbers">
+                            <span class="actual">${formatCurrency(actualAmount, mainCurrency)}</span>
+                            <span class="budget">/ ${formatCurrency(budgetAmount, mainCurrency)}</span>
+                            ${isOver ? '<span style="color:var(--danger);font-size:8px;">⚠️</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
         }
 
         // ============================================================
@@ -2709,7 +3371,6 @@
         function deleteLiability(idx) {
             if (confirm('Hapus utang ini?')) {
                 const liability = liabilities[idx];
-                // Check if there are payments
                 const hasPayments = debtPayments.some(p => p.liabilityId === liability.id);
                 if (hasPayments) {
                     if (!confirm('Utang ini sudah ada pembayaran. Hapus semua data pembayaran juga?')) return;
@@ -2721,7 +3382,7 @@
             }
         }
 
-        // DEBT PAYMENTS - NEW!
+        // DEBT PAYMENTS
         function addDebtPayment() {
             const liabilityId = parseInt(document.getElementById('paymentLiability').value);
             const amount = parseFloat(document.getElementById('paymentAmount').value);
@@ -2733,7 +3394,6 @@
                 return;
             }
 
-            // Check if payment exceeds remaining debt
             const remaining = getRemainingDebt(liabilityId, mainCurrency);
             const paymentInMain = convertCurrency(amount, currency, mainCurrency);
             if (paymentInMain > remaining) {
@@ -2741,7 +3401,6 @@
                 return;
             }
 
-            // Check if balance is enough
             const balance = getBalance(mainCurrency);
             if (paymentInMain > balance) {
                 if (!confirm(`⚠️ Pembayaran ini (${formatCurrency(amount, currency)}) melebihi balance Anda (${formatCurrency(balance, mainCurrency)}). Lanjutkan?`)) {
@@ -2939,6 +3598,13 @@
             showNotification('📤 Data berhasil diexport ke CSV!');
         }
 
+        // Close modal on outside click
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+
         // ============================================================
         //  INIT
         // ============================================================
@@ -2946,6 +3612,7 @@
             document.getElementById('expenseDate').value = getToday();
             document.getElementById('paymentDate').value = getToday();
             document.getElementById('goalDeadline').value = getToday();
+            document.getElementById('filterMonth').value = getCurrentMonth();
 
             document.getElementById('mainCurrency').value = mainCurrency;
             document.getElementById('languageSelector').value = lang;
