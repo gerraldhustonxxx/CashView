@@ -32,6 +32,7 @@
             --card-gradient-3: linear-gradient(145deg, #78350f, #92400e);
             --card-gradient-4: linear-gradient(145deg, #1a3a5f, #1a4b6d);
             --card-gradient-5: linear-gradient(145deg, #7f1d1d, #991b1b);
+            --card-gradient-6: linear-gradient(145deg, #6b21a8, #7c3aed);
             --success: #065f46;
             --danger: #b91c1c;
             --warning: #d97706;
@@ -291,23 +292,23 @@
             font-size: 9px;
         }
 
-        /* Balance Cards - 5 Cards */
+        /* Balance Cards - 6 Cards */
         .balance-cards {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            gap: 14px;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 12px;
             margin-bottom: 16px;
         }
 
         .balance-card {
             border-radius: var(--radius);
-            padding: 18px 20px;
+            padding: 16px 18px;
             color: white;
             position: relative;
             overflow: hidden;
             transition: var(--transition);
             cursor: pointer;
-            min-height: 100px;
+            min-height: 95px;
         }
 
         .balance-card:hover {
@@ -320,14 +321,14 @@
             position: absolute;
             top: -50%;
             right: -30%;
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent);
             border-radius: 50%;
         }
 
         .balance-card .card-label {
-            font-size: 10px;
+            font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             opacity: 0.7;
@@ -336,25 +337,25 @@
         }
 
         .balance-card .card-amount {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 800;
             margin-bottom: 3px;
             letter-spacing: -0.5px;
         }
 
         .balance-card .card-sub {
-            font-size: 11px;
+            font-size: 10px;
             opacity: 0.7;
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .balance-card .card-icon {
             position: absolute;
-            right: 14px;
-            bottom: 14px;
-            font-size: 28px;
+            right: 12px;
+            bottom: 12px;
+            font-size: 24px;
             opacity: 0.12;
         }
 
@@ -372,6 +373,9 @@
         }
         .balance-card.bg-red {
             background: var(--card-gradient-5);
+        }
+        .balance-card.bg-purple {
+            background: var(--card-gradient-6);
         }
 
         .balance-card .change.positive {
@@ -392,7 +396,7 @@
         .stat-card {
             background: var(--bg-card);
             border-radius: var(--radius-sm);
-            padding: 12px 14px;
+            padding: 10px 12px;
             border: 1px solid var(--border-color);
             transition: var(--transition);
         }
@@ -403,7 +407,7 @@
         }
 
         .stat-card .stat-label {
-            font-size: 9px;
+            font-size: 8px;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 0.5px;
@@ -411,7 +415,7 @@
         }
 
         .stat-card .stat-value {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             margin-top: 2px;
             color: var(--text-primary);
@@ -428,7 +432,7 @@
         }
 
         .stat-card .stat-change {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 600;
             margin-top: 2px;
         }
@@ -443,7 +447,7 @@
         .box {
             background: var(--bg-card);
             border-radius: var(--radius);
-            padding: 16px 18px;
+            padding: 14px 16px;
             border: 1px solid var(--border-color);
             transition: var(--transition);
         }
@@ -456,32 +460,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
             border-bottom: 2px solid var(--bg-primary);
             flex-wrap: wrap;
             gap: 4px;
         }
 
         .box .box-header h3 {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .box .box-header h3 i {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .box .box-header .badge {
             background: var(--bg-primary);
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 600;
             color: var(--text-secondary);
         }
@@ -490,18 +494,18 @@
         .input-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 8px;
+            gap: 5px;
+            margin-bottom: 6px;
         }
 
         .input-group input,
         .input-group select {
             flex: 1;
-            min-width: 70px;
-            padding: 6px 10px;
+            min-width: 60px;
+            padding: 5px 8px;
             border-radius: var(--radius-sm);
             border: 1.5px solid var(--border-color);
-            font-size: 11px;
+            font-size: 10px;
             transition: var(--transition);
             background: var(--bg-primary);
             color: var(--text-primary);
@@ -520,18 +524,18 @@
         }
 
         .input-group .currency-select-small {
-            flex: 0.35;
-            min-width: 55px;
+            flex: 0.3;
+            min-width: 50px;
         }
 
         .input-group .date-input {
             flex: 0.5;
-            min-width: 100px;
+            min-width: 90px;
         }
 
         /* Tables */
         .table-wrap {
-            max-height: 200px;
+            max-height: 180px;
             overflow-y: auto;
             margin-top: 4px;
         }
@@ -539,25 +543,25 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 11px;
+            font-size: 10px;
         }
 
         th {
             text-align: left;
-            padding: 5px 6px;
+            padding: 4px 5px;
             background: var(--bg-primary);
             font-weight: 600;
             color: var(--text-secondary);
             position: sticky;
             top: 0;
             z-index: 5;
-            font-size: 9px;
+            font-size: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         td {
-            padding: 6px 6px;
+            padding: 5px 5px;
             border-bottom: 1px solid var(--border-color);
             color: var(--text-primary);
         }
@@ -567,7 +571,7 @@
             border: none;
             color: var(--danger);
             cursor: pointer;
-            font-size: 12px;
+            font-size: 10px;
             opacity: 0.4;
             transition: var(--transition);
             padding: 1px 4px;
@@ -583,32 +587,32 @@
         .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
         .three-col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 14px;
         }
 
         /* Daily Summary */
         .daily-summary {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 5px;
-            margin: 6px 0;
-            padding: 6px;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 4px;
+            margin: 5px 0;
+            padding: 5px;
             background: var(--bg-primary);
             border-radius: var(--radius-sm);
         }
 
         .daily-summary .day-item {
-            padding: 4px 6px;
+            padding: 3px 5px;
             background: var(--bg-card);
-            border-radius: 6px;
+            border-radius: 5px;
             border: 1px solid var(--border-color);
             text-align: center;
             transition: var(--transition);
@@ -619,7 +623,7 @@
         }
 
         .daily-summary .day-item .day-label {
-            font-size: 8px;
+            font-size: 7px;
             color: var(--text-muted);
             text-transform: uppercase;
             font-weight: 600;
@@ -627,13 +631,13 @@
 
         .daily-summary .day-item .day-amount {
             font-weight: 700;
-            font-size: 11px;
+            font-size: 10px;
             margin-top: 1px;
             color: var(--text-primary);
         }
 
         .daily-summary .day-item .day-count {
-            font-size: 8px;
+            font-size: 7px;
             color: var(--text-muted);
         }
 
@@ -642,10 +646,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 0;
+            padding: 5px 0;
             border-bottom: 1px solid var(--border-color);
             flex-wrap: wrap;
-            gap: 4px;
+            gap: 3px;
         }
 
         .goal-item .goal-info {
@@ -655,19 +659,19 @@
 
         .goal-item .goal-name {
             font-weight: 600;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-primary);
         }
 
         .goal-item .goal-target {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-muted);
         }
 
         .goal-item .goal-deadline {
-            font-size: 9px;
-            padding: 1px 8px;
-            border-radius: 10px;
+            font-size: 8px;
+            padding: 1px 6px;
+            border-radius: 8px;
             font-weight: 600;
         }
 
@@ -689,11 +693,11 @@
         .goal-item .goal-progress {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .progress-bar {
-            width: 70px;
+            width: 60px;
             height: 4px;
             background: var(--bg-primary);
             border-radius: 10px;
@@ -707,53 +711,61 @@
             transition: width 0.8s ease;
         }
 
-        /* Income & Budget Items */
+        /* Income & Budget & Liability Items */
         .income-source-item,
         .budget-alloc-item,
-        .liability-item {
+        .liability-item,
+        .debt-payment-item {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
+            padding: 4px 0;
             border-bottom: 1px solid var(--border-color);
             flex-wrap: wrap;
             gap: 3px;
-            font-size: 11px;
+            font-size: 10px;
         }
 
         .income-source-item .source-name,
         .budget-alloc-item .budget-cat,
-        .liability-item .liability-name {
+        .liability-item .liability-name,
+        .debt-payment-item .payment-name {
             font-weight: 500;
             color: var(--text-primary);
         }
 
         .income-source-item .source-amount,
         .budget-alloc-item .budget-amount,
-        .liability-item .liability-amount {
+        .liability-item .liability-amount,
+        .debt-payment-item .payment-amount {
             font-weight: 600;
             color: var(--text-primary);
         }
 
         .income-source-item .source-type {
-            font-size: 8px;
+            font-size: 7px;
             color: var(--text-muted);
             text-transform: uppercase;
             background: var(--bg-primary);
-            padding: 0 6px;
-            border-radius: 8px;
+            padding: 0 5px;
+            border-radius: 6px;
+        }
+
+        .liability-item .liability-remain {
+            font-size: 8px;
+            color: var(--text-muted);
         }
 
         /* Chart */
         .chart-wrapper {
-            height: 160px;
+            height: 140px;
             margin-top: 4px;
         }
 
         /* History List */
         .history-list {
-            max-height: 90px;
+            max-height: 80px;
             overflow-y: auto;
-            margin-top: 6px;
+            margin-top: 5px;
         }
 
         .history-item {
@@ -761,7 +773,7 @@
             justify-content: space-between;
             padding: 3px 0;
             border-bottom: 1px solid var(--border-color);
-            font-size: 11px;
+            font-size: 10px;
         }
 
         .history-item .month {
@@ -778,21 +790,21 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: var(--radius-sm);
             background: var(--nav-bg);
             color: white;
             font-weight: 500;
-            font-size: 12px;
+            font-size: 11px;
             box-shadow: var(--shadow-hover);
             z-index: 9999;
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 380px;
+            max-width: 350px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .notification.show {
@@ -819,7 +831,7 @@
             color: var(--nav-text);
             cursor: pointer;
             transition: var(--transition);
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .theme-toggle:hover {
@@ -830,21 +842,21 @@
         .summary-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-            gap: 10px;
-            margin-top: 6px;
+            gap: 8px;
+            margin-top: 5px;
         }
 
         .summary-item {
             display: flex;
             flex-direction: column;
-            padding: 8px 12px;
+            padding: 6px 10px;
             background: var(--bg-primary);
             border-radius: var(--radius-sm);
             border: 1px solid var(--border-color);
         }
 
         .summary-item .label {
-            font-size: 9px;
+            font-size: 8px;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -852,7 +864,7 @@
         }
 
         .summary-item .value {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-primary);
             margin-top: 2px;
@@ -868,25 +880,25 @@
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 16px;
+            padding: 12px;
             color: var(--text-muted);
-            font-size: 11px;
+            font-size: 10px;
         }
 
         .empty-state i {
-            font-size: 24px;
+            font-size: 20px;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             opacity: 0.3;
         }
 
         /* Recurring Badge */
         .recurring-badge {
-            font-size: 8px;
+            font-size: 7px;
             background: #dbeafe;
             color: var(--info);
-            padding: 1px 6px;
-            border-radius: 8px;
+            padding: 1px 5px;
+            border-radius: 6px;
             font-weight: 600;
         }
 
@@ -898,10 +910,32 @@
         /* Category Color Dots */
         .cat-dot {
             display: inline-block;
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            margin-right: 4px;
+            margin-right: 3px;
+        }
+
+        /* Debt Progress */
+        .debt-progress {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .debt-progress .mini-bar {
+            width: 40px;
+            height: 3px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .debt-progress .mini-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 10px;
+            transition: width 0.8s ease;
         }
 
         /* Responsive */
@@ -955,25 +989,25 @@
                 top: 52px;
             }
             .balance-card .card-amount {
-                font-size: 18px;
+                font-size: 16px;
             }
             .welcome-section h1 {
                 font-size: 16px;
             }
             .input-group input,
             .input-group select {
-                min-width: 45px;
-                font-size: 10px;
+                min-width: 40px;
+                font-size: 9px;
                 padding: 4px 6px;
             }
             .daily-summary {
-                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
             }
         }
 
         @media (max-width: 480px) {
             .balance-cards {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
@@ -982,15 +1016,15 @@
                 grid-template-columns: 1fr;
             }
             .top-nav .logo {
-                font-size: 16px;
+                font-size: 15px;
             }
             .top-nav .nav-actions select,
             .top-nav .nav-actions button {
-                font-size: 9px;
-                padding: 3px 8px;
+                font-size: 8px;
+                padding: 3px 6px;
             }
             .balance-card .card-amount {
-                font-size: 16px;
+                font-size: 14px;
             }
         }
     </style>
@@ -1064,7 +1098,7 @@
         <!-- WELCOME -->
         <div class="welcome-section">
             <h1 id="welcomeTitle">👋 Selamat Datang di CashView</h1>
-            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                 <span class="date-display" id="dateDisplay"></span>
                 <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtn">
                     <i class="fas fa-save"></i> <span>Rekam Bulan Ini</span>
@@ -1072,7 +1106,7 @@
             </div>
         </div>
 
-        <!-- BALANCE CARDS - 5 CARDS -->
+        <!-- BALANCE CARDS - 6 CARDS -->
         <div class="balance-cards">
             <div class="balance-card bg-dark">
                 <div class="card-label" id="labelTotalBalance">💰 Total Balance</div>
@@ -1098,6 +1132,14 @@
                     <span id="labelLiabilityCount">📝 <strong id="liabilityCount">0</strong> utang</span>
                 </div>
                 <div class="card-icon"><i class="fas fa-credit-card"></i></div>
+            </div>
+            <div class="balance-card bg-purple">
+                <div class="card-label" id="labelTotalPayments">💸 Total Cicilan</div>
+                <div class="card-amount" id="totalPaymentsDisplay">Rp0</div>
+                <div class="card-sub">
+                    <span id="labelPaymentCount">📝 <strong id="paymentCount">0</strong> pembayaran</span>
+                </div>
+                <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
             </div>
             <div class="balance-card bg-gold">
                 <div class="card-label" id="labelNetWorth">🎯 Net Worth</div>
@@ -1193,13 +1235,13 @@
                         <option value="USD">USD</option>
                         <option value="PHP">PHP</option>
                     </select>
-                    <input type="color" id="budgetColor" value="#065f46" style="flex:0.25;min-width:35px;padding:2px;border-radius:6px;border:1px solid var(--border-color);background:transparent;cursor:pointer;">
+                    <input type="color" id="budgetColor" value="#065f46" style="flex:0.2;min-width:30px;padding:2px;border-radius:5px;border:1px solid var(--border-color);background:transparent;cursor:pointer;">
                     <button class="btn btn-sm btn-primary" onclick="addBudgetAllocation()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div id="budgetAllocList"></div>
             </div>
 
-            <!-- LIABILITIES (UTANG) - NEW -->
+            <!-- LIABILITIES (UTANG) -->
             <div class="box">
                 <div class="box-header">
                     <h3><i class="fas fa-credit-card"></i> <span id="liabilityTitle">Utang / Kewajiban</span></h3>
@@ -1213,14 +1255,14 @@
                         <option value="USD">USD</option>
                         <option value="PHP">PHP</option>
                     </select>
-                    <input type="number" id="liabilityInterest" placeholder="Bunga %" style="flex:0.4;min-width:50px;" value="0">
+                    <input type="number" id="liabilityInterest" placeholder="Bunga %" style="flex:0.3;min-width:40px;" value="0">
                     <button class="btn btn-sm btn-danger" onclick="addLiability()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div id="liabilityList"></div>
             </div>
         </div>
 
-        <!-- EXPENSES & ASSETS -->
+        <!-- EXPENSES & DEBT PAYMENTS -->
         <div class="two-col">
             <!-- EXPENSES -->
             <div class="box">
@@ -1241,7 +1283,7 @@
                         <option value="USD">USD</option>
                         <option value="PHP">PHP</option>
                     </select>
-                    <select id="expenseCategory" style="flex:1;min-width:70px;">
+                    <select id="expenseCategory" style="flex:1;min-width:60px;">
                         <option value="Makanan">🍔 Makanan</option>
                         <option value="Transport">🚗 Transport</option>
                         <option value="Rumah">🏠 Rumah</option>
@@ -1262,44 +1304,78 @@
                         <tbody id="expenseTableBody"></tbody>
                     </table>
                 </div>
-                <div style="margin-top:8px;font-size:10px;background:var(--bg-primary);padding:6px 12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
+                <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
                     <span id="monthlyTotalLabel">📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
                     <span id="budgetUsedLabel">📊 Budget terpakai: <strong id="budgetUsed">0%</strong></span>
                     <span id="biggestLabel">💳 Terbesar: <strong id="biggestExpense">-</strong></span>
                 </div>
             </div>
 
-            <!-- ASSETS -->
+            <!-- DEBT PAYMENTS (CICILAN) - NEW -->
             <div class="box">
                 <div class="box-header">
-                    <h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3>
-                    <span class="badge" id="assetCount">0 items</span>
+                    <h3><i class="fas fa-hand-holding-usd"></i> <span id="paymentTitle">Pembayaran Utang (Cicilan)</span></h3>
+                    <span class="badge" id="paymentCountBadge">0 payments</span>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="assetName" placeholder="Nama aset" style="flex:2;">
-                    <input type="number" id="assetValue" placeholder="Nilai" style="flex:1;">
-                    <select id="assetCurrency" class="currency-select-small">
+                    <select id="paymentLiability" style="flex:2;">
+                        <option value="">Pilih utang...</option>
+                    </select>
+                    <input type="number" id="paymentAmount" placeholder="Cicilan" style="flex:1;">
+                    <select id="paymentCurrency" class="currency-select-small">
                         <option value="IDR">IDR</option>
                         <option value="USD">USD</option>
                         <option value="PHP">PHP</option>
                     </select>
-                    <select id="assetType" style="flex:1;">
-                        <option value="bergerak">🔄 Bergerak</option>
-                        <option value="tidak bergerak">🏛️ Tidak Bergerak</option>
-                    </select>
-                    <input type="number" id="assetDepreciation" placeholder="Dep %" style="flex:0.4;min-width:45px;" value="5">
-                    <button class="btn btn-sm btn-primary" onclick="addAsset()"><i class="fas fa-plus"></i></button>
+                    <input type="date" id="paymentDate" class="date-input">
+                    <button class="btn btn-sm btn-success" onclick="addDebtPayment()"><i class="fas fa-plus"></i></button>
+                </div>
+                <div style="font-size:9px;color:var(--text-muted);margin-bottom:5px;">
+                    <i class="fas fa-info-circle"></i> <span id="paymentInfo">Bayar cicilan akan mengurangi Balance dan Utang</span>
                 </div>
                 <div class="table-wrap">
                     <table>
-                        <thead><tr><th id="assetThName">Nama</th><th id="assetThType">Jenis</th><th id="assetThValue">Nilai</th><th id="assetThDep">Penyusutan/th</th><th id="assetThFinal">Nilai akhir</th><th></th></tr></thead>
-                        <tbody id="assetTableBody"></tbody>
+                        <thead><tr><th>Tanggal</th><th>Utang</th><th>Jumlah</th><th></th></tr></thead>
+                        <tbody id="paymentTableBody"></tbody>
                     </table>
                 </div>
-                <div style="margin-top:8px;font-size:10px;background:var(--bg-primary);padding:6px 12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-                    <span id="totalAssetLabel">💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
-                    <span id="totalDepLabel">📉 Total penyusutan/th: <strong id="totalDepreciation">Rp0</strong></span>
+                <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
+                    <span id="totalPaymentLabel">💸 Total cicilan: <strong id="totalPaymentAmount">Rp0</strong></span>
+                    <span id="paymentProgressLabel">📊 Progress pelunasan: <strong id="paymentProgress">0%</strong></span>
                 </div>
+            </div>
+        </div>
+
+        <!-- ASSETS -->
+        <div class="box" style="margin-bottom:14px;">
+            <div class="box-header">
+                <h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3>
+                <span class="badge" id="assetCount">0 items</span>
+            </div>
+            <div class="input-group">
+                <input type="text" id="assetName" placeholder="Nama aset" style="flex:2;">
+                <input type="number" id="assetValue" placeholder="Nilai" style="flex:1;">
+                <select id="assetCurrency" class="currency-select-small">
+                    <option value="IDR">IDR</option>
+                    <option value="USD">USD</option>
+                    <option value="PHP">PHP</option>
+                </select>
+                <select id="assetType" style="flex:1;">
+                    <option value="bergerak">🔄 Bergerak</option>
+                    <option value="tidak bergerak">🏛️ Tidak Bergerak</option>
+                </select>
+                <input type="number" id="assetDepreciation" placeholder="Dep %" style="flex:0.3;min-width:40px;" value="5">
+                <button class="btn btn-sm btn-primary" onclick="addAsset()"><i class="fas fa-plus"></i></button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th id="assetThName">Nama</th><th id="assetThType">Jenis</th><th id="assetThValue">Nilai</th><th id="assetThDep">Penyusutan/th</th><th id="assetThFinal">Nilai akhir</th><th></th></tr></thead>
+                    <tbody id="assetTableBody"></tbody>
+                </table>
+            </div>
+            <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
+                <span id="totalAssetLabel">💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
+                <span id="totalDepLabel">📉 Total penyusutan/th: <strong id="totalDepreciation">Rp0</strong></span>
             </div>
         </div>
 
@@ -1329,7 +1405,7 @@
                     <h3><i class="fas fa-chart-area"></i> <span id="historyTitle">Net Worth History</span></h3>
                     <span class="badge" id="historyCount">0 months</span>
                 </div>
-                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
                     <button class="btn btn-sm btn-success" onclick="recordHistory()"><i class="fas fa-save"></i> <span id="recordBtnText">Rekam Bulan Ini</span></button>
                     <button class="btn btn-sm btn-outline" onclick="resetHistory()"><i class="fas fa-undo"></i> <span id="resetBtnText">Reset</span></button>
                 </div>
@@ -1391,6 +1467,7 @@
                 totalBalance: '💰 Total Balance',
                 totalAsset: '📊 Total Aset',
                 totalLiability: '💳 Total Utang',
+                totalPayments: '💸 Total Cicilan',
                 netWorth: '🎯 Net Worth',
                 monthlyBudget: '📋 Budget Bulanan',
                 salary: '💼 Salary',
@@ -1401,6 +1478,7 @@
                 remainingBudget: 'Sisa',
                 netWorthDetail: '🏦 Aset - Utang',
                 liabilityCount: '📝 utang',
+                paymentCount: '📝 pembayaran',
                 totalIncome: '💵 Total Income',
                 totalExpenses: '📉 Total Expenses',
                 monthlyAverage: '📊 Rata-rata Harian',
@@ -1410,6 +1488,7 @@
                 incomeTitle: 'Sumber Pendapatan',
                 budgetTitle: 'Alokasi Budget',
                 liabilityTitle: 'Utang / Kewajiban',
+                paymentTitle: 'Pembayaran Utang (Cicilan)',
                 expenseTitle: 'Lacak Pengeluaran',
                 assetTitle: 'Aset & Penyusutan',
                 goalTitle: 'Goals Finansial',
@@ -1422,6 +1501,9 @@
                 liabilityPlaceholder: 'Nama utang (KPR, Pinjaman...)',
                 liabilityAmount: 'Jumlah',
                 liabilityInterest: 'Bunga %',
+                paymentSelect: 'Pilih utang...',
+                paymentAmount: 'Cicilan',
+                paymentInfo: 'Bayar cicilan akan mengurangi Balance dan Utang',
                 expenseDesc: 'Deskripsi',
                 expenseAmount: 'Jumlah',
                 assetName: 'Nama aset',
@@ -1445,11 +1527,14 @@
                 biggestLabel: '💳 Terbesar',
                 totalAssetLabel: '💰 Total Aset',
                 totalDepLabel: '📉 Total penyusutan/th',
+                totalPaymentLabel: '💸 Total cicilan',
+                paymentProgressLabel: '📊 Progress pelunasan',
                 recordBtn: 'Rekam Bulan Ini',
                 resetBtn: 'Reset',
                 noIncome: 'Belum ada sumber pendapatan',
                 noBudget: 'Belum ada alokasi budget',
                 noLiability: 'Belum ada utang',
+                noPayment: 'Belum ada pembayaran cicilan',
                 noExpense: 'Belum ada pengeluaran',
                 noAsset: 'Belum ada aset',
                 noGoal: 'Belum ada goals',
@@ -1475,6 +1560,7 @@
                 totalBalance: '💰 Total Balance',
                 totalAsset: '📊 Total Assets',
                 totalLiability: '💳 Total Liabilities',
+                totalPayments: '💸 Total Payments',
                 netWorth: '🎯 Net Worth',
                 monthlyBudget: '📋 Monthly Budget',
                 salary: '💼 Salary',
@@ -1485,6 +1571,7 @@
                 remainingBudget: 'Remaining',
                 netWorthDetail: '🏦 Assets - Liabilities',
                 liabilityCount: '📝 debts',
+                paymentCount: '📝 payments',
                 totalIncome: '💵 Total Income',
                 totalExpenses: '📉 Total Expenses',
                 monthlyAverage: '📊 Daily Average',
@@ -1494,6 +1581,7 @@
                 incomeTitle: 'Income Sources',
                 budgetTitle: 'Budget Allocation',
                 liabilityTitle: 'Liabilities / Debt',
+                paymentTitle: 'Debt Payments (Installments)',
                 expenseTitle: 'Track Expenses',
                 assetTitle: 'Assets & Depreciation',
                 goalTitle: 'Financial Goals',
@@ -1506,6 +1594,9 @@
                 liabilityPlaceholder: 'Debt name (Mortgage, Loan...)',
                 liabilityAmount: 'Amount',
                 liabilityInterest: 'Interest %',
+                paymentSelect: 'Select debt...',
+                paymentAmount: 'Installment',
+                paymentInfo: 'Paying installment will reduce Balance and Debt',
                 expenseDesc: 'Description',
                 expenseAmount: 'Amount',
                 assetName: 'Asset name',
@@ -1529,11 +1620,14 @@
                 biggestLabel: '💳 Biggest',
                 totalAssetLabel: '💰 Total Assets',
                 totalDepLabel: '📉 Total depreciation/year',
+                totalPaymentLabel: '💸 Total payments',
+                paymentProgressLabel: '📊 Payment progress',
                 recordBtn: 'Record This Month',
                 resetBtn: 'Reset',
                 noIncome: 'No income sources yet',
                 noBudget: 'No budget allocations yet',
                 noLiability: 'No liabilities yet',
+                noPayment: 'No debt payments yet',
                 noExpense: 'No expenses yet',
                 noAsset: 'No assets yet',
                 noGoal: 'No goals yet',
@@ -1559,6 +1653,7 @@
                 totalBalance: '💰 总余额',
                 totalAsset: '📊 总资产',
                 totalLiability: '💳 总负债',
+                totalPayments: '💸 总还款',
                 netWorth: '🎯 净资产',
                 monthlyBudget: '📋 月度预算',
                 salary: '💼 工资',
@@ -1569,6 +1664,7 @@
                 remainingBudget: '剩余',
                 netWorthDetail: '🏦 资产 - 负债',
                 liabilityCount: '📝 笔负债',
+                paymentCount: '📝 笔还款',
                 totalIncome: '💵 总收入',
                 totalExpenses: '📉 总支出',
                 monthlyAverage: '📊 日均支出',
@@ -1578,6 +1674,7 @@
                 incomeTitle: '收入来源',
                 budgetTitle: '预算分配',
                 liabilityTitle: '负债/债务',
+                paymentTitle: '还款 (分期付款)',
                 expenseTitle: '追踪支出',
                 assetTitle: '资产与折旧',
                 goalTitle: '财务目标',
@@ -1590,6 +1687,9 @@
                 liabilityPlaceholder: '债务名称 (房贷, 贷款...)',
                 liabilityAmount: '金额',
                 liabilityInterest: '利率 %',
+                paymentSelect: '选择债务...',
+                paymentAmount: '分期付款',
+                paymentInfo: '还款将减少余额和负债',
                 expenseDesc: '描述',
                 expenseAmount: '金额',
                 assetName: '资产名称',
@@ -1613,11 +1713,14 @@
                 biggestLabel: '💳 最大支出',
                 totalAssetLabel: '💰 总资产',
                 totalDepLabel: '📉 年折旧总计',
+                totalPaymentLabel: '💸 总还款',
+                paymentProgressLabel: '📊 还款进度',
                 recordBtn: '记录本月',
                 resetBtn: '重置',
                 noIncome: '暂无收入来源',
                 noBudget: '暂无预算分配',
                 noLiability: '暂无负债',
+                noPayment: '暂无还款记录',
                 noExpense: '暂无支出',
                 noAsset: '暂无资产',
                 noGoal: '暂无目标',
@@ -1648,6 +1751,7 @@
         let incomes = JSON.parse(localStorage.getItem('cv_incomes')) || [];
         let budgetAllocs = JSON.parse(localStorage.getItem('cv_budgetAllocs')) || [];
         let liabilities = JSON.parse(localStorage.getItem('cv_liabilities')) || [];
+        let debtPayments = JSON.parse(localStorage.getItem('cv_debtPayments')) || [];
         let expenses = JSON.parse(localStorage.getItem('cv_expenses')) || [];
         let assets = JSON.parse(localStorage.getItem('cv_assets')) || [];
         let goals = JSON.parse(localStorage.getItem('cv_goals')) || [];
@@ -1657,7 +1761,6 @@
         let theme = localStorage.getItem('cv_theme') || 'light';
         let isRecurringMode = false;
 
-        // Category colors
         const categoryColors = {
             'Makanan': '#065f46',
             'Transport': '#1a4b6d',
@@ -1690,6 +1793,7 @@
                 labelTotalBalance: t.totalBalance,
                 labelTotalAsset: t.totalAsset,
                 labelTotalLiability: t.totalLiability,
+                labelTotalPayments: t.totalPayments,
                 labelNetWorth: t.netWorth,
                 labelMonthlyBudget: t.monthlyBudget,
                 labelSalary: `💼 ${t.salary}: <strong id="salaryTotal">Rp0</strong>`,
@@ -1700,6 +1804,7 @@
                 labelRemainingBudget: `${t.remainingBudget}: <strong id="remainingBudgetDisplay">Rp0</strong>`,
                 labelNetWorthDetail: `🏦 ${t.netWorthDetail}`,
                 labelLiabilityCount: `📝 <strong id="liabilityCount">0</strong> ${t.liabilityCount}`,
+                labelPaymentCount: `📝 <strong id="paymentCount">0</strong> ${t.paymentCount}`,
                 totalIncome: t.totalIncome,
                 totalExpenses: t.totalExpenses,
                 monthlyAverage: t.monthlyAverage,
@@ -1709,6 +1814,7 @@
                 incomeTitle: t.incomeTitle,
                 budgetTitle: t.budgetTitle,
                 liabilityTitle: t.liabilityTitle,
+                paymentTitle: t.paymentTitle,
                 expenseTitle: t.expenseTitle,
                 assetTitle: t.assetTitle,
                 goalTitle: t.goalTitle,
@@ -1721,6 +1827,9 @@
                 liabilityPlaceholder: t.liabilityPlaceholder,
                 liabilityAmount: t.liabilityAmount,
                 liabilityInterest: t.liabilityInterest,
+                paymentSelect: t.paymentSelect,
+                paymentAmount: t.paymentAmount,
+                paymentInfo: t.paymentInfo,
                 expenseDesc: t.expenseDesc,
                 expenseAmount: t.expenseAmount,
                 assetName: t.assetName,
@@ -1744,6 +1853,8 @@
                 biggestLabel: `💳 ${t.biggestLabel}: <strong id="biggestExpense">-</strong>`,
                 totalAssetLabel: `💰 ${t.totalAssetLabel}: <strong id="totalAssetNow">Rp0</strong>`,
                 totalDepLabel: `📉 ${t.totalDepLabel}: <strong id="totalDepreciation">Rp0</strong>`,
+                totalPaymentLabel: `💸 ${t.totalPaymentLabel}: <strong id="totalPaymentAmount">Rp0</strong>`,
+                paymentProgressLabel: `📊 ${t.paymentProgressLabel}: <strong id="paymentProgress">0%</strong>`,
                 recordBtnText: t.recordBtn,
                 resetBtnText: t.resetBtn,
                 summaryIncome: t.summaryIncome,
@@ -1753,18 +1864,21 @@
                 summaryAvgDaily: t.summaryAvgDaily,
                 summaryTopCategory: t.summaryTopCategory,
                 recurringLabel: isRecurringMode ? t.recurring : t.oneTime,
-                vsLastMonth: t.vsLastMonth
+                vsLastMonth: t.vsLastMonth,
+                paymentSelectPlaceholder: t.paymentSelect
             };
 
             for (const [id, val] of Object.entries(els)) {
                 const el = document.getElementById(id);
                 if (el) {
                     if (['labelSalary', 'labelPassive', 'labelDepreciation', 'labelMonthChange',
-                            'labelBudgetUsed', 'labelRemainingBudget', 'labelLiabilityCount',
+                            'labelBudgetUsed', 'labelRemainingBudget', 'labelLiabilityCount', 'labelPaymentCount',
                             'monthlyTotalLabel', 'budgetUsedLabel', 'biggestLabel',
-                            'totalAssetLabel', 'totalDepLabel'
+                            'totalAssetLabel', 'totalDepLabel', 'totalPaymentLabel', 'paymentProgressLabel'
                         ].includes(id)) {
                         el.innerHTML = val;
+                    } else if (id === 'paymentSelectPlaceholder') {
+                        // Handle select placeholder
                     } else {
                         el.textContent = val;
                     }
@@ -1778,6 +1892,7 @@
             document.getElementById('liabilityName').placeholder = t.liabilityPlaceholder;
             document.getElementById('liabilityAmount').placeholder = t.liabilityAmount;
             document.getElementById('liabilityInterest').placeholder = t.liabilityInterest;
+            document.getElementById('paymentAmount').placeholder = t.paymentAmount;
             document.getElementById('expenseDesc').placeholder = t.expenseDesc;
             document.getElementById('expenseAmount').placeholder = t.expenseAmount;
             document.getElementById('assetName').placeholder = t.assetName;
@@ -1785,8 +1900,10 @@
             document.getElementById('goalName').placeholder = t.goalName;
             document.getElementById('goalTarget').placeholder = t.goalTarget;
             document.getElementById('goalDeadline').placeholder = t.goalDeadline;
+            document.getElementById('paymentInfo').textContent = t.paymentInfo;
 
             document.getElementById('languageSelector').value = currentLang;
+            updatePaymentSelect();
         }
 
         // ============================================================
@@ -1931,7 +2048,7 @@
         }
 
         // ============================================================
-        //  CORE FUNCTIONS - KONSEP YANG BENAR
+        //  CORE FUNCTIONS - KONSEP YANG BENAR!
         // ============================================================
         function getCurrentMonth() {
             const d = new Date();
@@ -1948,32 +2065,51 @@
             return new Date().toISOString().split('T')[0];
         }
 
-        // BALANCE = Total Income - Total Expenses (Kas yang tersisa)
+        // ============================================================
+        //  ✅ BALANCE = Income - Expenses (UTANG TIDAK MASUK!)
+        // ============================================================
         function getBalance(currency = mainCurrency) {
             let totalIncome = 0;
             incomes.forEach(i => totalIncome += convertCurrency(i.amount, i.currency, currency));
 
-            let totalExpensesAll = 0;
-            expenses.forEach(e => totalExpensesAll += convertCurrency(e.amount, e.currency, currency));
+            let totalExpenses = 0;
+            expenses.forEach(e => totalExpenses += convertCurrency(e.amount, e.currency, currency));
 
-            return totalIncome - totalExpensesAll;
+            // DEBT PAYMENTS juga mengurangi Balance (karena uang keluar)
+            let totalPayments = 0;
+            debtPayments.forEach(p => totalPayments += convertCurrency(p.amount, p.currency, currency));
+
+            return totalIncome - totalExpenses - totalPayments;
         }
 
-        // TOTAL INCOME
+        // ============================================================
+        //  ✅ NET WORTH = Aset - Utang (UTANG MEMPENGARUHI!)
+        // ============================================================
+        function getNetWorth(currency = mainCurrency) {
+            let totalAsset = 0;
+            assets.forEach(a => totalAsset += convertCurrency(a.value, a.currency, currency));
+
+            let totalLiabilities = 0;
+            liabilities.forEach(l => totalLiabilities += convertCurrency(l.amount, l.currency, currency));
+
+            return totalAsset - totalLiabilities;
+        }
+
+        // ============================================================
+        //  OTHER HELPERS
+        // ============================================================
         function getTotalIncome(currency = mainCurrency) {
             let total = 0;
             incomes.forEach(i => total += convertCurrency(i.amount, i.currency, currency));
             return total;
         }
 
-        // TOTAL BUDGET
         function getTotalBudget(currency = mainCurrency) {
             let total = 0;
             budgetAllocs.forEach(b => total += convertCurrency(b.amount, b.currency, currency));
             return total;
         }
 
-        // TOTAL EXPENSES per bulan
         function getTotalExpenses(month, currency = mainCurrency) {
             const me = expenses.filter(e => e.month === month);
             let total = 0;
@@ -1981,14 +2117,12 @@
             return total;
         }
 
-        // TOTAL ASSETS
         function getTotalAssetValue(currency = mainCurrency) {
             let total = 0;
             assets.forEach(a => total += convertCurrency(a.value, a.currency, currency));
             return total;
         }
 
-        // TOTAL DEPRECIATION
         function getTotalDepreciation(currency = mainCurrency) {
             let total = 0;
             assets.forEach(a => {
@@ -1998,19 +2132,28 @@
             return total;
         }
 
-        // TOTAL LIABILITIES (UTANG)
         function getTotalLiabilities(currency = mainCurrency) {
             let total = 0;
             liabilities.forEach(l => total += convertCurrency(l.amount, l.currency, currency));
             return total;
         }
 
-        // NET WORTH = Total Aset - Total Utang (BENAR!)
-        function getNetWorth(currency = mainCurrency) {
-            return getTotalAssetValue(currency) - getTotalLiabilities(currency);
+        function getTotalDebtPayments(currency = mainCurrency) {
+            let total = 0;
+            debtPayments.forEach(p => total += convertCurrency(p.amount, p.currency, currency));
+            return total;
         }
 
-        // Expenses by category
+        function getRemainingDebt(liabilityId, currency = mainCurrency) {
+            const liability = liabilities.find(l => l.id === liabilityId);
+            if (!liability) return 0;
+            const totalPaid = debtPayments
+                .filter(p => p.liabilityId === liabilityId)
+                .reduce((sum, p) => sum + convertCurrency(p.amount, p.currency, currency), 0);
+            const totalLiability = convertCurrency(liability.amount, liability.currency, currency);
+            return Math.max(0, totalLiability - totalPaid);
+        }
+
         function getExpensesByCategory(month, currency = mainCurrency) {
             const me = expenses.filter(e => e.month === month);
             const cat = {};
@@ -2022,7 +2165,6 @@
             return cat;
         }
 
-        // Goal progress
         function getGoalProgress() {
             if (goals.length === 0) return 0;
             let totalTarget = 0,
@@ -2036,7 +2178,6 @@
             return Math.round((totalProgress / goals.length) * 100);
         }
 
-        // Biggest expense
         function getBiggestExpense(month) {
             const me = expenses.filter(e => e.month === month);
             if (me.length === 0) return null;
@@ -2045,7 +2186,6 @@
             return max;
         }
 
-        // Days until deadline
         function getDaysUntil(dateStr) {
             const target = new Date(dateStr + 'T00:00:00');
             const now = new Date();
@@ -2053,7 +2193,6 @@
             return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
         }
 
-        // Daily average
         function getDailyAverage(month, currency = mainCurrency) {
             const total = getTotalExpenses(month, currency);
             const days = new Date(month + '-01').getMonth() === new Date().getMonth() ?
@@ -2062,7 +2201,6 @@
             return days > 0 ? total / days : 0;
         }
 
-        // Top category
         function getTopCategory(month, currency = mainCurrency) {
             const cats = getExpensesByCategory(month, currency);
             let max = 0,
@@ -2074,6 +2212,39 @@
             return name ? { name, amount: max } : null;
         }
 
+        function getDebtPaymentProgress(currency = mainCurrency) {
+            if (liabilities.length === 0) return 0;
+            let totalDebt = 0,
+                totalPaid = 0;
+            liabilities.forEach(l => {
+                const debt = convertCurrency(l.amount, l.currency, currency);
+                totalDebt += debt;
+                const paid = debtPayments
+                    .filter(p => p.liabilityId === l.id)
+                    .reduce((sum, p) => sum + convertCurrency(p.amount, p.currency, currency), 0);
+                totalPaid += paid;
+            });
+            return totalDebt > 0 ? Math.round((totalPaid / totalDebt) * 100) : 0;
+        }
+
+        // ============================================================
+        //  UPDATE PAYMENT SELECT
+        // ============================================================
+        function updatePaymentSelect() {
+            const select = document.getElementById('paymentLiability');
+            const t = LANGUAGES[currentLang] || LANGUAGES.id;
+            select.innerHTML = `<option value="">${t.paymentSelect || 'Pilih utang...'}</option>`;
+            liabilities.forEach(l => {
+                const remaining = getRemainingDebt(l.id);
+                if (remaining > 0) {
+                    const opt = document.createElement('option');
+                    opt.value = l.id;
+                    opt.textContent = `${l.name} (${formatCurrency(remaining, mainCurrency)} sisa)`;
+                    select.appendChild(opt);
+                }
+            });
+        }
+
         // ============================================================
         //  RENDER ALL
         // ============================================================
@@ -2083,7 +2254,7 @@
             const currency = mainCurrency;
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
 
-            // Core calculations - KONSEP BENAR
+            // ✅ KONSEP BENAR
             const balance = getBalance(currency);
             const totalIncome = getTotalIncome(currency);
             const totalBudget = getTotalBudget(currency);
@@ -2092,12 +2263,14 @@
             const totalAsset = getTotalAssetValue(currency);
             const totalDep = getTotalDepreciation(currency);
             const totalLiabilities = getTotalLiabilities(currency);
+            const totalPayments = getTotalDebtPayments(currency);
             const netWorth = getNetWorth(currency);
             const remaining = totalBudget - totalExp;
             const goalProgress = getGoalProgress();
             const biggest = getBiggestExpense(currentMonth);
             const dailyAvg = getDailyAverage(currentMonth, currency);
             const topCategory = getTopCategory(currentMonth, currency);
+            const paymentProgress = getDebtPaymentProgress(currency);
 
             // BALANCE CARDS
             document.getElementById('totalBalance').textContent = formatCurrency(balance, currency);
@@ -2115,6 +2288,8 @@
             document.getElementById('depTotal').textContent = formatCurrency(totalDep, currency);
             document.getElementById('totalLiabilityDisplay').textContent = formatCurrency(totalLiabilities, currency);
             document.getElementById('liabilityCount').textContent = liabilities.length;
+            document.getElementById('totalPaymentsDisplay').textContent = formatCurrency(totalPayments, currency);
+            document.getElementById('paymentCount').textContent = debtPayments.length;
             document.getElementById('netWorthDisplay').textContent = formatCurrency(netWorth, currency);
             document.getElementById('budgetDisplay').textContent = formatCurrency(totalBudget, currency);
             const budgetUsedPct = totalBudget > 0 ? Math.round((totalExp / totalBudget) * 100) : 0;
@@ -2141,6 +2316,7 @@
             document.getElementById('incomeCount').textContent = incomes.length + ' sources';
             document.getElementById('budgetCount').textContent = budgetAllocs.length + ' categories';
             document.getElementById('liabilityCountBadge').textContent = liabilities.length + ' debts';
+            document.getElementById('paymentCountBadge').textContent = debtPayments.length + ' payments';
             document.getElementById('expenseCount').textContent = expenses.length + ' items';
             document.getElementById('assetCount').textContent = assets.length + ' items';
             document.getElementById('goalCount').textContent = goals.length + ' goals';
@@ -2153,11 +2329,15 @@
                 `${biggest.desc}: ${formatCurrency(biggest.amount, biggest.currency)}` :
                 '-';
 
+            // PAYMENT SUMMARY
+            document.getElementById('totalPaymentAmount').textContent = formatCurrency(totalPayments, currency);
+            document.getElementById('paymentProgress').textContent = paymentProgress + '%';
+
             // SUMMARY
             document.getElementById('summaryMonth').textContent = currentMonth;
             document.getElementById('summaryIncomeValue').textContent = formatCurrency(totalIncome, currency);
             document.getElementById('summaryExpenseValue').textContent = formatCurrency(totalExp, currency);
-            const savingsRate = totalIncome > 0 ? ((totalIncome - totalExp) / totalIncome * 100) : 0;
+            const savingsRate = totalIncome > 0 ? ((totalIncome - totalExp - totalPayments) / totalIncome * 100) : 0;
             document.getElementById('summarySavingsValue').textContent = savingsRate.toFixed(1) + '%';
             document.getElementById('summaryNetWorthValue').textContent = formatCurrency(netWorth, currency);
             document.getElementById('summaryAvgDailyValue').textContent = formatCurrency(dailyAvg, currency);
@@ -2168,11 +2348,15 @@
             renderIncomeList();
             renderBudgetAllocList();
             renderLiabilityList();
+            renderDebtPaymentList();
             renderExpenseTable();
             renderDailySummary();
             renderAssetTable();
             renderGoalList();
             renderHistoryAndChart();
+
+            // Update payment select
+            updatePaymentSelect();
 
             // DATE
             const now = new Date();
@@ -2184,6 +2368,7 @@
             localStorage.setItem('cv_incomes', JSON.stringify(incomes));
             localStorage.setItem('cv_budgetAllocs', JSON.stringify(budgetAllocs));
             localStorage.setItem('cv_liabilities', JSON.stringify(liabilities));
+            localStorage.setItem('cv_debtPayments', JSON.stringify(debtPayments));
             localStorage.setItem('cv_expenses', JSON.stringify(expenses));
             localStorage.setItem('cv_assets', JSON.stringify(assets));
             localStorage.setItem('cv_goals', JSON.stringify(goals));
@@ -2192,7 +2377,7 @@
         }
 
         // ============================================================
-        //  RENDER: DAILY SUMMARY
+        //  RENDER FUNCTIONS
         // ============================================================
         function renderDailySummary() {
             const container = document.getElementById('dailySummary');
@@ -2202,7 +2387,7 @@
 
             if (me.length === 0) {
                 container.innerHTML =
-                    `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:10px;padding:4px;">${t.noExpense}</div>`;
+                    `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:9px;padding:3px;">${t.noExpense}</div>`;
                 return;
             }
 
@@ -2229,9 +2414,6 @@
             }).join('');
         }
 
-        // ============================================================
-        //  RENDER: INCOME
-        // ============================================================
         function renderIncomeList() {
             const div = document.getElementById('incomeList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
@@ -2249,9 +2431,6 @@
             `).join('');
         }
 
-        // ============================================================
-        //  RENDER: BUDGET
-        // ============================================================
         function renderBudgetAllocList() {
             const div = document.getElementById('budgetAllocList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
@@ -2272,9 +2451,6 @@
             `).join('');
         }
 
-        // ============================================================
-        //  RENDER: LIABILITIES (UTANG) - NEW
-        // ============================================================
         function renderLiabilityList() {
             const div = document.getElementById('liabilityList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
@@ -2282,25 +2458,52 @@
                 div.innerHTML = `<div class="empty-state"><i class="fas fa-credit-card"></i>${t.noLiability}</div>`;
                 return;
             }
-            div.innerHTML = liabilities.map((l, idx) => `
-                <div class="liability-item">
-                    <span class="liability-name">${l.name} ${l.interest > 0 ? `<span style="font-size:8px;color:var(--text-muted);">(${l.interest}%)</span>` : ''}</span>
-                    <span class="liability-amount">${formatCurrency(l.amount, l.currency)}
-                        <button class="delete-btn" onclick="deleteLiability(${idx})"><i class="fas fa-times"></i></button>
-                    </span>
-                </div>
-            `).join('');
+            div.innerHTML = liabilities.map((l, idx) => {
+                const remaining = getRemainingDebt(l.id, mainCurrency);
+                const total = convertCurrency(l.amount, l.currency, mainCurrency);
+                const paid = total - remaining;
+                const progress = total > 0 ? Math.round((paid / total) * 100) : 0;
+                return `
+                    <div class="liability-item">
+                        <span class="liability-name">${l.name} ${l.interest > 0 ? `<span style="font-size:7px;color:var(--text-muted);">(${l.interest}%)</span>` : ''}</span>
+                        <span class="liability-amount">
+                            ${formatCurrency(remaining, mainCurrency)} / ${formatCurrency(total, mainCurrency)}
+                            <span class="liability-remain" style="font-size:7px;">(${progress}% lunas)</span>
+                            <button class="delete-btn" onclick="deleteLiability(${idx})"><i class="fas fa-times"></i></button>
+                        </span>
+                    </div>
+                `;
+            }).join('');
         }
 
-        // ============================================================
-        //  RENDER: EXPENSES
-        // ============================================================
+        function renderDebtPaymentList() {
+            const tbody = document.getElementById('paymentTableBody');
+            const t = LANGUAGES[currentLang] || LANGUAGES.id;
+            if (debtPayments.length === 0) {
+                tbody.innerHTML =
+                    `<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noPayment}</td></tr>`;
+                return;
+            }
+            const sorted = [...debtPayments].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
+            tbody.innerHTML = sorted.map(p => {
+                const liability = liabilities.find(l => l.id === p.liabilityId);
+                return `
+                    <tr>
+                        <td>${p.date}</td>
+                        <td>${liability ? liability.name : 'Dihapus'}</td>
+                        <td>${formatCurrency(p.amount, p.currency)}</td>
+                        <td><button class="delete-btn" onclick="deleteDebtPayment(${p.id})"><i class="fas fa-times"></i></button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
         function renderExpenseTable() {
             const tbody = document.getElementById('expenseTableBody');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (expenses.length === 0) {
                 tbody.innerHTML =
-                    `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:12px;">${t.noExpense}</td></tr>`;
+                    `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noExpense}</td></tr>`;
                 return;
             }
             const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
@@ -2318,15 +2521,12 @@
             }).join('');
         }
 
-        // ============================================================
-        //  RENDER: ASSETS
-        // ============================================================
         function renderAssetTable() {
             const tbody = document.getElementById('assetTableBody');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
             if (assets.length === 0) {
                 tbody.innerHTML =
-                    `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:12px;">${t.noAsset}</td></tr>`;
+                    `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noAsset}</td></tr>`;
                 return;
             }
             tbody.innerHTML = assets.map(a => {
@@ -2345,9 +2545,6 @@
             }).join('');
         }
 
-        // ============================================================
-        //  RENDER: GOALS
-        // ============================================================
         function renderGoalList() {
             const div = document.getElementById('goalList');
             const t = LANGUAGES[currentLang] || LANGUAGES.id;
@@ -2375,11 +2572,11 @@
                             <span class="goal-name">${g.name}</span>
                             <span class="goal-target">Target: ${formatCurrency(g.target, g.currency)}</span>
                         </div>
-                        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                        <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
                             <span class="goal-deadline ${deadlineClass}">📅 ${g.deadline} ${deadlineText}</span>
                             <div class="goal-progress">
                                 <div class="progress-bar"><div class="fill" style="width:${progress}%"></div></div>
-                                <span style="font-size:9px;font-weight:600;min-width:30px;">${Math.round(progress)}%</span>
+                                <span style="font-size:8px;font-weight:600;min-width:28px;">${Math.round(progress)}%</span>
                                 <button class="delete-btn" onclick="deleteGoal(${g.id})"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
@@ -2387,11 +2584,6 @@
                 `;
             }).join('');
         }
-
-        // ============================================================
-        //  RENDER: HISTORY & CHART
-        // ============================================================
-        let chartInstance = null;
 
         function renderHistoryAndChart() {
             const div = document.getElementById('historyList');
@@ -2423,7 +2615,7 @@
                         data: data,
                         backgroundColor: 'rgba(10,22,40,0.06)',
                         borderColor: '#0a1628',
-                        borderWidth: 2.5,
+                        borderWidth: 2,
                         pointBackgroundColor: '#0a1628',
                         pointRadius: 3,
                         tension: 0.3,
@@ -2438,9 +2630,9 @@
                         y: {
                             beginAtZero: false,
                             grid: { color: 'var(--chart-grid)' },
-                            ticks: { callback: v => formatCurrency(v, mainCurrency), font: { size: 9 } }
+                            ticks: { callback: v => formatCurrency(v, mainCurrency), font: { size: 8 } }
                         },
-                        x: { grid: { display: false }, ticks: { font: { size: 9 } } }
+                        x: { grid: { display: false }, ticks: { font: { size: 8 } } }
                     }
                 }
             });
@@ -2496,7 +2688,7 @@
                 showNotification('Alokasi budget dihapus'); }
         }
 
-        // LIABILITIES (UTANG) - NEW
+        // LIABILITIES
         function addLiability() {
             const name = document.getElementById('liabilityName').value.trim();
             const amount = parseFloat(document.getElementById('liabilityAmount').value);
@@ -2506,7 +2698,7 @@
                 showNotification('Isi nama dan jumlah utang dengan benar', 'error');
                 return;
             }
-            liabilities.push({ name, amount, currency, interest });
+            liabilities.push({ id: Date.now(), name, amount, currency, interest });
             document.getElementById('liabilityName').value = '';
             document.getElementById('liabilityAmount').value = '';
             document.getElementById('liabilityInterest').value = '0';
@@ -2515,9 +2707,68 @@
         }
 
         function deleteLiability(idx) {
-            if (confirm('Hapus utang ini?')) { liabilities.splice(idx, 1);
+            if (confirm('Hapus utang ini?')) {
+                const liability = liabilities[idx];
+                // Check if there are payments
+                const hasPayments = debtPayments.some(p => p.liabilityId === liability.id);
+                if (hasPayments) {
+                    if (!confirm('Utang ini sudah ada pembayaran. Hapus semua data pembayaran juga?')) return;
+                    debtPayments = debtPayments.filter(p => p.liabilityId !== liability.id);
+                }
+                liabilities.splice(idx, 1);
                 renderAll();
-                showNotification('Utang dihapus'); }
+                showNotification('Utang dihapus');
+            }
+        }
+
+        // DEBT PAYMENTS - NEW!
+        function addDebtPayment() {
+            const liabilityId = parseInt(document.getElementById('paymentLiability').value);
+            const amount = parseFloat(document.getElementById('paymentAmount').value);
+            const currency = document.getElementById('paymentCurrency').value;
+            const date = document.getElementById('paymentDate').value || getToday();
+
+            if (!liabilityId || isNaN(amount) || amount <= 0) {
+                showNotification('Pilih utang dan isi jumlah cicilan', 'error');
+                return;
+            }
+
+            // Check if payment exceeds remaining debt
+            const remaining = getRemainingDebt(liabilityId, mainCurrency);
+            const paymentInMain = convertCurrency(amount, currency, mainCurrency);
+            if (paymentInMain > remaining) {
+                showNotification(`Cicilan melebihi sisa utang (${formatCurrency(remaining, mainCurrency)})`, 'error');
+                return;
+            }
+
+            // Check if balance is enough
+            const balance = getBalance(mainCurrency);
+            if (paymentInMain > balance) {
+                if (!confirm(`⚠️ Pembayaran ini (${formatCurrency(amount, currency)}) melebihi balance Anda (${formatCurrency(balance, mainCurrency)}). Lanjutkan?`)) {
+                    return;
+                }
+            }
+
+            debtPayments.push({
+                id: Date.now(),
+                liabilityId,
+                amount,
+                currency,
+                date,
+                month: date.slice(0, 7)
+            });
+
+            document.getElementById('paymentAmount').value = '';
+            renderAll();
+            showNotification(`💸 Pembayaran cicilan berhasil dicatat! Balance berkurang ${formatCurrency(amount, currency)}`);
+        }
+
+        function deleteDebtPayment(id) {
+            if (confirm('Hapus pembayaran cicilan ini?')) {
+                debtPayments = debtPayments.filter(p => p.id !== id);
+                renderAll();
+                showNotification('Pembayaran cicilan dihapus');
+            }
         }
 
         // EXPENSES
@@ -2693,6 +2944,7 @@
         // ============================================================
         function init() {
             document.getElementById('expenseDate').value = getToday();
+            document.getElementById('paymentDate').value = getToday();
             document.getElementById('goalDeadline').value = getToday();
 
             document.getElementById('mainCurrency').value = mainCurrency;
