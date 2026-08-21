@@ -3,485 +3,1181 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Financial Tracker Pribadi</title>
-    <!-- Chart.js untuk grafik -->
+    <title>CashView Pro - Personal Finance</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: #f4f7fc;
-            padding: 20px;
-            color: #1e293b;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            padding: 0;
         }
 
+        /* Top Navigation */
+        .top-nav {
+            background: #0a1628;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-nav .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .top-nav .logo span {
+            color: #00b894;
+        }
+
+        .top-nav .nav-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .top-nav .currency-selector {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .top-nav .currency-selector option {
+            color: #1a1a2e;
+        }
+
+        /* Live Rates Bar */
+        .rates-bar {
+            background: #1a2a4a;
+            padding: 8px 40px;
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            color: #a8c8e8;
+            font-size: 13px;
+            border-bottom: 1px solid #2a3a5a;
+        }
+
+        .rates-bar .rate-item {
+            display: flex;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .rates-bar .rate-item .rate-value {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        .rates-bar .rate-item .rate-label {
+            color: #88a8c8;
+        }
+
+        /* Main Container */
         .container {
-            max-width: 1400px;
-            margin: auto;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 24px 32px;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #0f3b5e;
-            letter-spacing: 1px;
+        /* Welcome Section */
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
         }
 
-        /* grid kartu */
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px 16px;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e9eef3;
-            transition: 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: #b6c8da;
-        }
-
-        .card label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #64748b;
-        }
-
-        .card .value {
-            font-size: 1.9rem;
+        .welcome-section h1 {
+            font-size: 28px;
             font-weight: 700;
-            margin-top: 6px;
-            color: #0b2a41;
+            color: #0a1628;
         }
 
-        .card .value.plus {
-            color: #0b7e4b;
-        }
-        .card .value.minus {
-            color: #b22234;
+        .welcome-section .date-display {
+            color: #6b7a8f;
+            font-weight: 500;
         }
 
+        /* Balance Cards - Bank of America Style */
+        .balance-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .balance-card {
+            background: linear-gradient(145deg, #0a1628, #1a2a4a);
+            border-radius: 20px;
+            padding: 24px 28px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .balance-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 184, 148, 0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .balance-card .card-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .balance-card .card-amount {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .balance-card .card-sub {
+            font-size: 14px;
+            opacity: 0.6;
+            display: flex;
+            gap: 16px;
+        }
+
+        .balance-card .card-sub .change.positive {
+            color: #4ade80;
+        }
+        .balance-card .card-sub .change.negative {
+            color: #f87171;
+        }
+
+        .balance-card .card-icon {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            font-size: 32px;
+            opacity: 0.2;
+        }
+
+        .balance-card.green {
+            background: linear-gradient(145deg, #064e3b, #065f46);
+        }
+
+        .balance-card.gold {
+            background: linear-gradient(145deg, #78350f, #92400e);
+        }
+
+        .balance-card.blue {
+            background: linear-gradient(145deg, #1e3a5f, #1a4b6d);
+        }
+
+        /* Quick Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px 22px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e8ecf0;
+        }
+
+        .stat-card .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #6b7a8f;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stat-card .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 4px;
+            color: #0a1628;
+        }
+
+        .stat-card .stat-value.positive {
+            color: #065f46;
+        }
+        .stat-card .stat-value.negative {
+            color: #b91c1c;
+        }
+
+        /* Two Column Layout */
         .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin: 25px 0;
+            gap: 24px;
+            margin-bottom: 28px;
         }
 
+        /* Box Styling */
         .box {
             background: white;
-            border-radius: 24px;
-            padding: 20px 22px;
-            border: 1px solid #e9eef3;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+            border-radius: 20px;
+            padding: 22px 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e8ecf0;
         }
 
-        .box h3 {
-            margin-bottom: 18px;
-            font-weight: 600;
-            font-size: 1.2rem;
+        .box .box-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            border-bottom: 2px solid #eef3f9;
+            margin-bottom: 16px;
             padding-bottom: 12px;
+            border-bottom: 2px solid #f0f2f5;
         }
 
-        .box h3 i {
-            color: #2a6f97;
+        .box .box-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0a1628;
+        }
+
+        .box .box-header .badge {
+            background: #e8ecf0;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #4a5a6f;
+        }
+
+        /* Inputs */
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .input-group input,
+        .input-group select {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1.5px solid #dce0e6;
+            font-size: 14px;
+            transition: 0.2s;
+            background: #fafbfc;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #0a1628;
+            box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.08);
+        }
+
+        .input-group .currency-select-small {
+            flex: 0.5;
+            min-width: 70px;
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #0a1628;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1a2a4a;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #065f46;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #dce0e6;
+            color: #4a5a6f;
+        }
+
+        .btn-outline:hover {
+            border-color: #0a1628;
+            color: #0a1628;
+        }
+
+        .btn-danger {
+            background: #b91c1c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #991b1b;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 12px;
+        }
+
+        /* Tables */
+        .table-wrap {
+            max-height: 220px;
+            overflow-y: auto;
+            margin-top: 8px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.95rem;
+            font-size: 13px;
         }
 
         th {
             text-align: left;
-            background: #f0f5fb;
             padding: 8px 10px;
-            border-radius: 12px 12px 0 0;
+            background: #f8f9fa;
             font-weight: 600;
+            color: #4a5a6f;
+            position: sticky;
+            top: 0;
+            z-index: 5;
         }
 
         td {
             padding: 10px 10px;
-            border-bottom: 1px solid #eef3f9;
+            border-bottom: 1px solid #f0f2f5;
         }
 
-        input,
-        select {
-            padding: 8px 12px;
-            border-radius: 40px;
-            border: 1px solid #d0dce9;
-            background: #fafcff;
-            font-size: 0.9rem;
-            width: 100%;
-            transition: 0.2s;
+        td .currency-badge {
+            font-size: 10px;
+            background: #e8ecf0;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
         }
 
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #2a6f97;
-            box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.15);
-        }
-
-        .btn {
-            background: #1a4b6d;
-            color: white;
+        .delete-btn {
+            background: none;
             border: none;
-            padding: 10px 22px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            color: #b91c1c;
             cursor: pointer;
+            font-size: 16px;
+            opacity: 0.5;
             transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .btn:hover {
-            background: #0f3b5e;
-            transform: scale(1.01);
+        .delete-btn:hover {
+            opacity: 1;
         }
 
-        .btn-sm {
-            padding: 5px 14px;
-            font-size: 0.8rem;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #1a4b6d;
-            color: #1a4b6d;
-        }
-
-        .btn-outline:hover {
-            background: #1a4b6d;
-            color: white;
-        }
-
-        .flex-row {
+        /* Goal Items */
+        .goal-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
+            justify-content: space-between;
             align-items: center;
-            margin-top: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f2f5;
         }
 
-        .mt-3 {
-            margin-top: 18px;
+        .goal-item .goal-info {
+            display: flex;
+            flex-direction: column;
         }
 
-        .depreciate-badge {
-            background: #dbeafe;
-            padding: 2px 12px;
-            border-radius: 40px;
-            font-size: 0.75rem;
+        .goal-item .goal-name {
             font-weight: 600;
-            color: #1e4b6e;
+        }
+
+        .goal-item .goal-target {
+            font-size: 13px;
+            color: #6b7a8f;
+        }
+
+        .goal-item .goal-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: #e8ecf0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: #065f46;
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        /* Chart */
+        .chart-wrapper {
+            height: 200px;
+            margin-top: 8px;
+        }
+
+        /* History List */
+        .history-list {
+            max-height: 120px;
+            overflow-y: auto;
+            margin-top: 10px;
         }
 
         .history-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dashed #dfe8f0;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 13px;
         }
 
-        .history-item span:first-child {
-            color: #334e68;
+        .history-item .month {
+            color: #4a5a6f;
         }
 
-        .history-item span:last-child {
+        .history-item .amount {
             font-weight: 600;
         }
 
-        .chart-wrapper {
-            height: 220px;
-            margin: 15px 0;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .balance-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        @media (max-width: 750px) {
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            .top-nav {
+                padding: 12px 16px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .balance-cards {
+                grid-template-columns: 1fr;
+            }
             .two-col {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .rates-bar {
+                padding: 8px 16px;
+                gap: 16px;
+                font-size: 11px;
+            }
+            .balance-card .card-amount {
+                font-size: 24px;
+            }
+            .input-group input,
+            .input-group select {
+                min-width: 80px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .welcome-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        /* Scrollbar */
+        .table-wrap::-webkit-scrollbar,
+        .history-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .table-wrap::-webkit-scrollbar-thumb,
+        .history-list::-webkit-scrollbar-thumb {
+            background: #dce0e6;
+            border-radius: 10px;
+        }
+
+        /* Income Sources - New Section */
+        .income-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .income-source-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .income-source-item .source-name {
+            font-weight: 500;
+        }
+
+        .income-source-item .source-amount {
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .income-section {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="app">
-        <h1>💰 Dashboard Keuangan Pribadi</h1>
+    <!-- TOP NAV -->
+    <nav class="top-nav">
+        <div class="logo">Cash<span>View</span></div>
+        <div class="nav-actions">
+            <span style="font-size:13px;opacity:0.7;">🌐</span>
+            <select class="currency-selector" id="mainCurrency">
+                <option value="IDR">🇮🇩 IDR</option>
+                <option value="USD">🇺🇸 USD</option>
+                <option value="PHP">🇵🇭 PHP</option>
+            </select>
+            <button class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.2);" onclick="syncToSheet()">🔄 Sync</button>
+        </div>
+    </nav>
 
-        <!-- BALANCE, BUDGET, EXPENSES, REMAINING -->
-        <div class="grid-4">
-            <div class="card"><label>💰 Balance</label><div class="value" id="balanceDisplay">Rp0</div></div>
-            <div class="card"><label>📋 Budget Bulanan</label><div class="value" id="budgetDisplay">Rp0</div></div>
-            <div class="card"><label>📉 Total Expenses (Bulan Ini)</label><div class="value minus" id="expenseDisplay">Rp0</div></div>
-            <div class="card"><label>✅ Sisa Budget</label><div class="value plus" id="remainingDisplay">Rp0</div></div>
+    <!-- LIVE RATES BAR -->
+    <div class="rates-bar" id="ratesBar">
+        <div class="rate-item">
+            <span class="rate-label">💵 USD/IDR</span>
+            <span class="rate-value" id="usdIdrRate">--</span>
+        </div>
+        <div class="rate-item">
+            <span class="rate-label">💵 USD/PHP</span>
+            <span class="rate-value" id="usdPhpRate">--</span>
+        </div>
+        <div class="rate-item">
+            <span class="rate-label">💵 EUR/USD</span>
+            <span class="rate-value" id="eurUsdRate">--</span>
+        </div>
+        <div class="rate-item">
+            <span class="rate-label">💵 GBP/USD</span>
+            <span class="rate-value" id="gbpUsdRate">--</span>
+        </div>
+        <div class="rate-item">
+            <span class="rate-label">🪙 BTC/USD</span>
+            <span class="rate-value" id="btcUsdRate">--</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- WELCOME -->
+        <div class="welcome-section">
+            <h1>👋 Selamat Datang di CashView</h1>
+            <span class="date-display" id="dateDisplay"></span>
         </div>
 
-        <!-- DUA KOLOM: EXPENSES & ASET -->
-        <div class="two-col">
-            <!-- EXPENSES -->
-            <div class="box">
-                <h3>📆 Lacak Pengeluaran</h3>
-                <div class="flex-row">
-                    <input type="text" id="expenseDesc" placeholder="Deskripsi, misal: Makan" style="flex:2;" />
-                    <input type="number" id="expenseAmount" placeholder="Jumlah" style="flex:1;" />
-                    <input type="month" id="expenseMonth" style="flex:1;" />
-                    <button class="btn btn-sm" id="addExpenseBtn">➕ Tambah</button>
+        <!-- BALANCE CARDS - Bank of America Style -->
+        <div class="balance-cards" id="balanceCards">
+            <div class="balance-card">
+                <div class="card-label">💰 Total Balance</div>
+                <div class="card-amount" id="totalBalance">Rp0</div>
+                <div class="card-sub">
+                    <span>💼 Salary: <strong id="salaryTotal">Rp0</strong></span>
+                    <span>📈 Passive: <strong id="passiveTotal">Rp0</strong></span>
                 </div>
-                <div style="max-height:200px; overflow-y:auto; margin-top:16px;">
+                <div class="card-icon">🏦</div>
+            </div>
+            <div class="balance-card green">
+                <div class="card-label">📊 Total Aset</div>
+                <div class="card-amount" id="totalAssetDisplay">Rp0</div>
+                <div class="card-sub">
+                    <span>📉 Depresiasi/th: <strong id="depTotal">Rp0</strong></span>
+                </div>
+                <div class="card-icon">📈</div>
+            </div>
+            <div class="balance-card gold">
+                <div class="card-label">🎯 Net Worth</div>
+                <div class="card-amount" id="netWorthDisplay">Rp0</div>
+                <div class="card-sub">
+                    <span>📆 Bulan ini: <span id="monthChange" class="change positive">+0%</span></span>
+                </div>
+                <div class="card-icon">⭐</div>
+            </div>
+        </div>
+
+        <!-- QUICK STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">📋 Budget Bulanan</div>
+                <div class="stat-value" id="budgetDisplay">Rp0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">📉 Total Expenses</div>
+                <div class="stat-value negative" id="expenseDisplay">Rp0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">✅ Sisa Budget</div>
+                <div class="stat-value positive" id="remainingDisplay">Rp0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">🎯 Goals Progress</div>
+                <div class="stat-value" id="goalProgress">0%</div>
+            </div>
+        </div>
+
+        <!-- INCOME SOURCES -->
+        <div class="income-section">
+            <div class="box">
+                <div class="box-header">
+                    <h3>💼 Sumber Pendapatan</h3>
+                    <span class="badge">Balance</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="incomeSource" placeholder="Sumber (Salary, Freelance...)" style="flex:2;">
+                    <input type="number" id="incomeAmount" placeholder="Jumlah" style="flex:1;">
+                    <select id="incomeCurrency" class="currency-select-small">
+                        <option value="IDR">IDR</option>
+                        <option value="USD">USD</option>
+                        <option value="PHP">PHP</option>
+                    </select>
+                    <button class="btn btn-sm btn-success" onclick="addIncome()">➕</button>
+                </div>
+                <div id="incomeList" style="margin-top:10px;"></div>
+            </div>
+            <div class="box">
+                <div class="box-header">
+                    <h3>📊 Alokasi Budget</h3>
+                    <span class="badge">Per Bulan</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="budgetCategory" placeholder="Kategori (Makan, Transport...)" style="flex:2;">
+                    <input type="number" id="budgetAlloc" placeholder="Alokasi" style="flex:1;">
+                    <select id="budgetCurrency" class="currency-select-small">
+                        <option value="IDR">IDR</option>
+                        <option value="USD">USD</option>
+                        <option value="PHP">PHP</option>
+                    </select>
+                    <button class="btn btn-sm btn-primary" onclick="addBudgetAllocation()">➕</button>
+                </div>
+                <div id="budgetAllocList" style="margin-top:10px;"></div>
+            </div>
+        </div>
+
+        <!-- TWO COL: EXPENSES & ASSETS -->
+        <div class="two-col">
+            <div class="box">
+                <div class="box-header">
+                    <h3>📆 Lacak Pengeluaran</h3>
+                    <span class="badge" id="expenseCount">0 items</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="expenseDesc" placeholder="Deskripsi" style="flex:2;">
+                    <input type="number" id="expenseAmount" placeholder="Jumlah" style="flex:1;">
+                    <select id="expenseCurrency" class="currency-select-small">
+                        <option value="IDR">IDR</option>
+                        <option value="USD">USD</option>
+                        <option value="PHP">PHP</option>
+                    </select>
+                    <input type="month" id="expenseMonth" style="flex:1;">
+                    <button class="btn btn-sm btn-primary" onclick="addExpense()">➕</button>
+                </div>
+                <div class="table-wrap">
                     <table>
                         <thead><tr><th>Deskripsi</th><th>Bulan</th><th>Jumlah</th><th></th></tr></thead>
                         <tbody id="expenseTableBody"></tbody>
                     </table>
                 </div>
-                <div style="margin-top:12px; font-size:0.9rem; background:#f2f8ff; padding:8px 14px; border-radius:60px;">
-                    📌 Total pengeluaran bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong>
+                <div style="margin-top:12px;font-size:13px;background:#f8f9fa;padding:10px 16px;border-radius:10px;display:flex;justify-content:space-between;">
+                    <span>📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
+                    <span>📊 Budget terpakai: <strong id="budgetUsed">0%</strong></span>
                 </div>
             </div>
 
-            <!-- ASET -->
             <div class="box">
-                <h3>🏦 Aset & Penyusutan</h3>
-                <div class="flex-row">
-                    <input type="text" id="assetName" placeholder="Nama aset (BTC, Rumah, HP...)" style="flex:2;" />
-                    <input type="number" id="assetValue" placeholder="Nilai (Rp)" style="flex:1;" />
+                <div class="box-header">
+                    <h3>🏦 Aset & Penyusutan</h3>
+                    <span class="badge" id="assetCount">0 items</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="assetName" placeholder="Nama aset" style="flex:2;">
+                    <input type="number" id="assetValue" placeholder="Nilai" style="flex:1;">
+                    <select id="assetCurrency" class="currency-select-small">
+                        <option value="IDR">IDR</option>
+                        <option value="USD">USD</option>
+                        <option value="PHP">PHP</option>
+                    </select>
                     <select id="assetType" style="flex:1;">
                         <option value="bergerak">Bergerak</option>
                         <option value="tidak bergerak">Tidak Bergerak</option>
                     </select>
-                    <button class="btn btn-sm" id="addAssetBtn">➕ Tambah</button>
+                    <button class="btn btn-sm btn-primary" onclick="addAsset()">➕</button>
                 </div>
-                <div style="max-height:200px; overflow-y:auto; margin-top:16px;">
+                <div class="table-wrap">
                     <table>
                         <thead><tr><th>Nama</th><th>Jenis</th><th>Nilai</th><th>Penyusutan/th</th><th>Nilai akhir</th><th></th></tr></thead>
                         <tbody id="assetTableBody"></tbody>
                     </table>
                 </div>
-                <div style="margin-top:12px; background:#eaf4ea; padding:8px 14px; border-radius:60px; display:flex; justify-content:space-between;">
-                    <span>💰 Total Aset (sekarang): <strong id="totalAssetNow">Rp0</strong></span>
+                <div style="margin-top:12px;font-size:13px;background:#ecfdf5;padding:10px 16px;border-radius:10px;display:flex;justify-content:space-between;">
+                    <span>💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
                     <span>📉 Total penyusutan/th: <strong id="totalDepreciation">Rp0</strong></span>
                 </div>
             </div>
         </div>
 
-        <!-- GOALS & HISTORY & GRAFIK -->
+        <!-- GOALS & HISTORY/CHART -->
         <div class="two-col">
             <div class="box">
-                <h3>🎯 Goals Finansial</h3>
-                <div class="flex-row">
-                    <input type="text" id="goalName" placeholder="Goal, misal: Beli rumah" style="flex:2;" />
-                    <input type="number" id="goalTarget" placeholder="Target (Rp)" style="flex:1;" />
-                    <button class="btn btn-sm" id="addGoalBtn">➕ Set Goal</button>
+                <div class="box-header">
+                    <h3>🎯 Goals Finansial</h3>
+                    <span class="badge" id="goalCount">0 goals</span>
                 </div>
-                <div id="goalList" style="margin-top:16px;"></div>
+                <div class="input-group">
+                    <input type="text" id="goalName" placeholder="Goal" style="flex:2;">
+                    <input type="number" id="goalTarget" placeholder="Target" style="flex:1;">
+                    <select id="goalCurrency" class="currency-select-small">
+                        <option value="IDR">IDR</option>
+                        <option value="USD">USD</option>
+                        <option value="PHP">PHP</option>
+                    </select>
+                    <button class="btn btn-sm btn-success" onclick="addGoal()">➕</button>
+                </div>
+                <div id="goalList" style="margin-top:12px;"></div>
             </div>
 
             <div class="box">
-                <h3>📈 Net Worth & Grafik</h3>
-                <div class="flex-row">
-                    <button class="btn btn-sm" id="recordHistoryBtn">📌 Rekam Net Worth Bulan Ini</button>
-                    <button class="btn btn-sm btn-outline" id="resetHistoryBtn">↺ Reset History</button>
+                <div class="box-header">
+                    <h3>📈 Net Worth History</h3>
+                    <span class="badge" id="historyCount">0 months</span>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+                    <button class="btn btn-sm btn-primary" onclick="recordHistory()">📌 Rekam Bulan Ini</button>
+                    <button class="btn btn-sm btn-outline" onclick="resetHistory()">↺ Reset</button>
                 </div>
                 <div class="chart-wrapper">
                     <canvas id="wealthChart"></canvas>
                 </div>
-                <div style="max-height:130px; overflow-y:auto; font-size:0.9rem;" id="historyList">
-                    <div style="color:#6b7f93; text-align:center; padding:12px;">Belum ada history</div>
-                </div>
+                <div class="history-list" id="historyList"></div>
             </div>
         </div>
     </div>
 
     <script>
         // ============================================================
-        //  DATA
+        //  DATA STORE
         // ============================================================
-        let expenses = JSON.parse(localStorage.getItem('fp_expenses')) || [];
-        let assets = JSON.parse(localStorage.getItem('fp_assets')) || [];
-        let goals = JSON.parse(localStorage.getItem('fp_goals')) || [];
-        let history = JSON.parse(localStorage.getItem('fp_history')) || [];
+        let incomes = JSON.parse(localStorage.getItem('cv_incomes')) || [];
+        let budgetAllocs = JSON.parse(localStorage.getItem('cv_budgetAllocs')) || [];
+        let expenses = JSON.parse(localStorage.getItem('cv_expenses')) || [];
+        let assets = JSON.parse(localStorage.getItem('cv_assets')) || [];
+        let goals = JSON.parse(localStorage.getItem('cv_goals')) || [];
+        let history = JSON.parse(localStorage.getItem('cv_history')) || [];
+        let mainCurrency = localStorage.getItem('cv_mainCurrency') || 'IDR';
 
-        // default contoh data
-        if (expenses.length === 0) {
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const year = now.getFullYear();
-            const currentMonth = `${year}-${month}`;
-            expenses = [
-                { id: Date.now() + 1, desc: 'Makan siang', amount: 25000, month: currentMonth },
-                { id: Date.now() + 2, desc: 'Transport', amount: 15000, month: currentMonth },
-            ];
-        }
-        if (assets.length === 0) {
-            assets = [
-                { id: Date.now() + 3, name: 'BTC', value: 120000000, type: 'bergerak', depreciation: 5 },
-                { id: Date.now() + 4, name: 'Rumah', value: 500000000, type: 'tidak bergerak', depreciation: 2 },
-                { id: Date.now() + 5, name: 'Tabungan', value: 45000000, type: 'bergerak', depreciation: 0 },
-            ];
-        }
-        if (goals.length === 0) {
-            goals = [
-                { id: Date.now() + 6, name: 'Dana Darurat', target: 100000000 },
-                { id: Date.now() + 7, name: 'Beli Laptop', target: 15000000 },
-            ];
-        }
-        if (history.length === 0) {
-            const now = new Date();
-            const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-            const m = String(lastMonth.getMonth() + 1).padStart(2, '0');
-            const y = lastMonth.getFullYear();
-            const historyMonth = `${y}-${m}`;
-            const totalAsset = assets.reduce((sum, a) => sum + a.value, 0);
-            const totalExp = expenses.reduce((sum, e) => sum + e.amount, 0);
-            history.push({ month: historyMonth, netWorth: totalAsset - totalExp });
-        }
+        // Exchange rates (dummy fallback)
+        let rates = {
+            USD_IDR: 15500,
+            USD_PHP: 56,
+            EUR_USD: 1.08,
+            GBP_USD: 1.27,
+            BTC_USD: 60000
+        };
 
         // ============================================================
-        //  RENDER FUNCTIONS
+        //  CURRENCY HELPERS
+        // ============================================================
+        function formatCurrency(amount, currency = 'IDR') {
+            const symbols = { IDR: 'Rp', USD: '$', PHP: '₱' };
+            const symbol = symbols[currency] || currency;
+            return symbol + Number(amount).toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+
+        function convertCurrency(amount, from, to) {
+            if (from === to) return amount;
+            // Convert to USD first
+            let usd = amount;
+            if (from === 'IDR') usd = amount / rates.USD_IDR;
+            else if (from === 'PHP') usd = amount / rates.USD_PHP;
+            else if (from === 'USD') usd = amount;
+
+            // Convert from USD to target
+            if (to === 'IDR') return usd * rates.USD_IDR;
+            if (to === 'PHP') return usd * rates.USD_PHP;
+            return usd;
+        }
+
+        function getSymbol(currency) {
+            const symbols = { IDR: 'Rp', USD: '$', PHP: '₱' };
+            return symbols[currency] || currency;
+        }
+
+        // ============================================================
+        //  FETCH LIVE RATES
+        // ============================================================
+        async function fetchRates() {
+            try {
+                // Using free API - you can replace with your preferred
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await response.json();
+                rates.USD_IDR = data.rates.IDR || 15500;
+                rates.USD_PHP = data.rates.PHP || 56;
+                rates.EUR_USD = data.rates.EUR ? 1 / data.rates.EUR : 1.08;
+                rates.GBP_USD = data.rates.GBP ? 1 / data.rates.GBP : 1.27;
+                // BTC rate from another API
+                try {
+                    const btcResp = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                    const btcData = await btcResp.json();
+                    rates.BTC_USD = btcData.bitcoin.usd || 60000;
+                } catch (e) { console.log('BTC rate fallback'); }
+                updateRatesDisplay();
+            } catch (error) {
+                console.log('Using fallback rates');
+                updateRatesDisplay();
+            }
+        }
+
+        function updateRatesDisplay() {
+            document.getElementById('usdIdrRate').textContent = 'Rp ' + Math.round(rates.USD_IDR);
+            document.getElementById('usdPhpRate').textContent = '₱ ' + Math.round(rates.USD_PHP);
+            document.getElementById('eurUsdRate').textContent = '$ ' + rates.EUR_USD.toFixed(2);
+            document.getElementById('gbpUsdRate').textContent = '$ ' + rates.GBP_USD.toFixed(2);
+            document.getElementById('btcUsdRate').textContent = '$ ' + Math.round(rates.BTC_USD).toLocaleString();
+        }
+
+        // ============================================================
+        //  CORE FUNCTIONS
         // ============================================================
         function getCurrentMonth() {
             const d = new Date();
             return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
         }
 
-        function formatRp(num) {
-            return 'Rp' + Number(num).toLocaleString('id-ID');
+        function getTotalIncome(currency = mainCurrency) {
+            let total = 0;
+            incomes.forEach(inc => {
+                const converted = convertCurrency(inc.amount, inc.currency, currency);
+                total += converted;
+            });
+            return total;
         }
 
-        function getMonthlyExpenses(month) {
-            return expenses.filter(e => e.month === month);
+        function getTotalBudget(currency = mainCurrency) {
+            let total = 0;
+            budgetAllocs.forEach(b => {
+                const converted = convertCurrency(b.amount, b.currency, currency);
+                total += converted;
+            });
+            return total;
         }
 
-        function getTotalExpenses(month) {
-            return getMonthlyExpenses(month).reduce((sum, e) => sum + e.amount, 0);
+        function getTotalExpenses(month, currency = mainCurrency) {
+            const monthExp = expenses.filter(e => e.month === month);
+            let total = 0;
+            monthExp.forEach(e => {
+                const converted = convertCurrency(e.amount, e.currency, currency);
+                total += converted;
+            });
+            return total;
         }
 
-        function getTotalAssetValue() {
-            return assets.reduce((sum, a) => sum + a.value, 0);
+        function getTotalAssetValue(currency = mainCurrency) {
+            let total = 0;
+            assets.forEach(a => {
+                const converted = convertCurrency(a.value, a.currency, currency);
+                total += converted;
+            });
+            return total;
         }
 
-        function getTotalDepreciationPerYear() {
-            return assets.reduce((sum, a) => sum + (a.value * a.depreciation / 100), 0);
+        function getTotalDepreciation(currency = mainCurrency) {
+            let total = 0;
+            assets.forEach(a => {
+                const dep = a.value * a.depreciation / 100;
+                const converted = convertCurrency(dep, a.currency, currency);
+                total += converted;
+            });
+            return total;
         }
 
-        function getNetWorth() {
-            const totalAsset = getTotalAssetValue();
-            const totalExp = getTotalExpenses(getCurrentMonth());
+        function getNetWorth(currency = mainCurrency) {
+            const totalAsset = getTotalAssetValue(currency);
+            const totalExp = getTotalExpenses(getCurrentMonth(), currency);
             return totalAsset - totalExp;
         }
 
-        function getBudget() {
-            // budget = 30% dari total aset (contoh logika)
-            const totalAsset = getTotalAssetValue();
-            return totalAsset * 0.3;
-        }
-
-        // render semua
-        function renderAll() {
-            const currentMonth = getCurrentMonth();
-            const totalExpenses = getTotalExpenses(currentMonth);
-            const balance = getNetWorth();
-            const budget = getBudget();
-            const remaining = budget - totalExpenses;
-
-            document.getElementById('balanceDisplay').innerText = formatRp(balance);
-            document.getElementById('budgetDisplay').innerText = formatRp(budget);
-            document.getElementById('expenseDisplay').innerText = formatRp(totalExpenses);
-            document.getElementById('remainingDisplay').innerText = formatRp(remaining);
-            document.getElementById('monthlyExpenseTotal').innerText = formatRp(totalExpenses);
-
-            // render tabel expense
-            const tbody = document.getElementById('expenseTableBody');
-            tbody.innerHTML = '';
-            const sorted = [...expenses].sort((a, b) => a.month.localeCompare(b.month) || a.id - b.id);
-            sorted.forEach(exp => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                <td>${exp.desc}</td>
-                <td>${exp.month}</td>
-                <td>${formatRp(exp.amount)}</td>
-                <td><button class="btn btn-sm btn-outline" data-id="${exp.id}" onclick="deleteExpense(${exp.id})">✕</button></td>
-              `;
-                tbody.appendChild(tr);
+        function getGoalProgress() {
+            if (goals.length === 0) return 0;
+            let totalTarget = 0;
+            let totalProgress = 0;
+            goals.forEach(g => {
+                const target = convertCurrency(g.target, g.currency, mainCurrency);
+                totalTarget += target;
+                // Progress based on net worth / target
+                const netWorth = getNetWorth(mainCurrency);
+                totalProgress += Math.min(netWorth / target, 1);
             });
-
-            // render asset
-            const assetTbody = document.getElementById('assetTableBody');
-            assetTbody.innerHTML = '';
-            assets.forEach(a => {
-                const depValue = a.value * a.depreciation / 100;
-                const finalVal = a.value - depValue;
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                <td>${a.name}</td>
-                <td>${a.type}</td>
-                <td>${formatRp(a.value)}</td>
-                <td>${a.depreciation}%</td>
-                <td>${formatRp(finalVal)}</td>
-                <td><button class="btn btn-sm btn-outline" data-id="${a.id}" onclick="deleteAsset(${a.id})">✕</button></td>
-              `;
-                assetTbody.appendChild(tr);
-            });
-
-            document.getElementById('totalAssetNow').innerText = formatRp(getTotalAssetValue());
-            document.getElementById('totalDepreciation').innerText = formatRp(getTotalDepreciationPerYear());
-
-            // render goals
-            const goalDiv = document.getElementById('goalList');
-            if (goals.length === 0) {
-                goalDiv.innerHTML = '<div style="color:#6b7f93;">Belum ada goals</div>';
-            } else {
-                goalDiv.innerHTML = goals.map(g => `
-                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #eef3f9;">
-                  <span>🎯 ${g.name}</span>
-                  <span><strong>${formatRp(g.target)}</strong> 
-                    <button class="btn btn-sm btn-outline" onclick="deleteGoal(${g.id})">✕</button>
-                  </span>
-                </div>
-              `).join('');
-            }
-
-            // history & grafik
-            renderHistoryAndChart();
-
-            // simpan ke localStorage
-            localStorage.setItem('fp_expenses', JSON.stringify(expenses));
-            localStorage.setItem('fp_assets', JSON.stringify(assets));
-            localStorage.setItem('fp_goals', JSON.stringify(goals));
-            localStorage.setItem('fp_history', JSON.stringify(history));
+            return Math.round((totalProgress / goals.length) * 100);
         }
 
         // ============================================================
-        //  HISTORY & CHART
+        //  RENDER ALL
+        // ============================================================
+        function renderAll() {
+            const currentMonth = getCurrentMonth();
+            const currency = mainCurrency;
+
+            // Get totals
+            const totalIncome = getTotalIncome(currency);
+            const totalBudget = getTotalBudget(currency);
+            const totalExp = getTotalExpenses(currentMonth, currency);
+            const totalAsset = getTotalAssetValue(currency);
+            const totalDep = getTotalDepreciation(currency);
+            const netWorth = getNetWorth(currency);
+            const remaining = totalBudget - totalExp;
+            const goalProgress = getGoalProgress();
+
+            // Update Balance Cards
+            document.getElementById('totalBalance').textContent = formatCurrency(totalIncome, currency);
+            document.getElementById('salaryTotal').textContent = formatCurrency(
+                incomes.filter(i => i.type === 'salary').reduce((s, i) => s + convertCurrency(i.amount, i.currency,
+                currency), 0),
+                currency
+            );
+            document.getElementById('passiveTotal').textContent = formatCurrency(
+                incomes.filter(i => i.type === 'passive').reduce((s, i) => s + convertCurrency(i.amount, i.currency,
+                currency), 0),
+                currency
+            );
+            document.getElementById('totalAssetDisplay').textContent = formatCurrency(totalAsset, currency);
+            document.getElementById('depTotal').textContent = formatCurrency(totalDep, currency);
+            document.getElementById('netWorthDisplay').textContent = formatCurrency(netWorth, currency);
+
+            // Update Stats
+            document.getElementById('budgetDisplay').textContent = formatCurrency(totalBudget, currency);
+            document.getElementById('expenseDisplay').textContent = formatCurrency(totalExp, currency);
+            document.getElementById('remainingDisplay').textContent = formatCurrency(remaining, currency);
+            document.getElementById('goalProgress').textContent = goalProgress + '%';
+
+            // Monthly expense total
+            document.getElementById('monthlyExpenseTotal').textContent = formatCurrency(totalExp, currency);
+            const budgetUsed = totalBudget > 0 ? Math.round((totalExp / totalBudget) * 100) : 0;
+            document.getElementById('budgetUsed').textContent = budgetUsed + '%';
+
+            // Income List
+            renderIncomeList();
+            // Budget Allocation List
+            renderBudgetAllocList();
+            // Expense Table
+            renderExpenseTable();
+            // Asset Table
+            renderAssetTable();
+            // Goal List
+            renderGoalList();
+            // History & Chart
+            renderHistoryAndChart();
+
+            // Update counts
+            document.getElementById('expenseCount').textContent = expenses.length + ' items';
+            document.getElementById('assetCount').textContent = assets.length + ' items';
+            document.getElementById('goalCount').textContent = goals.length + ' goals';
+            document.getElementById('historyCount').textContent = history.length + ' months';
+
+            // Date
+            const now = new Date();
+            document.getElementById('dateDisplay').textContent = now.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Save to localStorage
+            localStorage.setItem('cv_incomes', JSON.stringify(incomes));
+            localStorage.setItem('cv_budgetAllocs', JSON.stringify(budgetAllocs));
+            localStorage.setItem('cv_expenses', JSON.stringify(expenses));
+            localStorage.setItem('cv_assets', JSON.stringify(assets));
+            localStorage.setItem('cv_goals', JSON.stringify(goals));
+            localStorage.setItem('cv_history', JSON.stringify(history));
+            localStorage.setItem('cv_mainCurrency', mainCurrency);
+        }
+
+        // ============================================================
+        //  RENDER: INCOME
+        // ============================================================
+        function renderIncomeList() {
+            const div = document.getElementById('incomeList');
+            if (incomes.length === 0) {
+                div.innerHTML = '<div style="color:#6b7a8f;font-size:13px;text-align:center;padding:8px;">Belum ada sumber pendapatan</div>';
+                return;
+            }
+            div.innerHTML = incomes.map((inc, idx) => `
+                <div class="income-source-item">
+                    <span class="source-name">${inc.source}</span>
+                    <span class="source-amount">${formatCurrency(inc.amount, inc.currency)} 
+                        <button class="delete-btn" onclick="deleteIncome(${idx})">✕</button>
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function renderBudgetAllocList() {
+            const div = document.getElementById('budgetAllocList');
+            if (budgetAllocs.length === 0) {
+                div.innerHTML = '<div style="color:#6b7a8f;font-size:13px;text-align:center;padding:8px;">Belum ada alokasi budget</div>';
+                return;
+            }
+            div.innerHTML = budgetAllocs.map((b, idx) => `
+                <div class="income-source-item">
+                    <span class="source-name">${b.category}</span>
+                    <span class="source-amount">${formatCurrency(b.amount, b.currency)}
+                        <button class="delete-btn" onclick="deleteBudgetAlloc(${idx})">✕</button>
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        // ============================================================
+        //  RENDER: EXPENSES
+        // ============================================================
+        function renderExpenseTable() {
+            const tbody = document.getElementById('expenseTableBody');
+            if (expenses.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#6b7a8f;padding:20px;">Belum ada pengeluaran</td></tr>';
+                return;
+            }
+            const sorted = [...expenses].sort((a, b) => a.month.localeCompare(b.month) || a.id - b.id);
+            tbody.innerHTML = sorted.map(e => `
+                <tr>
+                    <td>${e.desc}</td>
+                    <td>${e.month}</td>
+                    <td>${formatCurrency(e.amount, e.currency)}</td>
+                    <td><button class="delete-btn" onclick="deleteExpense(${e.id})">✕</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================================
+        //  RENDER: ASSETS
+        // ============================================================
+        function renderAssetTable() {
+            const tbody = document.getElementById('assetTableBody');
+            if (assets.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6b7a8f;padding:20px;">Belum ada aset</td></tr>';
+                return;
+            }
+            tbody.innerHTML = assets.map(a => {
+                const depValue = a.value * a.depreciation / 100;
+                const finalVal = a.value - depValue;
+                return `
+                    <tr>
+                        <td>${a.name}</td>
+                        <td>${a.type}</td>
+                        <td>${formatCurrency(a.value, a.currency)}</td>
+                        <td>${a.depreciation}%</td>
+                        <td>${formatCurrency(finalVal, a.currency)}</td>
+                        <td><button class="delete-btn" onclick="deleteAsset(${a.id})">✕</button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        //  RENDER: GOALS
+        // ============================================================
+        function renderGoalList() {
+            const div = document.getElementById('goalList');
+            if (goals.length === 0) {
+                div.innerHTML = '<div style="color:#6b7a8f;font-size:13px;text-align:center;padding:8px;">Belum ada goals</div>';
+                return;
+            }
+            const netWorth = getNetWorth(mainCurrency);
+            div.innerHTML = goals.map(g => {
+                const targetInMain = convertCurrency(g.target, g.currency, mainCurrency);
+                const progress = Math.min((netWorth / targetInMain) * 100, 100);
+                return `
+                    <div class="goal-item">
+                        <div class="goal-info">
+                            <span class="goal-name">${g.name}</span>
+                            <span class="goal-target">Target: ${formatCurrency(g.target, g.currency)}</span>
+                        </div>
+                        <div class="goal-progress">
+                            <div class="progress-bar">
+                                <div class="fill" style="width:${progress}%"></div>
+                            </div>
+                            <span style="font-size:12px;font-weight:600;min-width:40px;">${Math.round(progress)}%</span>
+                            <button class="delete-btn" onclick="deleteGoal(${g.id})">✕</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        //  RENDER: HISTORY & CHART
         // ============================================================
         let chartInstance = null;
 
         function renderHistoryAndChart() {
             const historyDiv = document.getElementById('historyList');
             if (history.length === 0) {
-                historyDiv.innerHTML = '<div style="color:#6b7f93; text-align:center; padding:12px;">Belum ada history</div>';
+                historyDiv.innerHTML = '<div style="color:#6b7a8f;font-size:13px;text-align:center;padding:8px;">Belum ada history</div>';
                 if (chartInstance) { chartInstance.destroy();
                     chartInstance = null; }
                 return;
@@ -489,10 +1185,13 @@
 
             const sorted = [...history].sort((a, b) => a.month.localeCompare(b.month));
             historyDiv.innerHTML = sorted.map(h =>
-                `<div class="history-item"><span>${h.month}</span><span>${formatRp(h.netWorth)}</span></div>`
+                `<div class="history-item">
+                    <span class="month">${h.month}</span>
+                    <span class="amount">${formatCurrency(h.netWorth, mainCurrency)}</span>
+                </div>`
             ).join('');
 
-            // grafik
+            // Chart
             const ctx = document.getElementById('wealthChart').getContext('2d');
             if (chartInstance) chartInstance.destroy();
 
@@ -506,11 +1205,12 @@
                     datasets: [{
                         label: 'Net Worth',
                         data: data,
-                        backgroundColor: 'rgba(42,111,151,0.08)',
-                        borderColor: '#1a4b6d',
+                        backgroundColor: 'rgba(10,22,40,0.06)',
+                        borderColor: '#0a1628',
                         borderWidth: 3,
-                        pointBackgroundColor: '#2a6f97',
-                        tension: 0.2,
+                        pointBackgroundColor: '#0a1628',
+                        pointRadius: 4,
+                        tension: 0.3,
                         fill: true,
                     }]
                 },
@@ -523,7 +1223,9 @@
                     scales: {
                         y: {
                             beginAtZero: false,
-                            ticks: { callback: v => 'Rp' + (v / 1000000).toFixed(1) + 'jt' }
+                            ticks: {
+                                callback: v => formatCurrency(v, mainCurrency)
+                            }
                         }
                     }
                 }
@@ -533,97 +1235,159 @@
         // ============================================================
         //  CRUD OPERATIONS
         // ============================================================
-        window.deleteExpense = function(id) {
-            if (confirm('Hapus pengeluaran?')) {
-                expenses = expenses.filter(e => e.id !== id);
-                renderAll();
-            }
-        }
 
-        window.deleteAsset = function(id) {
-            if (confirm('Hapus aset?')) {
-                assets = assets.filter(a => a.id !== id);
-                renderAll();
-            }
-        }
-
-        window.deleteGoal = function(id) {
-            goals = goals.filter(g => g.id !== id);
+        // INCOME
+        function addIncome() {
+            const source = document.getElementById('incomeSource').value.trim();
+            const amount = parseFloat(document.getElementById('incomeAmount').value);
+            const currency = document.getElementById('incomeCurrency').value;
+            if (!source || isNaN(amount) || amount <= 0) { alert('Isi sumber dan jumlah dengan benar'); return; }
+            // Auto-detect type
+            const type = source.toLowerCase().includes('salary') || source.toLowerCase().includes('gaji') ? 'salary' :
+                'passive';
+            incomes.push({ source, amount, currency, type });
+            document.getElementById('incomeSource').value = '';
+            document.getElementById('incomeAmount').value = '';
             renderAll();
         }
 
-        // tambah expense
-        document.getElementById('addExpenseBtn').addEventListener('click', function() {
+        function deleteIncome(idx) {
+            if (confirm('Hapus sumber pendapatan ini?')) { incomes.splice(idx, 1);
+                renderAll(); }
+        }
+
+        // BUDGET ALLOCATION
+        function addBudgetAllocation() {
+            const category = document.getElementById('budgetCategory').value.trim();
+            const amount = parseFloat(document.getElementById('budgetAlloc').value);
+            const currency = document.getElementById('budgetCurrency').value;
+            if (!category || isNaN(amount) || amount <= 0) { alert('Isi kategori dan alokasi dengan benar'); return; }
+            budgetAllocs.push({ category, amount, currency });
+            document.getElementById('budgetCategory').value = '';
+            document.getElementById('budgetAlloc').value = '';
+            renderAll();
+        }
+
+        function deleteBudgetAlloc(idx) {
+            if (confirm('Hapus alokasi budget ini?')) { budgetAllocs.splice(idx, 1);
+                renderAll(); }
+        }
+
+        // EXPENSES
+        function addExpense() {
             const desc = document.getElementById('expenseDesc').value.trim();
             const amount = parseFloat(document.getElementById('expenseAmount').value);
+            const currency = document.getElementById('expenseCurrency').value;
             const month = document.getElementById('expenseMonth').value || getCurrentMonth();
-            if (!desc || isNaN(amount) || amount <= 0) {
-                alert('Isi deskripsi dan jumlah dengan benar');
-                return;
-            }
-            expenses.push({ id: Date.now(), desc, amount, month });
+            if (!desc || isNaN(amount) || amount <= 0) { alert('Isi deskripsi dan jumlah dengan benar'); return; }
+            expenses.push({ id: Date.now(), desc, amount, currency, month });
             document.getElementById('expenseDesc').value = '';
             document.getElementById('expenseAmount').value = '';
             renderAll();
-        });
+        }
 
-        // tambah aset
-        document.getElementById('addAssetBtn').addEventListener('click', function() {
+        function deleteExpense(id) {
+            if (confirm('Hapus pengeluaran?')) { expenses = expenses.filter(e => e.id !== id);
+                renderAll(); }
+        }
+
+        // ASSETS
+        function addAsset() {
             const name = document.getElementById('assetName').value.trim();
             const value = parseFloat(document.getElementById('assetValue').value);
+            const currency = document.getElementById('assetCurrency').value;
             const type = document.getElementById('assetType').value;
-            if (!name || isNaN(value) || value <= 0) {
-                alert('Isi nama dan nilai aset dengan benar');
-                return;
-            }
-            // default depresiasi: bergerak 5%, tidak bergerak 2%
+            if (!name || isNaN(value) || value <= 0) { alert('Isi nama dan nilai aset dengan benar'); return; }
             const depreciation = type === 'bergerak' ? 5 : 2;
-            assets.push({ id: Date.now(), name, value, type, depreciation });
+            assets.push({ id: Date.now(), name, value, currency, type, depreciation });
             document.getElementById('assetName').value = '';
             document.getElementById('assetValue').value = '';
             renderAll();
-        });
+        }
 
-        // tambah goal
-        document.getElementById('addGoalBtn').addEventListener('click', function() {
+        function deleteAsset(id) {
+            if (confirm('Hapus aset?')) { assets = assets.filter(a => a.id !== id);
+                renderAll(); }
+        }
+
+        // GOALS
+        function addGoal() {
             const name = document.getElementById('goalName').value.trim();
             const target = parseFloat(document.getElementById('goalTarget').value);
-            if (!name || isNaN(target) || target <= 0) {
-                alert('Isi nama goal dan target dengan benar');
-                return;
-            }
-            goals.push({ id: Date.now(), name, target });
+            const currency = document.getElementById('goalCurrency').value;
+            if (!name || isNaN(target) || target <= 0) { alert('Isi nama goal dan target dengan benar'); return; }
+            goals.push({ id: Date.now(), name, target, currency });
             document.getElementById('goalName').value = '';
             document.getElementById('goalTarget').value = '';
             renderAll();
-        });
+        }
 
-        // rekam history
-        document.getElementById('recordHistoryBtn').addEventListener('click', function() {
+        function deleteGoal(id) {
+            if (confirm('Hapus goal?')) { goals = goals.filter(g => g.id !== id);
+                renderAll(); }
+        }
+
+        // HISTORY
+        function recordHistory() {
             const currentMonth = getCurrentMonth();
-            // cek apakah bulan ini sudah ada
             if (history.some(h => h.month === currentMonth)) {
                 if (!confirm(`History untuk ${currentMonth} sudah ada. Timpa?`)) return;
                 history = history.filter(h => h.month !== currentMonth);
             }
-            const netWorth = getNetWorth();
-            history.push({ month: currentMonth, netWorth });
+            const netWorth = getNetWorth(mainCurrency);
+            history.push({ month: currentMonth, netWorth: netWorth });
+            renderAll();
+        }
+
+        function resetHistory() {
+            if (confirm('Hapus semua history net worth?')) { history = [];
+                renderAll(); }
+        }
+
+        // ============================================================
+        //  SYNC TO SHEET (placeholder)
+        // ============================================================
+        function syncToSheet() {
+            alert('🔗 Sync ke Google Sheets: ' + JSON.stringify({
+                incomes: incomes.length,
+                expenses: expenses.length,
+                assets: assets.length,
+                goals: goals.length,
+                history: history.length
+            }, null, 2));
+        }
+
+        // ============================================================
+        //  CURRENCY CHANGE
+        // ============================================================
+        document.getElementById('mainCurrency').addEventListener('change', function() {
+            mainCurrency = this.value;
+            localStorage.setItem('cv_mainCurrency', mainCurrency);
             renderAll();
         });
 
-        // reset history
-        document.getElementById('resetHistoryBtn').addEventListener('click', function() {
-            if (confirm('Hapus semua history net worth?')) {
-                history = [];
-                renderAll();
-            }
-        });
+        // ============================================================
+        //  INIT
+        // ============================================================
+        function init() {
+            // Set default month
+            document.getElementById('expenseMonth').value = getCurrentMonth();
 
-        // set default month input
-        document.getElementById('expenseMonth').value = getCurrentMonth();
+            // Set main currency selector
+            document.getElementById('mainCurrency').value = mainCurrency;
 
-        // INIT
-        renderAll();
+            // Fetch live rates
+            fetchRates();
+            // Refresh rates every 5 minutes
+            setInterval(fetchRates, 300000);
+
+            // Render all
+            renderAll();
+        }
+
+        // Run
+        document.addEventListener('DOMContentLoaded', init);
     </script>
+
 </body>
 </html>
