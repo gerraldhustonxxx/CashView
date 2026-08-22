@@ -237,7 +237,9 @@
 </head>
 <body>
 
-<!-- AUTH PAGE -->
+<!-- ============================================================
+AUTH PAGE
+============================================================ -->
 <div class="auth-page active" id="authPage">
     <div class="auth-container">
         <div class="auth-logo">
@@ -281,7 +283,9 @@
     <p id="loadingText">Memuat data...</p>
 </div>
 
-<!-- DASHBOARD -->
+<!-- ============================================================
+DASHBOARD
+============================================================ -->
 <div class="dashboard" id="dashboard">
     <nav class="top-nav">
         <div class="logo"><i class="fas fa-wallet"></i> Cash<span>View</span></div>
@@ -477,8 +481,8 @@
             </div>
         </div>
 
-        <!-- HIDDEN ELEMENTS - FIX ERROR -->
-        <div id="hiddenElements" style="display:none;">
+        <!-- HIDDEN ELEMENTS UNTUK FIX ERROR -->
+        <div style="display:none;">
             <div id="monthlyExpenseTotal"></div>
             <div id="budgetUsed"></div>
             <div id="biggestExpense"></div>
@@ -486,6 +490,13 @@
             <div id="totalDepreciation"></div>
             <div id="totalPaymentAmount"></div>
             <div id="paymentProgress"></div>
+            <div id="salaryTotal"></div>
+            <div id="passiveTotal"></div>
+            <div id="depTotal"></div>
+            <div id="budgetUsedPercent"></div>
+            <div id="remainingBudgetDisplay"></div>
+            <div id="liabilityCount"></div>
+            <div id="paymentCount"></div>
         </div>
 
         <!-- REPORT -->
@@ -517,7 +528,28 @@
     //  CONFIGURATION
     // ============================================================
     // GANTI DENGAN URL WEB APP ANDA
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxtTpmvnkXsD-gxDtWoOzqKhiQASE8W9GQ6S0RJjkVH5rGAiJxBx7ydgU-bFBo2sF00aw/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbw6f1jGd39MvfMtNPVOxSlUZsGq_sKdi1xuoawOALwqqK-oQ1MPI3TKd-dyFodeRH8zDw/exec';
+
+    // ============================================================
+    //  HELPER FUNCTION - AMAN UNTUK SET ELEMENT
+    // ============================================================
+    function setElementText(id, text) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.textContent = text;
+            return true;
+        }
+        return false;
+    }
+
+    function setElementHTML(id, html) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.innerHTML = html;
+            return true;
+        }
+        return false;
+    }
 
     // ============================================================
     //  STATE
@@ -788,103 +820,103 @@
 
     function applyLanguage() {
         var t = LANGUAGES[lang] || LANGUAGES.id;
-        document.getElementById('authSubtitle').textContent = t.authSubtitle;
-        document.getElementById('authLoginTab').textContent = t.loginTab;
-        document.getElementById('authRegisterTab').textContent = t.registerTab;
-        document.getElementById('loginEmailLabel').textContent = t.loginEmailLabel;
-        document.getElementById('loginPasswordLabel').textContent = t.loginPasswordLabel;
-        document.getElementById('registerNameLabel').textContent = t.registerNameLabel;
-        document.getElementById('registerEmailLabel').textContent = t.registerEmailLabel;
-        document.getElementById('registerPasswordLabel').textContent = t.registerPasswordLabel;
-        document.getElementById('registerConfirmLabel').textContent = t.registerConfirmLabel;
-        document.getElementById('loginBtn').textContent = t.loginBtn;
-        document.getElementById('registerBtn').textContent = t.registerBtn;
-        document.getElementById('guestText').textContent = t.guestText;
-        document.getElementById('authLanguage').value = lang;
-        document.getElementById('exportText').textContent = t.exportText;
-        document.getElementById('syncText').textContent = t.syncText;
-        document.getElementById('logoutText').textContent = t.logoutText;
-        document.getElementById('recordText').textContent = t.recordText;
-        document.getElementById('welcomeTitle').textContent = t.welcome;
-        document.getElementById('labelTotalBalance').textContent = t.totalBalance;
-        document.getElementById('labelTotalAsset').textContent = t.totalAsset;
-        document.getElementById('labelTotalLiability').textContent = t.totalLiability;
-        document.getElementById('labelTotalPayments').textContent = t.totalPayments;
-        document.getElementById('labelNetWorth').textContent = t.netWorth;
-        document.getElementById('labelMonthlyBudget').textContent = t.monthlyBudget;
-        document.getElementById('labelSalary').innerHTML = t.salary + ': <strong id="salaryTotal">Rp0</strong>';
-        document.getElementById('labelPassive').innerHTML = t.passive + ': <strong id="passiveTotal">Rp0</strong>';
-        document.getElementById('labelDepreciation').innerHTML = t.depreciation + ': <strong id="depTotal">Rp0</strong>';
-        document.getElementById('labelBudgetUsed').innerHTML = t.budgetUsed + ': <strong id="budgetUsedPercent">0%</strong>';
-        document.getElementById('labelRemainingBudget').innerHTML = t.remainingBudget + ': <strong id="remainingBudgetDisplay">Rp0</strong>';
-        document.getElementById('labelNetWorthDetail').textContent = t.netWorthDetail;
-        document.getElementById('labelLiabilityCount').innerHTML = '📝 <strong id="liabilityCount">0</strong> ' + t.liabilityCount;
-        document.getElementById('labelPaymentCount').innerHTML = '📝 <strong id="paymentCount">0</strong> ' + t.paymentCount;
-        document.getElementById('statLabelTotalIncome').textContent = t.totalIncome;
-        document.getElementById('statLabelTotalExpenses').textContent = t.totalExpenses;
-        document.getElementById('statLabelMonthlyAverage').textContent = t.monthlyAverage;
-        document.getElementById('statLabelBiggestExpense').textContent = t.biggestExpense;
-        document.getElementById('statLabelGoalProgress').textContent = t.goalProgress;
-        document.getElementById('statLabelTransactionCount').textContent = t.transactionCount;
-        document.getElementById('incomeTitle').textContent = t.incomeTitle;
-        document.getElementById('budgetTitle').textContent = t.budgetTitle;
-        document.getElementById('liabilityTitle').textContent = t.liabilityTitle;
-        document.getElementById('paymentTitle').textContent = t.paymentTitle;
-        document.getElementById('expenseTitle').textContent = t.expenseTitle;
-        document.getElementById('assetTitle').textContent = t.assetTitle;
-        document.getElementById('goalTitle').textContent = t.goalTitle;
-        document.getElementById('historyTitle').textContent = t.historyTitle;
-        document.getElementById('incomeSource').placeholder = t.incomePlaceholder;
-        document.getElementById('incomeAmount').placeholder = t.incomeAmount;
-        document.getElementById('budgetCategory').placeholder = t.budgetPlaceholder;
-        document.getElementById('budgetAlloc').placeholder = t.budgetAlloc;
-        document.getElementById('liabilityName').placeholder = t.liabilityPlaceholder;
-        document.getElementById('liabilityAmount').placeholder = t.liabilityAmount;
-        document.getElementById('liabilityInterest').placeholder = t.liabilityInterest;
-        document.getElementById('paymentAmount').placeholder = t.paymentAmount;
-        document.getElementById('expenseDesc').placeholder = t.expenseDesc;
-        document.getElementById('expenseAmount').placeholder = t.expenseAmount;
-        document.getElementById('assetName').placeholder = t.assetName;
-        document.getElementById('assetValue').placeholder = t.assetValue;
-        document.getElementById('goalName').placeholder = t.goalName;
-        document.getElementById('goalTarget').placeholder = t.goalTarget;
-        document.getElementById('goalDeadline').placeholder = t.goalDeadline;
-        document.getElementById('paymentInfo').textContent = t.paymentInfo;
-        document.getElementById('thDate').textContent = t.date;
-        document.getElementById('thDesc').textContent = t.desc;
-        document.getElementById('thCategory').textContent = t.category;
-        document.getElementById('thAmount').textContent = t.amount;
-        document.getElementById('assetThName').textContent = t.name;
-        document.getElementById('assetThType').textContent = t.type;
-        document.getElementById('assetThValue').textContent = t.value;
-        document.getElementById('assetThDep').textContent = t.dep;
-        document.getElementById('assetThFinal').textContent = t.final;
-        document.getElementById('paymentThDate').textContent = t.date;
-        document.getElementById('paymentThDebt').textContent = t.debt;
-        document.getElementById('paymentThAmount').textContent = t.amount;
-        document.getElementById('monthlyTotalLabel').innerHTML = t.monthlyTotal + ': <strong id="monthlyExpenseTotal">Rp0</strong>';
-        document.getElementById('budgetUsedLabel').innerHTML = t.budgetUsedLabel + ': <strong id="budgetUsed">0%</strong>';
-        document.getElementById('biggestLabel').innerHTML = t.biggestLabel + ': <strong id="biggestExpense">-</strong>';
-        document.getElementById('totalAssetLabel').innerHTML = t.totalAssetLabel + ': <strong id="totalAssetNow">Rp0</strong>';
-        document.getElementById('totalDepLabel').innerHTML = t.totalDepLabel + ': <strong id="totalDepreciation">Rp0</strong>';
-        document.getElementById('totalPaymentLabel').innerHTML = t.totalPaymentLabel + ': <strong id="totalPaymentAmount">Rp0</strong>';
-        document.getElementById('paymentProgressLabel').innerHTML = t.paymentProgressLabel + ': <strong id="paymentProgress">0%</strong>';
-        document.getElementById('recordBtn').innerHTML = '<i class="fas fa-save"></i> ' + t.recordBtn;
-        document.getElementById('resetBtn').innerHTML = '<i class="fas fa-undo"></i> ' + t.resetBtn;
-        document.getElementById('recordBtnNav').innerHTML = '<i class="fas fa-save"></i> <span id="recordText">' + t.recordText + '</span>';
-        document.getElementById('reportTitle').textContent = t.reportTitle;
-        document.getElementById('reportSummary').textContent = t.reportSummary;
-        document.getElementById('reportBalance').textContent = t.reportBalance;
-        document.getElementById('reportIncome').textContent = t.reportIncome;
-        document.getElementById('reportExpenses').textContent = t.reportExpenses;
-        document.getElementById('reportNetWorth').textContent = t.reportNetWorth;
-        document.getElementById('reportAssets').textContent = t.reportAssets;
-        document.getElementById('reportLiabilities').textContent = t.reportLiabilities;
-        document.getElementById('reportCategories').textContent = t.reportCategories;
-        document.getElementById('reportGoals').textContent = t.reportGoals;
-        document.getElementById('reportFooter').textContent = t.reportFooter;
-        document.getElementById('loadingText').textContent = t.loading;
-        document.getElementById('languageSelector').value = lang;
+        setElementText('authSubtitle', t.authSubtitle);
+        setElementText('authLoginTab', t.loginTab);
+        setElementText('authRegisterTab', t.registerTab);
+        setElementText('loginEmailLabel', t.loginEmailLabel);
+        setElementText('loginPasswordLabel', t.loginPasswordLabel);
+        setElementText('registerNameLabel', t.registerNameLabel);
+        setElementText('registerEmailLabel', t.registerEmailLabel);
+        setElementText('registerPasswordLabel', t.registerPasswordLabel);
+        setElementText('registerConfirmLabel', t.registerConfirmLabel);
+        setElementText('loginBtn', t.loginBtn);
+        setElementText('registerBtn', t.registerBtn);
+        setElementText('guestText', t.guestText);
+        if (document.getElementById('authLanguage')) document.getElementById('authLanguage').value = lang;
+        setElementText('exportText', t.exportText);
+        setElementText('syncText', t.syncText);
+        setElementText('logoutText', t.logoutText);
+        setElementText('recordText', t.recordText);
+        setElementText('welcomeTitle', t.welcome);
+        setElementText('labelTotalBalance', t.totalBalance);
+        setElementText('labelTotalAsset', t.totalAsset);
+        setElementText('labelTotalLiability', t.totalLiability);
+        setElementText('labelTotalPayments', t.totalPayments);
+        setElementText('labelNetWorth', t.netWorth);
+        setElementText('labelMonthlyBudget', t.monthlyBudget);
+        if (document.getElementById('labelSalary')) document.getElementById('labelSalary').innerHTML = t.salary + ': <strong id="salaryTotal">Rp0</strong>';
+        if (document.getElementById('labelPassive')) document.getElementById('labelPassive').innerHTML = t.passive + ': <strong id="passiveTotal">Rp0</strong>';
+        if (document.getElementById('labelDepreciation')) document.getElementById('labelDepreciation').innerHTML = t.depreciation + ': <strong id="depTotal">Rp0</strong>';
+        if (document.getElementById('labelBudgetUsed')) document.getElementById('labelBudgetUsed').innerHTML = t.budgetUsed + ': <strong id="budgetUsedPercent">0%</strong>';
+        if (document.getElementById('labelRemainingBudget')) document.getElementById('labelRemainingBudget').innerHTML = t.remainingBudget + ': <strong id="remainingBudgetDisplay">Rp0</strong>';
+        setElementText('labelNetWorthDetail', t.netWorthDetail);
+        if (document.getElementById('labelLiabilityCount')) document.getElementById('labelLiabilityCount').innerHTML = '📝 <strong id="liabilityCount">0</strong> ' + t.liabilityCount;
+        if (document.getElementById('labelPaymentCount')) document.getElementById('labelPaymentCount').innerHTML = '📝 <strong id="paymentCount">0</strong> ' + t.paymentCount;
+        setElementText('statLabelTotalIncome', t.totalIncome);
+        setElementText('statLabelTotalExpenses', t.totalExpenses);
+        setElementText('statLabelMonthlyAverage', t.monthlyAverage);
+        setElementText('statLabelBiggestExpense', t.biggestExpense);
+        setElementText('statLabelGoalProgress', t.goalProgress);
+        setElementText('statLabelTransactionCount', t.transactionCount);
+        setElementText('incomeTitle', t.incomeTitle);
+        setElementText('budgetTitle', t.budgetTitle);
+        setElementText('liabilityTitle', t.liabilityTitle);
+        setElementText('paymentTitle', t.paymentTitle);
+        setElementText('expenseTitle', t.expenseTitle);
+        setElementText('assetTitle', t.assetTitle);
+        setElementText('goalTitle', t.goalTitle);
+        setElementText('historyTitle', t.historyTitle);
+        if (document.getElementById('incomeSource')) document.getElementById('incomeSource').placeholder = t.incomePlaceholder;
+        if (document.getElementById('incomeAmount')) document.getElementById('incomeAmount').placeholder = t.incomeAmount;
+        if (document.getElementById('budgetCategory')) document.getElementById('budgetCategory').placeholder = t.budgetPlaceholder;
+        if (document.getElementById('budgetAlloc')) document.getElementById('budgetAlloc').placeholder = t.budgetAlloc;
+        if (document.getElementById('liabilityName')) document.getElementById('liabilityName').placeholder = t.liabilityPlaceholder;
+        if (document.getElementById('liabilityAmount')) document.getElementById('liabilityAmount').placeholder = t.liabilityAmount;
+        if (document.getElementById('liabilityInterest')) document.getElementById('liabilityInterest').placeholder = t.liabilityInterest;
+        if (document.getElementById('paymentAmount')) document.getElementById('paymentAmount').placeholder = t.paymentAmount;
+        if (document.getElementById('expenseDesc')) document.getElementById('expenseDesc').placeholder = t.expenseDesc;
+        if (document.getElementById('expenseAmount')) document.getElementById('expenseAmount').placeholder = t.expenseAmount;
+        if (document.getElementById('assetName')) document.getElementById('assetName').placeholder = t.assetName;
+        if (document.getElementById('assetValue')) document.getElementById('assetValue').placeholder = t.assetValue;
+        if (document.getElementById('goalName')) document.getElementById('goalName').placeholder = t.goalName;
+        if (document.getElementById('goalTarget')) document.getElementById('goalTarget').placeholder = t.goalTarget;
+        if (document.getElementById('goalDeadline')) document.getElementById('goalDeadline').placeholder = t.goalDeadline;
+        setElementText('paymentInfo', t.paymentInfo);
+        setElementText('thDate', t.date);
+        setElementText('thDesc', t.desc);
+        setElementText('thCategory', t.category);
+        setElementText('thAmount', t.amount);
+        setElementText('assetThName', t.name);
+        setElementText('assetThType', t.type);
+        setElementText('assetThValue', t.value);
+        setElementText('assetThDep', t.dep);
+        setElementText('assetThFinal', t.final);
+        setElementText('paymentThDate', t.date);
+        setElementText('paymentThDebt', t.debt);
+        setElementText('paymentThAmount', t.amount);
+        if (document.getElementById('monthlyTotalLabel')) document.getElementById('monthlyTotalLabel').innerHTML = t.monthlyTotal + ': <strong id="monthlyExpenseTotal">Rp0</strong>';
+        if (document.getElementById('budgetUsedLabel')) document.getElementById('budgetUsedLabel').innerHTML = t.budgetUsedLabel + ': <strong id="budgetUsed">0%</strong>';
+        if (document.getElementById('biggestLabel')) document.getElementById('biggestLabel').innerHTML = t.biggestLabel + ': <strong id="biggestExpense">-</strong>';
+        if (document.getElementById('totalAssetLabel')) document.getElementById('totalAssetLabel').innerHTML = t.totalAssetLabel + ': <strong id="totalAssetNow">Rp0</strong>';
+        if (document.getElementById('totalDepLabel')) document.getElementById('totalDepLabel').innerHTML = t.totalDepLabel + ': <strong id="totalDepreciation">Rp0</strong>';
+        if (document.getElementById('totalPaymentLabel')) document.getElementById('totalPaymentLabel').innerHTML = t.totalPaymentLabel + ': <strong id="totalPaymentAmount">Rp0</strong>';
+        if (document.getElementById('paymentProgressLabel')) document.getElementById('paymentProgressLabel').innerHTML = t.paymentProgressLabel + ': <strong id="paymentProgress">0%</strong>';
+        if (document.getElementById('recordBtn')) document.getElementById('recordBtn').innerHTML = '<i class="fas fa-save"></i> ' + t.recordBtn;
+        if (document.getElementById('resetBtn')) document.getElementById('resetBtn').innerHTML = '<i class="fas fa-undo"></i> ' + t.resetBtn;
+        if (document.getElementById('recordBtnNav')) document.getElementById('recordBtnNav').innerHTML = '<i class="fas fa-save"></i> <span id="recordText">' + t.recordText + '</span>';
+        setElementText('reportTitle', t.reportTitle);
+        setElementText('reportSummary', t.reportSummary);
+        setElementText('reportBalance', t.reportBalance);
+        setElementText('reportIncome', t.reportIncome);
+        setElementText('reportExpenses', t.reportExpenses);
+        setElementText('reportNetWorth', t.reportNetWorth);
+        setElementText('reportAssets', t.reportAssets);
+        setElementText('reportLiabilities', t.reportLiabilities);
+        setElementText('reportCategories', t.reportCategories);
+        setElementText('reportGoals', t.reportGoals);
+        setElementText('reportFooter', t.reportFooter);
+        setElementText('loadingText', t.loading);
+        if (document.getElementById('languageSelector')) document.getElementById('languageSelector').value = lang;
     }
 
     // ============================================================
@@ -894,7 +926,7 @@
         theme = theme === 'light' ? 'dark' : 'light';
         localStorage.setItem('cv_theme', theme);
         document.documentElement.setAttribute('data-theme', theme);
-        document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        if (document.getElementById('themeIcon')) document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         renderAll();
     }
 
@@ -1135,7 +1167,7 @@
         document.getElementById('languageSelector').value = lang;
         document.getElementById('mainCurrency').value = mainCurrency;
         document.documentElement.setAttribute('data-theme', theme);
-        document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        if (document.getElementById('themeIcon')) document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         applyLanguage();
         document.getElementById('expenseDate').value = getToday();
         document.getElementById('paymentDate').value = getToday();
@@ -1244,7 +1276,7 @@
             .then(function(d) {
                 if (d.bitcoin && d.bitcoin.usd) { 
                     rates.BTC_USD = d.bitcoin.usd; 
-                    document.getElementById('btcUsdRate').textContent = '$ ' + Math.round(rates.BTC_USD).toLocaleString();
+                    if (document.getElementById('btcUsdRate')) document.getElementById('btcUsdRate').textContent = '$ ' + Math.round(rates.BTC_USD).toLocaleString();
                 }
             })
             .catch(function() {});
@@ -1256,12 +1288,12 @@
             if (nr[k] !== rates[k]) { rates[k] = nr[k]; changed = true; }
         }
         if (changed) {
-            document.getElementById('usdIdrRate').textContent = 'Rp ' + Math.round(rates.USD_IDR);
-            document.getElementById('usdPhpRate').textContent = '₱ ' + Math.round(rates.USD_PHP);
-            document.getElementById('eurUsdRate').textContent = '$ ' + rates.EUR_USD.toFixed(4);
-            document.getElementById('gbpUsdRate').textContent = '$ ' + rates.GBP_USD.toFixed(4);
-            document.getElementById('btcUsdRate').textContent = '$ ' + Math.round(rates.BTC_USD).toLocaleString();
-            document.getElementById('rateUpdateTime').textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            if (document.getElementById('usdIdrRate')) document.getElementById('usdIdrRate').textContent = 'Rp ' + Math.round(rates.USD_IDR);
+            if (document.getElementById('usdPhpRate')) document.getElementById('usdPhpRate').textContent = '₱ ' + Math.round(rates.USD_PHP);
+            if (document.getElementById('eurUsdRate')) document.getElementById('eurUsdRate').textContent = '$ ' + rates.EUR_USD.toFixed(4);
+            if (document.getElementById('gbpUsdRate')) document.getElementById('gbpUsdRate').textContent = '$ ' + rates.GBP_USD.toFixed(4);
+            if (document.getElementById('btcUsdRate')) document.getElementById('btcUsdRate').textContent = '$ ' + Math.round(rates.BTC_USD).toLocaleString();
+            if (document.getElementById('rateUpdateTime')) document.getElementById('rateUpdateTime').textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             renderAll();
         }
     }
@@ -1477,6 +1509,7 @@
     function updatePaymentSelect() {
         var select = document.getElementById('paymentLiability');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!select) return;
         select.innerHTML = '<option value="">' + t.paymentSelect + '</option>';
         for (var i = 0; i < liabilities.length; i++) {
             var l = liabilities[i];
@@ -1635,9 +1668,7 @@
             console.log('📥 Sync response:', response);
 
             if (response && response.success) {
-                showNotification('✅ Data berhasil disinkronkan ke Google Sheets!', 'success');
-
-                // ✅ RELOAD DATA DARI CLOUD
+                // RELOAD DATA DARI CLOUD
                 var reloadResponse = await callAPI('getAllData');
                 if (reloadResponse.success && reloadResponse.data) {
                     incomes = reloadResponse.data.incomes || [];
@@ -1651,6 +1682,7 @@
                     saveLocalData();
                     renderAll();
                     console.log('✅ Data reloaded from cloud');
+                    showNotification('✅ Data berhasil disinkronkan!', 'success');
                 }
             } else {
                 showNotification('❌ Gagal sync: ' + (response ? response.error : 'Unknown error'), 'error');
@@ -1666,110 +1698,117 @@
     }
 
     // ============================================================
-    //  RENDER ALL
+    //  RENDER ALL - FIXED WITH SAFE SET
     // ============================================================
     function renderAll() {
-        var currentMonth = getCurrentMonth();
-        var currency = mainCurrency;
-        var t = LANGUAGES[lang] || LANGUAGES.id;
+        try {
+            var currentMonth = getCurrentMonth();
+            var currency = mainCurrency;
+            var t = LANGUAGES[lang] || LANGUAGES.id;
 
-        var balance = getBalance(currency);
-        var totalIncome = getTotalIncome(currency);
-        var totalBudget = getTotalBudget(currency);
-        var totalExp = getTotalExpenses(currentMonth, currency);
-        var totalAsset = getTotalAssetValue(currency);
-        var totalDep = getTotalDepreciation(currency);
-        var totalLiabilities = getTotalLiabilities(currency);
-        var totalPayments = getTotalDebtPayments(currency);
-        var netWorth = getNetWorth(currency);
-        var remaining = totalBudget - totalExp;
-        var goalProgress = getGoalProgress();
-        var biggest = getBiggestExpense(currentMonth);
-        var dailyAvg = getDailyAverage(currentMonth, currency);
+            var balance = getBalance(currency);
+            var totalIncome = getTotalIncome(currency);
+            var totalBudget = getTotalBudget(currency);
+            var totalExp = getTotalExpenses(currentMonth, currency);
+            var totalAsset = getTotalAssetValue(currency);
+            var totalDep = getTotalDepreciation(currency);
+            var totalLiabilities = getTotalLiabilities(currency);
+            var totalPayments = getTotalDebtPayments(currency);
+            var netWorth = getNetWorth(currency);
+            var remaining = totalBudget - totalExp;
+            var goalProgress = getGoalProgress();
+            var biggest = getBiggestExpense(currentMonth);
+            var dailyAvg = getDailyAverage(currentMonth, currency);
 
-        document.getElementById('totalBalance').textContent = formatCurrency(balance, currency);
-        document.getElementById('salaryTotal').textContent = formatCurrency(
-            (function() {
-                var total = 0;
-                for (var i = 0; i < incomes.length; i++) {
-                    if (incomes[i].type === 'salary') {
-                        total += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
-                    }
+            // UPDATE BALANCE CARDS
+            setElementText('totalBalance', formatCurrency(balance, currency));
+            setElementText('totalAssetDisplay', formatCurrency(totalAsset, currency));
+            setElementText('totalLiabilityDisplay', formatCurrency(totalLiabilities, currency));
+            setElementText('totalPaymentsDisplay', formatCurrency(totalPayments, currency));
+            setElementText('netWorthDisplay', formatCurrency(netWorth, currency));
+            setElementText('budgetDisplay', formatCurrency(totalBudget, currency));
+            
+            var budgetUsedPct = totalBudget > 0 ? Math.round((totalExp / totalBudget) * 100) : 0;
+            setElementText('budgetUsedPercent', budgetUsedPct + '%');
+            setElementText('remainingBudgetDisplay', formatCurrency(remaining, currency));
+
+            // UPDATE STATS
+            setElementText('statTotalIncome', formatCurrency(totalIncome, currency));
+            setElementText('statTotalExpenses', formatCurrency(totalExp, currency));
+            setElementText('statDailyAvg', formatCurrency(dailyAvg, currency));
+            setElementText('statBiggestExpense', biggest ? formatCurrency(biggest.amount, biggest.currency) : '-');
+            setElementText('statGoalProgress', goalProgress + '%');
+            setElementText('statTransactionCount', expenses.length);
+
+            // UPDATE MONTHLY EXPENSE
+            setElementText('monthlyExpenseTotal', formatCurrency(totalExp, currency));
+            setElementText('budgetUsed', budgetUsedPct + '%');
+            setElementText('biggestExpense', biggest ? biggest.desc + ': ' + formatCurrency(biggest.amount, biggest.currency) : '-');
+
+            // UPDATE COUNTS
+            setElementText('incomeCount', incomes.length + ' sources');
+            setElementText('budgetCount', budgetAllocs.length + ' categories');
+            setElementText('liabilityCountBadge', liabilities.length + ' debts');
+            setElementText('expenseCount', expenses.length + ' items');
+            setElementText('assetCount', assets.length + ' items');
+            setElementText('goalCount', goals.length + ' goals');
+            setElementText('historyCount', history.length + ' months');
+
+            // UPDATE PAYMENT SUMMARY
+            setElementText('totalPaymentAmount', formatCurrency(totalPayments, currency));
+            var totalDebt = getTotalLiabilities(currency);
+            var totalPaid = getTotalDebtPayments(currency);
+            var paymentProgress = totalDebt > 0 ? Math.round((totalPaid / (totalDebt + totalPaid)) * 100) : 0;
+            setElementText('paymentProgress', paymentProgress + '%');
+            setElementText('paymentCountBadge', debtPayments.length + ' payments');
+
+            // UPDATE SALARY & PASSIVE
+            var salaryTotal = 0;
+            var passiveTotal = 0;
+            for (var i = 0; i < incomes.length; i++) {
+                if (incomes[i].type === 'salary') {
+                    salaryTotal += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
+                } else if (incomes[i].type === 'passive') {
+                    passiveTotal += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
                 }
-                return total;
-            })(),
-            currency
-        );
-        document.getElementById('passiveTotal').textContent = formatCurrency(
-            (function() {
-                var total = 0;
-                for (var i = 0; i < incomes.length; i++) {
-                    if (incomes[i].type === 'passive') {
-                        total += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
-                    }
-                }
-                return total;
-            })(),
-            currency
-        );
-        document.getElementById('totalAssetDisplay').textContent = formatCurrency(totalAsset, currency);
-        document.getElementById('depTotal').textContent = formatCurrency(totalDep, currency);
-        document.getElementById('totalLiabilityDisplay').textContent = formatCurrency(totalLiabilities, currency);
-        document.getElementById('liabilityCount').textContent = liabilities.length;
-        document.getElementById('totalPaymentsDisplay').textContent = formatCurrency(totalPayments, currency);
-        document.getElementById('paymentCount').textContent = debtPayments.length;
-        document.getElementById('netWorthDisplay').textContent = formatCurrency(netWorth, currency);
-        document.getElementById('budgetDisplay').textContent = formatCurrency(totalBudget, currency);
-        var budgetUsedPct = totalBudget > 0 ? Math.round((totalExp / totalBudget) * 100) : 0;
-        document.getElementById('budgetUsedPercent').textContent = budgetUsedPct + '%';
-        document.getElementById('remainingBudgetDisplay').textContent = formatCurrency(remaining, currency);
+            }
+            setElementText('salaryTotal', formatCurrency(salaryTotal, currency));
+            setElementText('passiveTotal', formatCurrency(passiveTotal, currency));
+            
+            // DEPRECIATION TOTAL
+            setElementText('depTotal', formatCurrency(totalDep, currency));
+            
+            // LIABILITY COUNT & PAYMENT COUNT
+            setElementText('liabilityCount', liabilities.length);
+            setElementText('paymentCount', debtPayments.length);
 
-        document.getElementById('statTotalIncome').textContent = formatCurrency(totalIncome, currency);
-        document.getElementById('statTotalExpenses').textContent = formatCurrency(totalExp, currency);
-        document.getElementById('statDailyAvg').textContent = formatCurrency(dailyAvg, currency);
-        document.getElementById('statBiggestExpense').textContent = biggest ? formatCurrency(biggest.amount, biggest.currency) : '-';
-        document.getElementById('statGoalProgress').textContent = goalProgress + '%';
-        document.getElementById('statTransactionCount').textContent = expenses.length;
+            // DATE
+            var now = new Date();
+            var dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+            setElementText('dateDisplay', dayNames[now.getDay()] + ', ' + now.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }));
 
-        document.getElementById('monthlyExpenseTotal').textContent = formatCurrency(totalExp, currency);
-        document.getElementById('budgetUsed').textContent = budgetUsedPct + '%';
-        document.getElementById('biggestExpense').textContent = biggest ? biggest.desc + ': ' + formatCurrency(biggest.amount, biggest.currency) : '-';
+            // RENDER LISTS
+            try { renderIncomeList(); } catch(e) { console.log('renderIncomeList error:', e); }
+            try { renderBudgetAllocList(); } catch(e) { console.log('renderBudgetAllocList error:', e); }
+            try { renderLiabilityList(); } catch(e) { console.log('renderLiabilityList error:', e); }
+            try { renderExpenseTable(); } catch(e) { console.log('renderExpenseTable error:', e); }
+            try { renderDailySummary(); } catch(e) { console.log('renderDailySummary error:', e); }
+            try { renderAssetTable(); } catch(e) { console.log('renderAssetTable error:', e); }
+            try { renderGoalList(); } catch(e) { console.log('renderGoalList error:', e); }
+            try { renderHistoryAndChart(); } catch(e) { console.log('renderHistoryAndChart error:', e); }
+            try { renderDebtPaymentList(); } catch(e) { console.log('renderDebtPaymentList error:', e); }
 
-        document.getElementById('incomeCount').textContent = incomes.length + ' sources';
-        document.getElementById('budgetCount').textContent = budgetAllocs.length + ' categories';
-        document.getElementById('liabilityCountBadge').textContent = liabilities.length + ' debts';
-        document.getElementById('expenseCount').textContent = expenses.length + ' items';
-        document.getElementById('assetCount').textContent = assets.length + ' items';
-        document.getElementById('goalCount').textContent = goals.length + ' goals';
-        document.getElementById('historyCount').textContent = history.length + ' months';
+            // AUTO SYNC
+            if (!isGuest && authToken && !hasAutoSynced) {
+                hasAutoSynced = true;
+                setTimeout(function() { syncToSheet(); }, 3000);
+            }
 
-        document.getElementById('totalPaymentAmount').textContent = formatCurrency(totalPayments, currency);
-        var totalDebt = getTotalLiabilities(currency);
-        var totalPaid = getTotalDebtPayments(currency);
-        var paymentProgress = totalDebt > 0 ? Math.round((totalPaid / (totalDebt + totalPaid)) * 100) : 0;
-        document.getElementById('paymentProgress').textContent = paymentProgress + '%';
-        document.getElementById('paymentCountBadge').textContent = debtPayments.length + ' payments';
-
-        var now = new Date();
-        var dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-        document.getElementById('dateDisplay').textContent = dayNames[now.getDay()] + ', ' + now.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
-
-        renderIncomeList();
-        renderBudgetAllocList();
-        renderLiabilityList();
-        renderExpenseTable();
-        renderDailySummary();
-        renderAssetTable();
-        renderGoalList();
-        renderHistoryAndChart();
-        renderDebtPaymentList();
-
-        if (!isGuest && authToken && !hasAutoSynced) {
-            hasAutoSynced = true;
-            setTimeout(function() { syncToSheet(); }, 3000);
+            saveLocalData();
+        } catch(e) {
+            console.log('renderAll error:', e);
+            showNotification('Error: ' + e.message, 'error');
         }
-
-        saveLocalData();
     }
 
     // ============================================================
@@ -1778,6 +1817,7 @@
     function renderIncomeList() {
         var div = document.getElementById('incomeList');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!div) return;
         if (incomes.length === 0) {
             div.innerHTML = '<div class="empty-state"><i class="fas fa-money-bill-wave"></i>' + t.noIncome + '</div>';
             return;
@@ -1792,6 +1832,7 @@
     function renderBudgetAllocList() {
         var div = document.getElementById('budgetAllocList');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!div) return;
         if (budgetAllocs.length === 0) {
             div.innerHTML = '<div class="empty-state"><i class="fas fa-sliders-h"></i>' + t.noBudget + '</div>';
             return;
@@ -1807,6 +1848,7 @@
     function renderLiabilityList() {
         var div = document.getElementById('liabilityList');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!div) return;
         if (liabilities.length === 0) {
             div.innerHTML = '<div class="empty-state"><i class="fas fa-credit-card"></i>' + t.noLiability + '</div>';
             return;
@@ -1824,6 +1866,7 @@
     function renderExpenseTable() {
         var tbody = document.getElementById('expenseTableBody');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!tbody) return;
         if (expenses.length === 0) {
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noExpense + '</td></tr>';
             return;
@@ -1844,6 +1887,7 @@
 
     function renderDailySummary() {
         var container = document.getElementById('dailySummary');
+        if (!container) return;
         var currentMonth = getCurrentMonth();
         var t = LANGUAGES[lang] || LANGUAGES.id;
 
@@ -1885,6 +1929,7 @@
     function renderAssetTable() {
         var tbody = document.getElementById('assetTableBody');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!tbody) return;
         if (assets.length === 0) {
             tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noAsset + '</td></tr>';
             return;
@@ -1902,6 +1947,7 @@
     function renderGoalList() {
         var div = document.getElementById('goalList');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!div) return;
         if (goals.length === 0) {
             div.innerHTML = '<div class="empty-state"><i class="fas fa-bullseye"></i>' + t.noGoal + '</div>';
             return;
@@ -1940,6 +1986,7 @@
     function renderHistoryAndChart() {
         var div = document.getElementById('historyList');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!div) return;
         if (history.length === 0) {
             div.innerHTML = '<div class="empty-state"><i class="fas fa-chart-area"></i>' + t.noHistory + '</div>';
             if (wealthChartInstance) { wealthChartInstance.destroy(); wealthChartInstance = null; }
@@ -1958,7 +2005,9 @@
         }
         div.innerHTML = html;
 
-        var ctx = document.getElementById('wealthChart').getContext('2d');
+        var ctx = document.getElementById('wealthChart');
+        if (!ctx) return;
+        var ctx2 = ctx.getContext('2d');
         if (wealthChartInstance) wealthChartInstance.destroy();
 
         var labels = [];
@@ -1968,7 +2017,7 @@
             data.push(sorted[k].netWorth);
         }
 
-        wealthChartInstance = new Chart(ctx, {
+        wealthChartInstance = new Chart(ctx2, {
             type: 'line',
             data: {
                 labels: labels,
@@ -1999,6 +2048,7 @@
     function renderDebtPaymentList() {
         var tbody = document.getElementById('paymentTableBody');
         var t = LANGUAGES[lang] || LANGUAGES.id;
+        if (!tbody) return;
         if (debtPayments.length === 0) {
             tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noPayment + '</td></tr>';
             return;
@@ -2259,6 +2309,7 @@
     function showNotification(msg, type) {
         type = type || 'success';
         var el = document.getElementById('notification');
+        if (!el) return;
         document.getElementById('notificationText').textContent = msg;
         el.className = 'notification show ' + type;
         clearTimeout(el._timeout);
@@ -2269,7 +2320,7 @@
     //  INIT
     // ============================================================
     async function init() {
-        document.getElementById('authLanguage').value = lang;
+        if (document.getElementById('authLanguage')) document.getElementById('authLanguage').value = lang;
 
         if (authToken) {
             try {
