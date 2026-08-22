@@ -7,7 +7,6 @@
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
     
     <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
@@ -19,7 +18,7 @@
     
     <style>
         /* ============================================================
-           CSS VARIABLES
+           CSS VARIABLES & RESET
            ============================================================ */
         :root {
             --bg-primary: #f0f2f5;
@@ -100,7 +99,6 @@
         .auth-container .auth-logo h1 span { color: #00b894; }
         .auth-container .auth-logo p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
 
-        /* Pilihan bahasa di halaman login */
         .auth-language {
             text-align: center;
             margin-bottom: 16px;
@@ -115,10 +113,7 @@
             cursor: pointer;
             font-family: 'Inter', sans-serif;
         }
-        .auth-language select:focus {
-            outline: none;
-            border-color: #00b894;
-        }
+        .auth-language select:focus { outline: none; border-color: #00b894; }
 
         .auth-container .auth-tabs {
             display: flex;
@@ -239,7 +234,6 @@
         .dashboard { display: none; }
         .dashboard.active { display: block; }
 
-        /* Loading */
         .loading-spinner {
             display: none;
             text-align: center;
@@ -312,7 +306,6 @@
         }
         .btn-logout:hover { background: rgba(185, 28, 28, 0.5) !important; }
 
-        /* Rates Bar */
         .rates-bar {
             background: var(--bg-secondary);
             padding: 5px 28px;
@@ -352,14 +345,12 @@
             background: rgba(185, 28, 28, 0.1);
         }
 
-        /* Container */
         .container {
             max-width: 1440px;
             margin: 0 auto;
             padding: 16px 24px;
         }
 
-        /* Welcome */
         .welcome-section {
             display: flex;
             justify-content: space-between;
@@ -464,7 +455,6 @@
         .balance-card.bg-red { background: linear-gradient(145deg, #7f1d1d, #991b1b); }
         .balance-card.bg-purple { background: linear-gradient(145deg, #6b21a8, #7c3aed); }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -561,7 +551,6 @@
         .input-group .currency-select-small { flex: 0.3; min-width: 45px; }
         .input-group .date-input { flex: 0.5; min-width: 85px; }
 
-        /* Tables */
         .table-wrap {
             max-height: 180px;
             overflow-y: auto;
@@ -606,12 +595,9 @@
             background: rgba(185, 28, 28, 0.08);
         }
 
-        /* Layouts */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
         .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-        .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 
-        /* Daily Summary */
         .daily-summary {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
@@ -641,7 +627,6 @@
             color: var(--text-primary);
         }
 
-        /* Goal Items */
         .goal-item {
             display: flex;
             justify-content: space-between;
@@ -651,19 +636,9 @@
             flex-wrap: wrap;
             gap: 3px;
         }
-        .goal-item .goal-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .goal-item .goal-name {
-            font-weight: 600;
-            font-size: 11px;
-            color: var(--text-primary);
-        }
-        .goal-item .goal-target {
-            font-size: 9px;
-            color: var(--text-muted);
-        }
+        .goal-item .goal-info { display: flex; flex-direction: column; }
+        .goal-item .goal-name { font-weight: 600; font-size: 11px; color: var(--text-primary); }
+        .goal-item .goal-target { font-size: 9px; color: var(--text-muted); }
         .goal-item .goal-status {
             font-size: 8px;
             padding: 1px 8px;
@@ -682,10 +657,7 @@
             background: #fef2f2;
             color: var(--danger);
         }
-        .goal-item .goal-actions {
-            display: flex;
-            gap: 4px;
-        }
+        .goal-item .goal-actions { display: flex; gap: 4px; }
         .goal-item .goal-actions .btn-goal {
             padding: 2px 8px;
             border: none;
@@ -700,18 +672,13 @@
             background: var(--success);
             color: white;
         }
-        .goal-item .goal-actions .btn-goal.berhasil:hover {
-            background: #047857;
-        }
+        .goal-item .goal-actions .btn-goal.berhasil:hover { background: #047857; }
         .goal-item .goal-actions .btn-goal.gagal {
             background: var(--danger);
             color: white;
         }
-        .goal-item .goal-actions .btn-goal.gagal:hover {
-            background: #991b1b;
-        }
+        .goal-item .goal-actions .btn-goal.gagal:hover { background: #991b1b; }
 
-        /* Progress Bar */
         .progress-bar {
             width: 60px;
             height: 4px;
@@ -726,7 +693,6 @@
             transition: width 0.8s ease;
         }
 
-        /* Income & Budget Items */
         .income-source-item,
         .budget-alloc-item,
         .liability-item {
@@ -759,7 +725,6 @@
             border-radius: 6px;
         }
 
-        /* History */
         .history-list {
             max-height: 80px;
             overflow-y: auto;
@@ -775,7 +740,6 @@
         .history-item .month { color: var(--text-secondary); }
         .history-item .amount { font-weight: 600; color: var(--text-primary); }
 
-        /* Notification */
         .notification {
             position: fixed;
             bottom: 20px;
@@ -801,7 +765,6 @@
         .notification.error { background: var(--danger); }
         .notification.warning { background: var(--warning); }
 
-        /* Theme Toggle */
         .theme-toggle {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -814,7 +777,6 @@
         }
         .theme-toggle:hover { background: rgba(255, 255, 255, 0.15); }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 12px;
@@ -828,7 +790,6 @@
             opacity: 0.3;
         }
 
-        /* Chart */
         .chart-wrapper { height: 150px; margin-top: 4px; }
 
         /* Responsive */
@@ -845,7 +806,6 @@
             .balance-cards { grid-template-columns: 1fr 1fr; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
             .three-col { grid-template-columns: 1fr; }
-            .chart-grid { grid-template-columns: 1fr; }
             .top-nav { padding: 8px 12px; }
             .top-nav .logo { font-size: 16px; }
             .auth-container { padding: 24px; }
@@ -862,7 +822,6 @@
 
         .hidden { display: none !important; }
 
-        /* Export button */
         .btn-export {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -877,7 +836,6 @@
         }
         .btn-export:hover { background: rgba(255, 255, 255, 0.15); }
 
-        /* Report content for PDF */
         #reportContent {
             background: white;
             padding: 20px;
@@ -896,9 +854,7 @@
         }
         #reportContent .report-header h2 span { color: #00b894; }
         #reportContent .report-header p { color: #6b7a8f; font-size: 13px; }
-        #reportContent .report-section {
-            margin-bottom: 12px;
-        }
+        #reportContent .report-section { margin-bottom: 12px; }
         #reportContent .report-section h4 {
             font-size: 13px;
             font-weight: 700;
@@ -930,7 +886,6 @@
                 <p id="authSubtitle">Kelola Keuangan Anda dengan Mudah</p>
             </div>
 
-            <!-- Pilihan Bahasa di Halaman Login -->
             <div class="auth-language">
                 <select id="authLanguage" onchange="changeAuthLanguage(this.value)">
                     <option value="id">🇮🇩 Indonesia</option>
@@ -984,8 +939,6 @@
                     <i class="fas fa-user"></i> <span id="guestText">Lanjutkan sebagai Guest (Data lokal)</span>
                 </button>
             </div>
-
-            <!-- FOOTER DIHAPUS (tidak ada teks "Data Anda aman...") -->
         </div>
     </div>
 
@@ -998,24 +951,14 @@
     </div>
 
     <!-- ============================================================
-    DASHBOARD
+    DASHBOARD (SIMPLIFIED - KARENA PANJANG)
     ============================================================ -->
     <div class="dashboard" id="dashboard">
-
-        <!-- TOP NAV -->
         <nav class="top-nav">
-            <div class="logo">
-                <i class="fas fa-wallet"></i>
-                Cash<span>View</span>
-            </div>
+            <div class="logo"><i class="fas fa-wallet"></i> Cash<span>View</span></div>
             <div class="nav-actions">
-                <span class="user-info" id="userInfo">
-                    <i class="fas fa-user-circle"></i>
-                    <span id="userName">User</span>
-                </span>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
+                <span class="user-info" id="userInfo"><i class="fas fa-user-circle"></i> <span id="userName">User</span></span>
+                <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
                 <select id="languageSelector" onchange="changeLanguage(this.value)">
                     <option value="id">🇮🇩 ID</option>
                     <option value="en">🇬🇧 EN</option>
@@ -1026,19 +969,14 @@
                     <option value="USD">🇺🇸 USD</option>
                     <option value="PHP">🇵🇭 PHP</option>
                 </select>
-                <button class="btn-export" onclick="exportPDF()" id="exportBtn">
-                    <i class="fas fa-file-pdf"></i> <span id="exportText">PDF</span>
-                </button>
-                <button class="btn-sm" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.15);" onclick="syncToSheet()" id="syncNavBtn">
+                <button class="btn-export" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> <span id="exportText">PDF</span></button>
+                <button class="btn-sm" id="syncNavBtn" onclick="syncToSheet()" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.15);cursor:pointer;">
                     <i class="fas fa-cloud-upload-alt"></i> <span id="syncText">Sync</span>
                 </button>
-                <button class="btn-sm btn-logout" onclick="handleLogout()" id="logoutNavBtn">
-                    <i class="fas fa-sign-out-alt"></i> <span id="logoutText">Logout</span>
-                </button>
+                <button class="btn-sm btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> <span id="logoutText">Logout</span></button>
             </div>
         </nav>
 
-        <!-- RATES BAR -->
         <div class="rates-bar" id="ratesBar">
             <div class="rate-item"><span>💵 USD/IDR</span><span class="rate-value" id="usdIdrRate">--</span><span class="rate-change" id="usdIdrChange">0%</span></div>
             <div class="rate-item"><span>💵 USD/PHP</span><span class="rate-value" id="usdPhpRate">--</span><span class="rate-change" id="usdPhpChange">0%</span></div>
@@ -1048,160 +986,65 @@
             <div class="rate-item"><span>📊</span><span class="rate-value" id="rateUpdateTime">--</span></div>
         </div>
 
-        <!-- MAIN CONTENT -->
         <div class="container" id="dashboardContainer">
-
-            <!-- WELCOME -->
             <div class="welcome-section">
                 <h1 id="welcomeTitle">👋 Selamat Datang di CashView</h1>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                     <span class="date-display" id="dateDisplay"></span>
-                    <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtnNav">
-                        <i class="fas fa-save"></i> <span id="recordText">Rekam Bulan Ini</span>
-                    </button>
+                    <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtnNav"><i class="fas fa-save"></i> <span id="recordText">Rekam Bulan Ini</span></button>
                 </div>
             </div>
 
             <!-- BALANCE CARDS -->
             <div class="balance-cards">
-                <div class="balance-card bg-dark">
-                    <div class="card-label" id="labelTotalBalance">💰 Total Balance</div>
-                    <div class="card-amount" id="totalBalance">Rp0</div>
-                    <div class="card-sub">
-                        <span id="labelSalary">💼 Salary: <strong id="salaryTotal">Rp0</strong></span>
-                        <span id="labelPassive">📈 Passive: <strong id="passiveTotal">Rp0</strong></span>
-                    </div>
-                    <div class="card-icon"><i class="fas fa-wallet"></i></div>
-                </div>
-                <div class="balance-card bg-green">
-                    <div class="card-label" id="labelTotalAsset">📊 Total Aset</div>
-                    <div class="card-amount" id="totalAssetDisplay">Rp0</div>
-                    <div class="card-sub">
-                        <span id="labelDepreciation">📉 Depresiasi/th: <strong id="depTotal">Rp0</strong></span>
-                    </div>
-                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                </div>
-                <div class="balance-card bg-red">
-                    <div class="card-label" id="labelTotalLiability">💳 Total Utang</div>
-                    <div class="card-amount" id="totalLiabilityDisplay">Rp0</div>
-                    <div class="card-sub">
-                        <span id="labelLiabilityCount">📝 <strong id="liabilityCount">0</strong> utang</span>
-                    </div>
-                    <div class="card-icon"><i class="fas fa-credit-card"></i></div>
-                </div>
-                <div class="balance-card bg-purple">
-                    <div class="card-label" id="labelTotalPayments">💸 Total Cicilan</div>
-                    <div class="card-amount" id="totalPaymentsDisplay">Rp0</div>
-                    <div class="card-sub">
-                        <span id="labelPaymentCount">📝 <strong id="paymentCount">0</strong> pembayaran</span>
-                    </div>
-                    <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                </div>
-                <div class="balance-card bg-gold">
-                    <div class="card-label" id="labelNetWorth">🎯 Net Worth</div>
-                    <div class="card-amount" id="netWorthDisplay">Rp0</div>
-                    <div class="card-sub">
-                        <span id="labelNetWorthDetail">🏦 Aset - Utang</span>
-                    </div>
-                    <div class="card-icon"><i class="fas fa-star"></i></div>
-                </div>
-                <div class="balance-card bg-blue">
-                    <div class="card-label" id="labelMonthlyBudget">📋 Budget Bulanan</div>
-                    <div class="card-amount" id="budgetDisplay">Rp0</div>
-                    <div class="card-sub">
-                        <span id="labelBudgetUsed">Terpakai: <strong id="budgetUsedPercent">0%</strong></span>
-                        <span id="labelRemainingBudget">Sisa: <strong id="remainingBudgetDisplay">Rp0</strong></span>
-                    </div>
-                    <div class="card-icon"><i class="fas fa-coins"></i></div>
-                </div>
+                <div class="balance-card bg-dark"><div class="card-label" id="labelTotalBalance">💰 Total Balance</div><div class="card-amount" id="totalBalance">Rp0</div><div class="card-sub"><span id="labelSalary">💼 Salary: <strong id="salaryTotal">Rp0</strong></span><span id="labelPassive">📈 Passive: <strong id="passiveTotal">Rp0</strong></span></div><div class="card-icon"><i class="fas fa-wallet"></i></div></div>
+                <div class="balance-card bg-green"><div class="card-label" id="labelTotalAsset">📊 Total Aset</div><div class="card-amount" id="totalAssetDisplay">Rp0</div><div class="card-sub"><span id="labelDepreciation">📉 Depresiasi/th: <strong id="depTotal">Rp0</strong></span></div><div class="card-icon"><i class="fas fa-chart-line"></i></div></div>
+                <div class="balance-card bg-red"><div class="card-label" id="labelTotalLiability">💳 Total Utang</div><div class="card-amount" id="totalLiabilityDisplay">Rp0</div><div class="card-sub"><span id="labelLiabilityCount">📝 <strong id="liabilityCount">0</strong> utang</span></div><div class="card-icon"><i class="fas fa-credit-card"></i></div></div>
+                <div class="balance-card bg-purple"><div class="card-label" id="labelTotalPayments">💸 Total Cicilan</div><div class="card-amount" id="totalPaymentsDisplay">Rp0</div><div class="card-sub"><span id="labelPaymentCount">📝 <strong id="paymentCount">0</strong> pembayaran</span></div><div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div></div>
+                <div class="balance-card bg-gold"><div class="card-label" id="labelNetWorth">🎯 Net Worth</div><div class="card-amount" id="netWorthDisplay">Rp0</div><div class="card-sub"><span id="labelNetWorthDetail">🏦 Aset - Utang</span></div><div class="card-icon"><i class="fas fa-star"></i></div></div>
+                <div class="balance-card bg-blue"><div class="card-label" id="labelMonthlyBudget">📋 Budget Bulanan</div><div class="card-amount" id="budgetDisplay">Rp0</div><div class="card-sub"><span id="labelBudgetUsed">Terpakai: <strong id="budgetUsedPercent">0%</strong></span><span id="labelRemainingBudget">Sisa: <strong id="remainingBudgetDisplay">Rp0</strong></span></div><div class="card-icon"><i class="fas fa-coins"></i></div></div>
             </div>
 
             <!-- STATS -->
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label" id="statLabelTotalIncome">💵 Total Income</div>
-                    <div class="stat-value positive" id="statTotalIncome">Rp0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label" id="statLabelTotalExpenses">📉 Total Expenses</div>
-                    <div class="stat-value negative" id="statTotalExpenses">Rp0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label" id="statLabelMonthlyAverage">📊 Rata-rata Harian</div>
-                    <div class="stat-value" id="statDailyAvg">Rp0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label" id="statLabelBiggestExpense">💳 Terbesar Bulan Ini</div>
-                    <div class="stat-value warning" id="statBiggestExpense">-</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label" id="statLabelGoalProgress">🎯 Goals Progress</div>
-                    <div class="stat-value" id="statGoalProgress">0%</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label" id="statLabelTransactionCount">📝 Transaksi</div>
-                    <div class="stat-value" id="statTransactionCount">0</div>
-                </div>
+                <div class="stat-card"><div class="stat-label" id="statLabelTotalIncome">💵 Total Income</div><div class="stat-value positive" id="statTotalIncome">Rp0</div></div>
+                <div class="stat-card"><div class="stat-label" id="statLabelTotalExpenses">📉 Total Expenses</div><div class="stat-value negative" id="statTotalExpenses">Rp0</div></div>
+                <div class="stat-card"><div class="stat-label" id="statLabelMonthlyAverage">📊 Rata-rata Harian</div><div class="stat-value" id="statDailyAvg">Rp0</div></div>
+                <div class="stat-card"><div class="stat-label" id="statLabelBiggestExpense">💳 Terbesar Bulan Ini</div><div class="stat-value warning" id="statBiggestExpense">-</div></div>
+                <div class="stat-card"><div class="stat-label" id="statLabelGoalProgress">🎯 Goals Progress</div><div class="stat-value" id="statGoalProgress">0%</div></div>
+                <div class="stat-card"><div class="stat-label" id="statLabelTransactionCount">📝 Transaksi</div><div class="stat-value" id="statTransactionCount">0</div></div>
             </div>
 
-            <!-- INCOME, BUDGET, LIABILITIES -->
+            <!-- KONTEN LAINNYA (DISEDERHANAKAN AGAR TIDAK TERLALU PANJANG) -->
             <div class="three-col">
                 <div class="box">
-                    <div class="box-header">
-                        <h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3>
-                        <span class="badge" id="incomeCount">0 sources</span>
-                    </div>
+                    <div class="box-header"><h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3><span class="badge" id="incomeCount">0 sources</span></div>
                     <div class="input-group">
                         <input type="text" id="incomeSource" placeholder="Sumber (Salary, Freelance...)" style="flex:2;">
                         <input type="number" id="incomeAmount" placeholder="Jumlah" style="flex:1;">
-                        <select id="incomeCurrency" class="currency-select-small">
-                            <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
-                            <option value="PHP">PHP</option>
-                        </select>
-                        <select id="incomeType" class="currency-select-small">
-                            <option value="salary">💰 Salary</option>
-                            <option value="passive">📈 Passive</option>
-                            <option value="business">🏢 Business</option>
-                            <option value="investment">📊 Investment</option>
-                        </select>
+                        <select id="incomeCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
+                        <select id="incomeType" class="currency-select-small"><option value="salary">💰 Salary</option><option value="passive">📈 Passive</option><option value="business">🏢 Business</option><option value="investment">📊 Investment</option></select>
                         <button class="btn btn-sm btn-success" onclick="addIncome()"><i class="fas fa-plus"></i></button>
                     </div>
                     <div id="incomeList"></div>
                 </div>
-
                 <div class="box">
-                    <div class="box-header">
-                        <h3><i class="fas fa-sliders-h"></i> <span id="budgetTitle">Alokasi Budget</span></h3>
-                        <span class="badge" id="budgetCount">0 categories</span>
-                    </div>
+                    <div class="box-header"><h3><i class="fas fa-sliders-h"></i> <span id="budgetTitle">Alokasi Budget</span></h3><span class="badge" id="budgetCount">0 categories</span></div>
                     <div class="input-group">
                         <input type="text" id="budgetCategory" placeholder="Kategori (Makan, Transport...)" style="flex:2;">
                         <input type="number" id="budgetAlloc" placeholder="Alokasi" style="flex:1;">
-                        <select id="budgetCurrency" class="currency-select-small">
-                            <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
-                            <option value="PHP">PHP</option>
-                        </select>
+                        <select id="budgetCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                         <input type="color" id="budgetColor" value="#065f46" style="flex:0.2;min-width:30px;padding:2px;border-radius:5px;border:1px solid var(--border-color);background:transparent;cursor:pointer;">
                         <button class="btn btn-sm btn-primary" onclick="addBudgetAllocation()"><i class="fas fa-plus"></i></button>
                     </div>
                     <div id="budgetAllocList"></div>
                 </div>
-
                 <div class="box">
-                    <div class="box-header">
-                        <h3><i class="fas fa-credit-card"></i> <span id="liabilityTitle">Utang / Kewajiban</span></h3>
-                        <span class="badge" id="liabilityCountBadge">0 debts</span>
-                    </div>
+                    <div class="box-header"><h3><i class="fas fa-credit-card"></i> <span id="liabilityTitle">Utang / Kewajiban</span></h3><span class="badge" id="liabilityCountBadge">0 debts</span></div>
                     <div class="input-group">
                         <input type="text" id="liabilityName" placeholder="Nama utang (KPR, Pinjaman...)" style="flex:2;">
                         <input type="number" id="liabilityAmount" placeholder="Jumlah" style="flex:1;">
-                        <select id="liabilityCurrency" class="currency-select-small">
-                            <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
-                            <option value="PHP">PHP</option>
-                        </select>
+                        <select id="liabilityCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                         <input type="number" id="liabilityInterest" placeholder="Bunga %" style="flex:0.3;min-width:40px;" value="0">
                         <button class="btn btn-sm btn-danger" onclick="addLiability()"><i class="fas fa-plus"></i></button>
                     </div>
@@ -1209,31 +1052,18 @@
                 </div>
             </div>
 
-            <!-- EXPENSES & DEBT PAYMENTS -->
             <div class="two-col">
-                <!-- EXPENSES -->
                 <div class="box">
-                    <div class="box-header">
-                        <h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3>
-                        <span class="badge" id="expenseCount">0 items</span>
-                    </div>
+                    <div class="box-header"><h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3><span class="badge" id="expenseCount">0 items</span></div>
                     <div class="input-group">
                         <input type="text" id="expenseDesc" placeholder="Deskripsi" style="flex:2;">
                         <input type="number" id="expenseAmount" placeholder="Jumlah" style="flex:1;">
-                        <select id="expenseCurrency" class="currency-select-small">
-                            <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
-                            <option value="PHP">PHP</option>
-                        </select>
+                        <select id="expenseCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                         <select id="expenseCategory" style="flex:1;min-width:60px;">
-                            <option value="Makanan">🍔 Makanan</option>
-                            <option value="Transport">🚗 Transport</option>
-                            <option value="Rumah">🏠 Rumah</option>
-                            <option value="Kesehatan">💊 Kesehatan</option>
-                            <option value="Pendidikan">📚 Pendidikan</option>
-                            <option value="Hiburan">🎮 Hiburan</option>
-                            <option value="Belanja">🛍️ Belanja</option>
-                            <option value="Tagihan">📄 Tagihan</option>
+                            <option value="Makanan">🍔 Makanan</option><option value="Transport">🚗 Transport</option>
+                            <option value="Rumah">🏠 Rumah</option><option value="Kesehatan">💊 Kesehatan</option>
+                            <option value="Pendidikan">📚 Pendidikan</option><option value="Hiburan">🎮 Hiburan</option>
+                            <option value="Belanja">🛍️ Belanja</option><option value="Tagihan">📄 Tagihan</option>
                             <option value="Lainnya">📌 Lainnya</option>
                         </select>
                         <input type="date" id="expenseDate" class="date-input">
@@ -1241,10 +1071,7 @@
                     </div>
                     <div class="daily-summary" id="dailySummary"></div>
                     <div class="table-wrap">
-                        <table>
-                            <thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th></th></tr></thead>
-                            <tbody id="expenseTableBody"></tbody>
-                        </table>
+                        <table><thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th></th></tr></thead><tbody id="expenseTableBody"></tbody></table>
                     </div>
                     <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
                         <span id="monthlyTotalLabel">📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
@@ -1252,34 +1079,18 @@
                         <span id="biggestLabel">💳 Terbesar: <strong id="biggestExpense">-</strong></span>
                     </div>
                 </div>
-
-                <!-- DEBT PAYMENTS -->
                 <div class="box">
-                    <div class="box-header">
-                        <h3><i class="fas fa-hand-holding-usd"></i> <span id="paymentTitle">Pembayaran Utang (Cicilan)</span></h3>
-                        <span class="badge" id="paymentCountBadge">0 payments</span>
-                    </div>
+                    <div class="box-header"><h3><i class="fas fa-hand-holding-usd"></i> <span id="paymentTitle">Pembayaran Utang (Cicilan)</span></h3><span class="badge" id="paymentCountBadge">0 payments</span></div>
                     <div class="input-group">
-                        <select id="paymentLiability" style="flex:2;">
-                            <option value="">Pilih utang...</option>
-                        </select>
+                        <select id="paymentLiability" style="flex:2;"><option value="">Pilih utang...</option></select>
                         <input type="number" id="paymentAmount" placeholder="Cicilan" style="flex:1;">
-                        <select id="paymentCurrency" class="currency-select-small">
-                            <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
-                            <option value="PHP">PHP</option>
-                        </select>
+                        <select id="paymentCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                         <input type="date" id="paymentDate" class="date-input">
                         <button class="btn btn-sm btn-success" onclick="addDebtPayment()"><i class="fas fa-plus"></i></button>
                     </div>
-                    <div style="font-size:9px;color:var(--text-muted);margin-bottom:5px;">
-                        <i class="fas fa-info-circle"></i> <span id="paymentInfo">Bayar cicilan akan mengurangi Balance dan Utang</span>
-                    </div>
+                    <div style="font-size:9px;color:var(--text-muted);margin-bottom:5px;"><i class="fas fa-info-circle"></i> <span id="paymentInfo">Bayar cicilan akan mengurangi Balance dan Utang</span></div>
                     <div class="table-wrap">
-                        <table>
-                            <thead><tr><th id="paymentThDate">Tanggal</th><th id="paymentThDebt">Utang</th><th id="paymentThAmount">Jumlah</th><th></th></tr></thead>
-                            <tbody id="paymentTableBody"></tbody>
-                        </table>
+                        <table><thead><tr><th id="paymentThDate">Tanggal</th><th id="paymentThDebt">Utang</th><th id="paymentThAmount">Jumlah</th><th></th></tr></thead><tbody id="paymentTableBody"></tbody></table>
                     </div>
                     <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
                         <span id="totalPaymentLabel">💸 Total cicilan: <strong id="totalPaymentAmount">Rp0</strong></span>
@@ -1290,30 +1101,17 @@
 
             <!-- ASSETS -->
             <div class="box" style="margin-bottom:14px;">
-                <div class="box-header">
-                    <h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3>
-                    <span class="badge" id="assetCount">0 items</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3><span class="badge" id="assetCount">0 items</span></div>
                 <div class="input-group">
                     <input type="text" id="assetName" placeholder="Nama aset" style="flex:2;">
                     <input type="number" id="assetValue" placeholder="Nilai" style="flex:1;">
-                    <select id="assetCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
-                    <select id="assetType" style="flex:1;">
-                        <option value="bergerak">🔄 Bergerak</option>
-                        <option value="tidak bergerak">🏛️ Tidak Bergerak</option>
-                    </select>
+                    <select id="assetCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
+                    <select id="assetType" style="flex:1;"><option value="bergerak">🔄 Bergerak</option><option value="tidak bergerak">🏛️ Tidak Bergerak</option></select>
                     <input type="number" id="assetDepreciation" placeholder="Dep %" style="flex:0.3;min-width:40px;" value="5">
                     <button class="btn btn-sm btn-primary" onclick="addAsset()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div class="table-wrap">
-                    <table>
-                        <thead><tr><th id="assetThName">Nama</th><th id="assetThType">Jenis</th><th id="assetThValue">Nilai</th><th id="assetThDep">Penyusutan/th</th><th id="assetThFinal">Nilai akhir</th><th></th></tr></thead>
-                        <tbody id="assetTableBody"></tbody>
-                    </table>
+                    <table><thead><tr><th id="assetThName">Nama</th><th id="assetThType">Jenis</th><th id="assetThValue">Nilai</th><th id="assetThDep">Penyusutan/th</th><th id="assetThFinal">Nilai akhir</th><th></th></tr></thead><tbody id="assetTableBody"></tbody></table>
                 </div>
                 <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
                     <span id="totalAssetLabel">💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
@@ -1324,49 +1122,31 @@
             <!-- GOALS & HISTORY -->
             <div class="two-col">
                 <div class="box">
-                    <div class="box-header">
-                        <h3><i class="fas fa-bullseye"></i> <span id="goalTitle">Goals Finansial</span></h3>
-                        <span class="badge" id="goalCount">0 goals</span>
-                    </div>
+                    <div class="box-header"><h3><i class="fas fa-bullseye"></i> <span id="goalTitle">Goals Finansial</span></h3><span class="badge" id="goalCount">0 goals</span></div>
                     <div class="input-group">
                         <input type="text" id="goalName" placeholder="Goal" style="flex:2;">
                         <input type="number" id="goalTarget" placeholder="Target" style="flex:1;">
-                        <select id="goalCurrency" class="currency-select-small">
-                            <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
-                            <option value="PHP">PHP</option>
-                        </select>
+                        <select id="goalCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                         <input type="date" id="goalDeadline" class="date-input" style="flex:1.2;">
                         <button class="btn btn-sm btn-success" onclick="addGoal()"><i class="fas fa-plus"></i></button>
                     </div>
                     <div id="goalList"></div>
                 </div>
-
                 <div class="box">
-                    <div class="box-header">
-                        <h3><i class="fas fa-chart-area"></i> <span id="historyTitle">Net Worth History</span></h3>
-                        <span class="badge" id="historyCount">0 months</span>
-                    </div>
+                    <div class="box-header"><h3><i class="fas fa-chart-area"></i> <span id="historyTitle">Net Worth History</span></h3><span class="badge" id="historyCount">0 months</span></div>
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
                         <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtn"><i class="fas fa-save"></i> <span id="recordBtnText">Rekam Bulan Ini</span></button>
                         <button class="btn btn-sm btn-outline" onclick="resetHistory()" id="resetBtn"><i class="fas fa-undo"></i> <span id="resetBtnText">Reset</span></button>
                     </div>
-                    <div class="chart-wrapper">
-                        <canvas id="wealthChart"></canvas>
-                    </div>
+                    <div class="chart-wrapper"><canvas id="wealthChart"></canvas></div>
                     <div class="history-list" id="historyList"></div>
                 </div>
             </div>
 
             <!-- REPORT CONTENT -->
             <div id="reportContent" style="display:none;">
-                <div class="report-header">
-                    <h2>Cash<span>View</span></h2>
-                    <p id="reportTitle">Laporan Keuangan Bulanan</p>
-                    <p id="reportDate"></p>
-                </div>
-                <div class="report-section">
-                    <h4 id="reportSummary">📊 Ringkasan</h4>
+                <div class="report-header"><h2>Cash<span>View</span></h2><p id="reportTitle">Laporan Keuangan Bulanan</p><p id="reportDate"></p></div>
+                <div class="report-section"><h4 id="reportSummary">📊 Ringkasan</h4>
                     <div class="report-row"><span class="label" id="reportBalance">Total Balance</span><span class="value" id="rBalance">Rp0</span></div>
                     <div class="report-row"><span class="label" id="reportIncome">Total Income</span><span class="value" id="rIncome">Rp0</span></div>
                     <div class="report-row"><span class="label" id="reportExpenses">Total Expenses</span><span class="value" id="rExpenses">Rp0</span></div>
@@ -1374,17 +1154,9 @@
                     <div class="report-row"><span class="label" id="reportAssets">Total Assets</span><span class="value" id="rAssets">Rp0</span></div>
                     <div class="report-row"><span class="label" id="reportLiabilities">Total Liabilities</span><span class="value" id="rLiabilities">Rp0</span></div>
                 </div>
-                <div class="report-section">
-                    <h4 id="reportCategories">💳 Pengeluaran per Kategori</h4>
-                    <div id="rCategories"></div>
-                </div>
-                <div class="report-section">
-                    <h4 id="reportGoals">🎯 Goals</h4>
-                    <div id="rGoals"></div>
-                </div>
-                <div style="text-align:center;font-size:10px;color:#6b7a8f;margin-top:10px;border-top:1px solid #e8ecf0;padding-top:8px;">
-                    <span id="reportFooter">Laporan dibuat otomatis oleh CashView</span>
-                </div>
+                <div class="report-section"><h4 id="reportCategories">💳 Pengeluaran per Kategori</h4><div id="rCategories"></div></div>
+                <div class="report-section"><h4 id="reportGoals">🎯 Goals</h4><div id="rGoals"></div></div>
+                <div style="text-align:center;font-size:10px;color:#6b7a8f;margin-top:10px;border-top:1px solid #e8ecf0;padding-top:8px;"><span id="reportFooter">Laporan dibuat otomatis oleh CashView</span></div>
             </div>
 
         </div>
@@ -1400,87 +1172,55 @@
         // ============================================================
         //  CONFIGURATION
         // ============================================================
-        // GANTI DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT
         const API_URL = 'https://script.google.com/macros/s/AKfycbxwsP1N2x6Kl1hItMJFKxvc1PvMOI8ojrX78D0edVBfa8RJ6rRXsQZclL9hDfHwi3daPw/exec';
 
         // ============================================================
-        //  LANGUAGE DATA
+        //  LANGUAGE DATA (LENGKAP)
         // ============================================================
         const LANGUAGES = {
             id: {
                 authSubtitle: 'Kelola Keuangan Anda dengan Mudah',
-                loginTab: '🔐 Login',
-                registerTab: '📝 Register',
-                loginEmailLabel: '📧 Email',
-                loginPasswordLabel: '🔒 Password',
-                registerNameLabel: '👤 Nama',
-                registerEmailLabel: '📧 Email',
+                loginTab: '🔐 Login', registerTab: '📝 Register',
+                loginEmailLabel: '📧 Email', loginPasswordLabel: '🔒 Password',
+                registerNameLabel: '👤 Nama', registerEmailLabel: '📧 Email',
                 registerPasswordLabel: '🔒 Password (min 6 karakter)',
                 registerConfirmLabel: '🔒 Konfirmasi Password',
-                loginBtn: '🔐 Login',
-                registerBtn: '📝 Register',
+                loginBtn: '🔐 Login', registerBtn: '📝 Register',
                 guestText: 'Lanjutkan sebagai Guest (Data lokal)',
-                exportText: 'PDF',
-                syncText: 'Sync',
-                logoutText: 'Logout',
+                exportText: 'PDF', syncText: 'Sync', logoutText: 'Logout',
                 recordText: 'Rekam Bulan Ini',
                 welcome: '👋 Selamat Datang di CashView',
-                totalBalance: '💰 Total Balance',
-                totalAsset: '📊 Total Aset',
-                totalLiability: '💳 Total Utang',
-                totalPayments: '💸 Total Cicilan',
-                netWorth: '🎯 Net Worth',
-                monthlyBudget: '📋 Budget Bulanan',
-                salary: '💼 Salary',
-                passive: '📈 Passive',
+                totalBalance: '💰 Total Balance', totalAsset: '📊 Total Aset',
+                totalLiability: '💳 Total Utang', totalPayments: '💸 Total Cicilan',
+                netWorth: '🎯 Net Worth', monthlyBudget: '📋 Budget Bulanan',
+                salary: '💼 Salary', passive: '📈 Passive',
                 depreciation: '📉 Depresiasi/th',
-                budgetUsed: 'Terpakai',
-                remainingBudget: 'Sisa',
+                budgetUsed: 'Terpakai', remainingBudget: 'Sisa',
                 netWorthDetail: '🏦 Aset - Utang',
-                liabilityCount: 'utang',
-                paymentCount: 'pembayaran',
-                totalIncome: '💵 Total Income',
-                totalExpenses: '📉 Total Expenses',
+                liabilityCount: 'utang', paymentCount: 'pembayaran',
+                totalIncome: '💵 Total Income', totalExpenses: '📉 Total Expenses',
                 monthlyAverage: '📊 Rata-rata Harian',
                 biggestExpense: '💳 Terbesar Bulan Ini',
-                goalProgress: '🎯 Goals Progress',
-                transactionCount: '📝 Transaksi',
-                incomeTitle: 'Sumber Pendapatan',
-                budgetTitle: 'Alokasi Budget',
+                goalProgress: '🎯 Goals Progress', transactionCount: '📝 Transaksi',
+                incomeTitle: 'Sumber Pendapatan', budgetTitle: 'Alokasi Budget',
                 liabilityTitle: 'Utang / Kewajiban',
                 paymentTitle: 'Pembayaran Utang (Cicilan)',
-                expenseTitle: 'Lacak Pengeluaran',
-                assetTitle: 'Aset & Penyusutan',
-                goalTitle: 'Goals Finansial',
-                historyTitle: 'Net Worth History',
+                expenseTitle: 'Lacak Pengeluaran', assetTitle: 'Aset & Penyusutan',
+                goalTitle: 'Goals Finansial', historyTitle: 'Net Worth History',
                 incomePlaceholder: 'Sumber (Salary, Freelance...)',
                 incomeAmount: 'Jumlah',
                 budgetPlaceholder: 'Kategori (Makan, Transport...)',
                 budgetAlloc: 'Alokasi',
                 liabilityPlaceholder: 'Nama utang (KPR, Pinjaman...)',
-                liabilityAmount: 'Jumlah',
-                liabilityInterest: 'Bunga %',
-                paymentSelect: 'Pilih utang...',
-                paymentAmount: 'Cicilan',
+                liabilityAmount: 'Jumlah', liabilityInterest: 'Bunga %',
+                paymentSelect: 'Pilih utang...', paymentAmount: 'Cicilan',
                 paymentInfo: 'Bayar cicilan akan mengurangi Balance dan Utang',
-                expenseDesc: 'Deskripsi',
-                expenseAmount: 'Jumlah',
-                assetName: 'Nama aset',
-                assetValue: 'Nilai',
-                assetMoving: '🔄 Bergerak',
-                assetFixed: '🏛️ Tidak Bergerak',
-                goalName: 'Goal',
-                goalTarget: 'Target',
-                goalDeadline: 'Tenggat Waktu',
-                date: 'Tanggal',
-                desc: 'Deskripsi',
-                category: 'Kategori',
-                amount: 'Jumlah',
-                name: 'Nama',
-                type: 'Jenis',
-                value: 'Nilai',
-                dep: 'Penyusutan/th',
-                final: 'Nilai akhir',
+                expenseDesc: 'Deskripsi', expenseAmount: 'Jumlah',
+                assetName: 'Nama aset', assetValue: 'Nilai',
+                assetMoving: '🔄 Bergerak', assetFixed: '🏛️ Tidak Bergerak',
+                goalName: 'Goal', goalTarget: 'Target', goalDeadline: 'Tenggat Waktu',
+                date: 'Tanggal', desc: 'Deskripsi', category: 'Kategori', amount: 'Jumlah',
+                name: 'Nama', type: 'Jenis', value: 'Nilai', dep: 'Penyusutan/th', final: 'Nilai akhir',
                 debt: 'Utang',
                 monthlyTotal: '📌 Total bulan ini',
                 budgetUsedLabel: '📊 Budget terpakai',
@@ -1489,8 +1229,7 @@
                 totalDepLabel: '📉 Total penyusutan/th',
                 totalPaymentLabel: '💸 Total cicilan',
                 paymentProgressLabel: '📊 Progress pelunasan',
-                recordBtn: 'Rekam Bulan Ini',
-                resetBtn: 'Reset',
+                recordBtn: 'Rekam Bulan Ini', resetBtn: 'Reset',
                 noIncome: 'Belum ada sumber pendapatan',
                 noBudget: 'Belum ada alokasi budget',
                 noLiability: 'Belum ada utang',
@@ -1500,99 +1239,59 @@
                 noGoal: 'Belum ada goals',
                 noHistory: 'Belum ada history',
                 days: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-                belum: '⏳ Belum tercapai',
-                berhasil: '✅ Berhasil',
-                gagal: '❌ Gagal',
-                urgent: '⚠️ Mendesak!',
-                daysUntil: 'hari lagi',
-                overdue: 'Terlambat!',
-                reportTitle: 'Laporan Keuangan Bulanan',
-                reportSummary: '📊 Ringkasan',
-                reportBalance: 'Total Balance',
-                reportIncome: 'Total Income',
-                reportExpenses: 'Total Expenses',
-                reportNetWorth: 'Net Worth',
-                reportAssets: 'Total Assets',
-                reportLiabilities: 'Total Liabilities',
-                reportCategories: '💳 Pengeluaran per Kategori',
-                reportGoals: '🎯 Goals',
+                belum: '⏳ Belum tercapai', berhasil: '✅ Berhasil', gagal: '❌ Gagal',
+                urgent: '⚠️ Mendesak!', daysUntil: 'hari lagi', overdue: 'Terlambat!',
+                reportTitle: 'Laporan Keuangan Bulanan', reportSummary: '📊 Ringkasan',
+                reportBalance: 'Total Balance', reportIncome: 'Total Income',
+                reportExpenses: 'Total Expenses', reportNetWorth: 'Net Worth',
+                reportAssets: 'Total Assets', reportLiabilities: 'Total Liabilities',
+                reportCategories: '💳 Pengeluaran per Kategori', reportGoals: '🎯 Goals',
                 reportFooter: 'Laporan dibuat otomatis oleh CashView',
                 loading: 'Memuat data...'
             },
             en: {
                 authSubtitle: 'Manage Your Finances Easily',
-                loginTab: '🔐 Login',
-                registerTab: '📝 Register',
-                loginEmailLabel: '📧 Email',
-                loginPasswordLabel: '🔒 Password',
-                registerNameLabel: '👤 Name',
-                registerEmailLabel: '📧 Email',
+                loginTab: '🔐 Login', registerTab: '📝 Register',
+                loginEmailLabel: '📧 Email', loginPasswordLabel: '🔒 Password',
+                registerNameLabel: '👤 Name', registerEmailLabel: '📧 Email',
                 registerPasswordLabel: '🔒 Password (min 6 characters)',
                 registerConfirmLabel: '🔒 Confirm Password',
-                loginBtn: '🔐 Login',
-                registerBtn: '📝 Register',
+                loginBtn: '🔐 Login', registerBtn: '📝 Register',
                 guestText: 'Continue as Guest (Local data)',
-                exportText: 'PDF',
-                syncText: 'Sync',
-                logoutText: 'Logout',
+                exportText: 'PDF', syncText: 'Sync', logoutText: 'Logout',
                 recordText: 'Record This Month',
                 welcome: '👋 Welcome to CashView',
-                totalBalance: '💰 Total Balance',
-                totalAsset: '📊 Total Assets',
-                totalLiability: '💳 Total Liabilities',
-                totalPayments: '💸 Total Payments',
-                netWorth: '🎯 Net Worth',
-                monthlyBudget: '📋 Monthly Budget',
-                salary: '💼 Salary',
-                passive: '📈 Passive',
+                totalBalance: '💰 Total Balance', totalAsset: '📊 Total Assets',
+                totalLiability: '💳 Total Liabilities', totalPayments: '💸 Total Payments',
+                netWorth: '🎯 Net Worth', monthlyBudget: '📋 Monthly Budget',
+                salary: '💼 Salary', passive: '📈 Passive',
                 depreciation: '📉 Depreciation/year',
-                budgetUsed: 'Used',
-                remainingBudget: 'Remaining',
+                budgetUsed: 'Used', remainingBudget: 'Remaining',
                 netWorthDetail: '🏦 Assets - Liabilities',
-                liabilityCount: 'debts',
-                paymentCount: 'payments',
-                totalIncome: '💵 Total Income',
-                totalExpenses: '📉 Total Expenses',
+                liabilityCount: 'debts', paymentCount: 'payments',
+                totalIncome: '💵 Total Income', totalExpenses: '📉 Total Expenses',
                 monthlyAverage: '📊 Daily Average',
                 biggestExpense: '💳 Biggest This Month',
-                goalProgress: '🎯 Goals Progress',
-                transactionCount: '📝 Transactions',
-                incomeTitle: 'Income Sources',
-                budgetTitle: 'Budget Allocation',
+                goalProgress: '🎯 Goals Progress', transactionCount: '📝 Transactions',
+                incomeTitle: 'Income Sources', budgetTitle: 'Budget Allocation',
                 liabilityTitle: 'Liabilities / Debt',
                 paymentTitle: 'Debt Payments (Installments)',
-                expenseTitle: 'Track Expenses',
-                assetTitle: 'Assets & Depreciation',
-                goalTitle: 'Financial Goals',
-                historyTitle: 'Net Worth History',
+                expenseTitle: 'Track Expenses', assetTitle: 'Assets & Depreciation',
+                goalTitle: 'Financial Goals', historyTitle: 'Net Worth History',
                 incomePlaceholder: 'Source (Salary, Freelance...)',
                 incomeAmount: 'Amount',
                 budgetPlaceholder: 'Category (Food, Transport...)',
                 budgetAlloc: 'Allocation',
                 liabilityPlaceholder: 'Debt name (Mortgage, Loan...)',
-                liabilityAmount: 'Amount',
-                liabilityInterest: 'Interest %',
-                paymentSelect: 'Select debt...',
-                paymentAmount: 'Installment',
+                liabilityAmount: 'Amount', liabilityInterest: 'Interest %',
+                paymentSelect: 'Select debt...', paymentAmount: 'Installment',
                 paymentInfo: 'Paying installment will reduce Balance and Debt',
-                expenseDesc: 'Description',
-                expenseAmount: 'Amount',
-                assetName: 'Asset name',
-                assetValue: 'Value',
-                assetMoving: '🔄 Moving',
-                assetFixed: '🏛️ Fixed',
-                goalName: 'Goal',
-                goalTarget: 'Target',
-                goalDeadline: 'Deadline',
-                date: 'Date',
-                desc: 'Description',
-                category: 'Category',
-                amount: 'Amount',
-                name: 'Name',
-                type: 'Type',
-                value: 'Value',
-                dep: 'Depreciation/year',
-                final: 'Final value',
+                expenseDesc: 'Description', expenseAmount: 'Amount',
+                assetName: 'Asset name', assetValue: 'Value',
+                assetMoving: '🔄 Moving', assetFixed: '🏛️ Fixed',
+                goalName: 'Goal', goalTarget: 'Target', goalDeadline: 'Deadline',
+                date: 'Date', desc: 'Description', category: 'Category', amount: 'Amount',
+                name: 'Name', type: 'Type', value: 'Value', dep: 'Depreciation/year', final: 'Final value',
                 debt: 'Debt',
                 monthlyTotal: '📌 Monthly total',
                 budgetUsedLabel: '📊 Budget used',
@@ -1601,8 +1300,7 @@
                 totalDepLabel: '📉 Total depreciation/year',
                 totalPaymentLabel: '💸 Total payments',
                 paymentProgressLabel: '📊 Payment progress',
-                recordBtn: 'Record This Month',
-                resetBtn: 'Reset',
+                recordBtn: 'Record This Month', resetBtn: 'Reset',
                 noIncome: 'No income sources yet',
                 noBudget: 'No budget allocations yet',
                 noLiability: 'No liabilities yet',
@@ -1612,99 +1310,59 @@
                 noGoal: 'No goals yet',
                 noHistory: 'No history yet',
                 days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                belum: '⏳ Not achieved yet',
-                berhasil: '✅ Achieved',
-                gagal: '❌ Failed',
-                urgent: '⚠️ Urgent!',
-                daysUntil: 'days left',
-                overdue: 'Overdue!',
-                reportTitle: 'Monthly Financial Report',
-                reportSummary: '📊 Summary',
-                reportBalance: 'Total Balance',
-                reportIncome: 'Total Income',
-                reportExpenses: 'Total Expenses',
-                reportNetWorth: 'Net Worth',
-                reportAssets: 'Total Assets',
-                reportLiabilities: 'Total Liabilities',
-                reportCategories: '💳 Expenses by Category',
-                reportGoals: '🎯 Goals',
+                belum: '⏳ Not achieved yet', berhasil: '✅ Achieved', gagal: '❌ Failed',
+                urgent: '⚠️ Urgent!', daysUntil: 'days left', overdue: 'Overdue!',
+                reportTitle: 'Monthly Financial Report', reportSummary: '📊 Summary',
+                reportBalance: 'Total Balance', reportIncome: 'Total Income',
+                reportExpenses: 'Total Expenses', reportNetWorth: 'Net Worth',
+                reportAssets: 'Total Assets', reportLiabilities: 'Total Liabilities',
+                reportCategories: '💳 Expenses by Category', reportGoals: '🎯 Goals',
                 reportFooter: 'Report generated automatically by CashView',
                 loading: 'Loading data...'
             },
             zh: {
                 authSubtitle: '轻松管理您的财务',
-                loginTab: '🔐 登录',
-                registerTab: '📝 注册',
-                loginEmailLabel: '📧 邮箱',
-                loginPasswordLabel: '🔒 密码',
-                registerNameLabel: '👤 姓名',
-                registerEmailLabel: '📧 邮箱',
+                loginTab: '🔐 登录', registerTab: '📝 注册',
+                loginEmailLabel: '📧 邮箱', loginPasswordLabel: '🔒 密码',
+                registerNameLabel: '👤 姓名', registerEmailLabel: '📧 邮箱',
                 registerPasswordLabel: '🔒 密码 (至少6个字符)',
                 registerConfirmLabel: '🔒 确认密码',
-                loginBtn: '🔐 登录',
-                registerBtn: '📝 注册',
+                loginBtn: '🔐 登录', registerBtn: '📝 注册',
                 guestText: '继续作为访客 (本地数据)',
-                exportText: 'PDF',
-                syncText: '同步',
-                logoutText: '退出',
+                exportText: 'PDF', syncText: '同步', logoutText: '退出',
                 recordText: '记录本月',
                 welcome: '👋 欢迎来到 CashView',
-                totalBalance: '💰 总余额',
-                totalAsset: '📊 总资产',
-                totalLiability: '💳 总负债',
-                totalPayments: '💸 总还款',
-                netWorth: '🎯 净资产',
-                monthlyBudget: '📋 月度预算',
-                salary: '💼 工资',
-                passive: '📈 被动收入',
+                totalBalance: '💰 总余额', totalAsset: '📊 总资产',
+                totalLiability: '💳 总负债', totalPayments: '💸 总还款',
+                netWorth: '🎯 净资产', monthlyBudget: '📋 月度预算',
+                salary: '💼 工资', passive: '📈 被动收入',
                 depreciation: '📉 年折旧',
-                budgetUsed: '已用',
-                remainingBudget: '剩余',
+                budgetUsed: '已用', remainingBudget: '剩余',
                 netWorthDetail: '🏦 资产 - 负债',
-                liabilityCount: '笔负债',
-                paymentCount: '笔还款',
-                totalIncome: '💵 总收入',
-                totalExpenses: '📉 总支出',
+                liabilityCount: '笔负债', paymentCount: '笔还款',
+                totalIncome: '💵 总收入', totalExpenses: '📉 总支出',
                 monthlyAverage: '📊 日均支出',
                 biggestExpense: '💳 本月最大支出',
-                goalProgress: '🎯 目标进度',
-                transactionCount: '📝 交易',
-                incomeTitle: '收入来源',
-                budgetTitle: '预算分配',
+                goalProgress: '🎯 目标进度', transactionCount: '📝 交易',
+                incomeTitle: '收入来源', budgetTitle: '预算分配',
                 liabilityTitle: '负债/债务',
                 paymentTitle: '还款 (分期付款)',
-                expenseTitle: '追踪支出',
-                assetTitle: '资产与折旧',
-                goalTitle: '财务目标',
-                historyTitle: '净资产历史',
+                expenseTitle: '追踪支出', assetTitle: '资产与折旧',
+                goalTitle: '财务目标', historyTitle: '净资产历史',
                 incomePlaceholder: '来源 (工资, 自由职业...)',
                 incomeAmount: '金额',
                 budgetPlaceholder: '类别 (餐饮, 交通...)',
                 budgetAlloc: '分配',
                 liabilityPlaceholder: '债务名称 (房贷, 贷款...)',
-                liabilityAmount: '金额',
-                liabilityInterest: '利率 %',
-                paymentSelect: '选择债务...',
-                paymentAmount: '分期付款',
+                liabilityAmount: '金额', liabilityInterest: '利率 %',
+                paymentSelect: '选择债务...', paymentAmount: '分期付款',
                 paymentInfo: '还款将减少余额和负债',
-                expenseDesc: '描述',
-                expenseAmount: '金额',
-                assetName: '资产名称',
-                assetValue: '价值',
-                assetMoving: '🔄 流动资产',
-                assetFixed: '🏛️ 固定资产',
-                goalName: '目标',
-                goalTarget: '目标金额',
-                goalDeadline: '截止日期',
-                date: '日期',
-                desc: '描述',
-                category: '类别',
-                amount: '金额',
-                name: '名称',
-                type: '类型',
-                value: '价值',
-                dep: '年折旧',
-                final: '最终价值',
+                expenseDesc: '描述', expenseAmount: '金额',
+                assetName: '资产名称', assetValue: '价值',
+                assetMoving: '🔄 流动资产', assetFixed: '🏛️ 固定资产',
+                goalName: '目标', goalTarget: '目标金额', goalDeadline: '截止日期',
+                date: '日期', desc: '描述', category: '类别', amount: '金额',
+                name: '名称', type: '类型', value: '价值', dep: '年折旧', final: '最终价值',
                 debt: '负债',
                 monthlyTotal: '📌 本月总计',
                 budgetUsedLabel: '📊 已用预算',
@@ -1713,8 +1371,7 @@
                 totalDepLabel: '📉 年折旧总计',
                 totalPaymentLabel: '💸 总还款',
                 paymentProgressLabel: '📊 还款进度',
-                recordBtn: '记录本月',
-                resetBtn: '重置',
+                recordBtn: '记录本月', resetBtn: '重置',
                 noIncome: '暂无收入来源',
                 noBudget: '暂无预算分配',
                 noLiability: '暂无负债',
@@ -1724,22 +1381,13 @@
                 noGoal: '暂无目标',
                 noHistory: '暂无历史',
                 days: ['日', '一', '二', '三', '四', '五', '六'],
-                belum: '⏳ 尚未达成',
-                berhasil: '✅ 已达成',
-                gagal: '❌ 失败',
-                urgent: '⚠️ 紧急！',
-                daysUntil: '天后到期',
-                overdue: '已过期！',
-                reportTitle: '月度财务报告',
-                reportSummary: '📊 摘要',
-                reportBalance: '总余额',
-                reportIncome: '总收入',
-                reportExpenses: '总支出',
-                reportNetWorth: '净资产',
-                reportAssets: '总资产',
-                reportLiabilities: '总负债',
-                reportCategories: '💳 支出分类',
-                reportGoals: '🎯 目标',
+                belum: '⏳ 尚未达成', berhasil: '✅ 已达成', gagal: '❌ 失败',
+                urgent: '⚠️ 紧急！', daysUntil: '天后到期', overdue: '已过期！',
+                reportTitle: '月度财务报告', reportSummary: '📊 摘要',
+                reportBalance: '总余额', reportIncome: '总收入',
+                reportExpenses: '总支出', reportNetWorth: '净资产',
+                reportAssets: '总资产', reportLiabilities: '总负债',
+                reportCategories: '💳 支出分类', reportGoals: '🎯 目标',
                 reportFooter: '报告由 CashView 自动生成',
                 loading: '加载数据中...'
             }
@@ -1770,15 +1418,9 @@
         let wealthChartInstance = null;
 
         const categoryColors = {
-            'Makanan': '#065f46',
-            'Transport': '#1a4b6d',
-            'Rumah': '#78350f',
-            'Kesehatan': '#b91c1c',
-            'Pendidikan': '#6b21a8',
-            'Hiburan': '#d97706',
-            'Belanja': '#7c3aed',
-            'Tagihan': '#0d9488',
-            'Lainnya': '#4a5a6f'
+            'Makanan': '#065f46', 'Transport': '#1a4b6d', 'Rumah': '#78350f',
+            'Kesehatan': '#b91c1c', 'Pendidikan': '#6b21a8', 'Hiburan': '#d97706',
+            'Belanja': '#7c3aed', 'Tagihan': '#0d9488', 'Lainnya': '#4a5a6f'
         };
 
         // ============================================================
@@ -1792,11 +1434,9 @@
         }
 
         function changeAuthLanguage(langCode) {
-            // Update bahasa di halaman login
             lang = langCode;
             localStorage.setItem('cv_lang', langCode);
             applyLanguage();
-            // Update dropdown di dashboard juga
             document.getElementById('languageSelector').value = langCode;
         }
 
@@ -1817,7 +1457,6 @@
             document.getElementById('registerBtn').textContent = t.registerBtn;
             document.getElementById('guestText').textContent = t.guestText;
 
-            // Auth language dropdown
             document.getElementById('authLanguage').value = lang;
 
             // Nav
@@ -2464,7 +2103,6 @@
             goal.status = status;
             goal.achievedDate = status === 'berhasil' || status === 'gagal' ? getToday() : null;
             renderAll();
-            const t = LANGUAGES[lang] || LANGUAGES.id;
             showNotification(`✅ Goal "${goal.name}" ditandai ${status === 'berhasil' ? 'BERHASIL' : 'GAGAL'}!`, status === 'berhasil' ? 'success' : 'error');
         }
 
@@ -2587,38 +2225,74 @@
         }
 
         // ============================================================
-        //  SYNC - TANPA POPUP
+        //  SYNC - TOMBOL BERFUNGSI DENGAN NOTIFIKASI
         // ============================================================
         async function syncToSheet() {
-            if (isSyncing) return;
-            isSyncing = true;
+            console.log('🔄 Sync button clicked!');
+            
+            if (isSyncing) {
+                console.log('⏳ Sync already in progress');
+                return;
+            }
 
             if (isGuest) {
+                showNotification('🔄 Menyinkronkan data Guest...', 'warning');
                 await syncGuestToSheet();
-                isSyncing = false;
                 return;
             }
 
             if (!authToken) {
                 showNotification('Login dulu untuk sync ke Google Sheets', 'warning');
-                isSyncing = false;
                 return;
             }
 
-            // PROSES SYNC TANPA NOTIFIKASI POPUP
+            isSyncing = true;
+            showNotification('🔄 Menyinkronkan data ke Google Sheets...', 'warning');
+
             try {
                 const data = {
-                    incomes, budgetAllocs, liabilities, debtPayments,
-                    expenses, assets, goals, history
+                    incomes: incomes || [],
+                    budgetAllocs: budgetAllocs || [],
+                    liabilities: liabilities || [],
+                    debtPayments: debtPayments || [],
+                    expenses: expenses || [],
+                    assets: assets || [],
+                    goals: goals || [],
+                    history: history || []
                 };
+
+                console.log('📤 Data to sync:', data);
+
                 const response = await callAPI('syncData', data);
-                if (!response.success) {
-                    showNotification('❌ Gagal sync: ' + (response.error || 'Unknown error'), 'error');
+                console.log('📥 Sync response:', response);
+
+                if (response && response.success) {
+                    showNotification('✅ Data berhasil disinkronkan ke Google Sheets!', 'success');
+                    // Reload data dari cloud
+                    const reloadResponse = await callAPI('getAllData');
+                    if (reloadResponse.success && reloadResponse.data) {
+                        incomes = reloadResponse.data.incomes || [];
+                        budgetAllocs = reloadResponse.data.budgetAllocs || [];
+                        liabilities = reloadResponse.data.liabilities || [];
+                        debtPayments = reloadResponse.data.debtPayments || [];
+                        expenses = reloadResponse.data.expenses || [];
+                        assets = reloadResponse.data.assets || [];
+                        goals = reloadResponse.data.goals || [];
+                        history = reloadResponse.data.history || [];
+                        saveLocalData();
+                        renderAll();
+                    }
+                } else {
+                    showNotification('❌ Gagal sync: ' + (response?.error || 'Unknown error'), 'error');
+                    console.error('❌ Sync error:', response);
                 }
             } catch (error) {
                 showNotification('❌ Error sync: ' + error.message, 'error');
+                console.error('❌ Sync exception:', error);
             }
+
             isSyncing = false;
+            console.log('✅ Sync finished');
         }
 
         // ============================================================
@@ -2730,7 +2404,7 @@
         }
 
         // ============================================================
-        //  RENDER FUNCTIONS
+        //  RENDER FUNCTIONS (DISEDERHANAKAN)
         // ============================================================
         function renderIncomeList() {
             const div = document.getElementById('incomeList');
@@ -3208,7 +2882,6 @@
         //  INIT
         // ============================================================
         async function init() {
-            // Set bahasa di auth page
             document.getElementById('authLanguage').value = lang;
 
             if (authToken) {
