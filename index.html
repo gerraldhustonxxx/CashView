@@ -95,10 +95,30 @@
             box-shadow: var(--shadow-hover);
             border: 1px solid var(--border-color);
         }
-        .auth-container .auth-logo { text-align: center; margin-bottom: 30px; }
+        .auth-container .auth-logo { text-align: center; margin-bottom: 20px; }
         .auth-container .auth-logo h1 { font-size: 28px; font-weight: 900; color: var(--text-primary); }
         .auth-container .auth-logo h1 span { color: #00b894; }
         .auth-container .auth-logo p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+
+        /* Pilihan bahasa di halaman login */
+        .auth-language {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .auth-language select {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .auth-language select:focus {
+            outline: none;
+            border-color: #00b894;
+        }
 
         .auth-container .auth-tabs {
             display: flex;
@@ -910,6 +930,15 @@
                 <p id="authSubtitle">Kelola Keuangan Anda dengan Mudah</p>
             </div>
 
+            <!-- Pilihan Bahasa di Halaman Login -->
+            <div class="auth-language">
+                <select id="authLanguage" onchange="changeAuthLanguage(this.value)">
+                    <option value="id">🇮🇩 Indonesia</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="zh">🇨🇳 中文</option>
+                </select>
+            </div>
+
             <div class="auth-tabs">
                 <button class="active" data-tab="login" onclick="switchAuthTab('login')" id="authLoginTab">🔐 Login</button>
                 <button data-tab="register" onclick="switchAuthTab('register')" id="authRegisterTab">📝 Register</button>
@@ -956,9 +985,7 @@
                 </button>
             </div>
 
-            <div class="auth-footer" style="text-align:center;margin-top:16px;font-size:12px;color:var(--text-muted);">
-                <span id="authFooterText">Data Anda aman dan tersimpan di Google Sheets</span>
-            </div>
+            <!-- FOOTER DIHAPUS (tidak ada teks "Data Anda aman...") -->
         </div>
     </div>
 
@@ -1375,6 +1402,7 @@
         // ============================================================
         // GANTI DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT
         const API_URL = 'https://script.google.com/macros/s/AKfycbxwsP1N2x6Kl1hItMJFKxvc1PvMOI8ojrX78D0edVBfa8RJ6rRXsQZclL9hDfHwi3daPw/exec';
+
         // ============================================================
         //  LANGUAGE DATA
         // ============================================================
@@ -1392,7 +1420,6 @@
                 loginBtn: '🔐 Login',
                 registerBtn: '📝 Register',
                 guestText: 'Lanjutkan sebagai Guest (Data lokal)',
-                authFooterText: 'Data Anda aman dan tersimpan di Google Sheets',
                 exportText: 'PDF',
                 syncText: 'Sync',
                 logoutText: 'Logout',
@@ -1505,7 +1532,6 @@
                 loginBtn: '🔐 Login',
                 registerBtn: '📝 Register',
                 guestText: 'Continue as Guest (Local data)',
-                authFooterText: 'Your data is safe and stored in Google Sheets',
                 exportText: 'PDF',
                 syncText: 'Sync',
                 logoutText: 'Logout',
@@ -1618,7 +1644,6 @@
                 loginBtn: '🔐 登录',
                 registerBtn: '📝 注册',
                 guestText: '继续作为访客 (本地数据)',
-                authFooterText: '您的数据安全存储在 Google Sheets 中',
                 exportText: 'PDF',
                 syncText: '同步',
                 logoutText: '退出',
@@ -1766,6 +1791,15 @@
             renderAll();
         }
 
+        function changeAuthLanguage(langCode) {
+            // Update bahasa di halaman login
+            lang = langCode;
+            localStorage.setItem('cv_lang', langCode);
+            applyLanguage();
+            // Update dropdown di dashboard juga
+            document.getElementById('languageSelector').value = langCode;
+        }
+
         function applyLanguage() {
             const t = LANGUAGES[lang] || LANGUAGES.id;
 
@@ -1782,7 +1816,9 @@
             document.getElementById('loginBtn').textContent = t.loginBtn;
             document.getElementById('registerBtn').textContent = t.registerBtn;
             document.getElementById('guestText').textContent = t.guestText;
-            document.getElementById('authFooterText').textContent = t.authFooterText;
+
+            // Auth language dropdown
+            document.getElementById('authLanguage').value = lang;
 
             // Nav
             document.getElementById('exportText').textContent = t.exportText;
@@ -1994,7 +2030,6 @@
             localStorage.setItem('cv_guest', 'true');
             localStorage.removeItem('cv_token');
             currentUser = { name: 'Guest', email: 'guest@local' };
-            // Coba load data guest dari cloud
             await loadGuestData();
             loadDashboard();
         }
@@ -2060,7 +2095,6 @@
         async function syncGuestToSheet() {
             if (isSyncing) return;
             isSyncing = true;
-            showNotification('🔄 Menyinkronkan data Guest...', 'warning');
             try {
                 const data = {
                     incomes, budgetAllocs, liabilities,
@@ -2068,7 +2102,7 @@
                 };
                 const response = await callAPI('syncGuestData', data);
                 if (response.success) {
-                    showNotification('✅ Data Guest berhasil disinkronkan ke Google Sheets!', 'success');
+                    // Tidak tampilkan notifikasi sukses
                 } else {
                     showNotification('❌ Gagal sync: ' + (response.error || 'Unknown error'), 'error');
                 }
@@ -2553,7 +2587,7 @@
         }
 
         // ============================================================
-        //  SYNC
+        //  SYNC - TANPA POPUP
         // ============================================================
         async function syncToSheet() {
             if (isSyncing) return;
@@ -2571,16 +2605,14 @@
                 return;
             }
 
-            showNotification('🔄 Menyinkronkan data ke Google Sheets...', 'warning');
+            // PROSES SYNC TANPA NOTIFIKASI POPUP
             try {
                 const data = {
                     incomes, budgetAllocs, liabilities, debtPayments,
                     expenses, assets, goals, history
                 };
                 const response = await callAPI('syncData', data);
-                if (response.success) {
-                    showNotification('✅ Data berhasil disinkronkan ke Google Sheets!', 'success');
-                } else {
+                if (!response.success) {
                     showNotification('❌ Gagal sync: ' + (response.error || 'Unknown error'), 'error');
                 }
             } catch (error) {
@@ -2685,10 +2717,12 @@
             renderHistoryAndChart();
             renderDebtPaymentList();
 
-            // Auto sync
+            // Auto sync TANPA POPUP
             if (!isGuest && authToken) {
                 clearTimeout(window._syncTimeout);
-                window._syncTimeout = setTimeout(() => syncToSheet(), 5000);
+                window._syncTimeout = setTimeout(() => {
+                    syncToSheet(); // Auto sync tanpa notifikasi
+                }, 5000);
             }
 
             // Save to localStorage
@@ -3174,6 +3208,9 @@
         //  INIT
         // ============================================================
         async function init() {
+            // Set bahasa di auth page
+            document.getElementById('authLanguage').value = lang;
+
             if (authToken) {
                 try {
                     const response = await callAPI('verifyToken');
@@ -3210,6 +3247,8 @@
             document.getElementById('registerConfirm').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') handleRegister();
             });
+
+            applyLanguage();
         }
 
         document.addEventListener('DOMContentLoaded', init);
