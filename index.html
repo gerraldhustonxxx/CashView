@@ -1182,45 +1182,82 @@
                 </div>
             </div>
 
-            <!-- EXPENSES -->
-            <div class="box" style="margin-bottom:14px;">
-                <div class="box-header">
-                    <h3><i class="fas fa-receipt"></i> Lacak Pengeluaran</h3>
-                    <span class="badge" id="expenseCount">0 items</span>
+            <!-- EXPENSES & DEBT PAYMENTS (SIDE BY SIDE) -->
+            <div class="two-col">
+                <!-- EXPENSES -->
+                <div class="box">
+                    <div class="box-header">
+                        <h3><i class="fas fa-receipt"></i> Lacak Pengeluaran</h3>
+                        <span class="badge" id="expenseCount">0 items</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="expenseDesc" placeholder="Deskripsi" style="flex:2;">
+                        <input type="number" id="expenseAmount" placeholder="Jumlah" style="flex:1;">
+                        <select id="expenseCurrency" class="currency-select-small">
+                            <option value="IDR">IDR</option>
+                            <option value="USD">USD</option>
+                            <option value="PHP">PHP</option>
+                        </select>
+                        <select id="expenseCategory" style="flex:1;min-width:60px;">
+                            <option value="Makanan">🍔 Makanan</option>
+                            <option value="Transport">🚗 Transport</option>
+                            <option value="Rumah">🏠 Rumah</option>
+                            <option value="Kesehatan">💊 Kesehatan</option>
+                            <option value="Pendidikan">📚 Pendidikan</option>
+                            <option value="Hiburan">🎮 Hiburan</option>
+                            <option value="Belanja">🛍️ Belanja</option>
+                            <option value="Tagihan">📄 Tagihan</option>
+                            <option value="Lainnya">📌 Lainnya</option>
+                        </select>
+                        <input type="date" id="expenseDate" class="date-input">
+                        <button class="btn btn-sm btn-primary" onclick="addExpense()"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="daily-summary" id="dailySummary"></div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Tanggal</th><th>Deskripsi</th><th>Kategori</th><th>Jumlah</th><th></th></tr></thead>
+                            <tbody id="expenseTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
+                        <span>📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
+                        <span>📊 Budget terpakai: <strong id="budgetUsed">0%</strong></span>
+                        <span>💳 Terbesar: <strong id="biggestExpense">-</strong></span>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="text" id="expenseDesc" placeholder="Deskripsi" style="flex:2;">
-                    <input type="number" id="expenseAmount" placeholder="Jumlah" style="flex:1;">
-                    <select id="expenseCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
-                    <select id="expenseCategory" style="flex:1;min-width:60px;">
-                        <option value="Makanan">🍔 Makanan</option>
-                        <option value="Transport">🚗 Transport</option>
-                        <option value="Rumah">🏠 Rumah</option>
-                        <option value="Kesehatan">💊 Kesehatan</option>
-                        <option value="Pendidikan">📚 Pendidikan</option>
-                        <option value="Hiburan">🎮 Hiburan</option>
-                        <option value="Belanja">🛍️ Belanja</option>
-                        <option value="Tagihan">📄 Tagihan</option>
-                        <option value="Lainnya">📌 Lainnya</option>
-                    </select>
-                    <input type="date" id="expenseDate" class="date-input">
-                    <button class="btn btn-sm btn-primary" onclick="addExpense()"><i class="fas fa-plus"></i></button>
-                </div>
-                <div class="daily-summary" id="dailySummary"></div>
-                <div class="table-wrap">
-                    <table>
-                        <thead><tr><th>Tanggal</th><th>Deskripsi</th><th>Kategori</th><th>Jumlah</th><th></th></tr></thead>
-                        <tbody id="expenseTableBody"></tbody>
-                    </table>
-                </div>
-                <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
-                    <span>📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
-                    <span>📊 Budget terpakai: <strong id="budgetUsed">0%</strong></span>
-                    <span>💳 Terbesar: <strong id="biggestExpense">-</strong></span>
+
+                <!-- DEBT PAYMENTS -->
+                <div class="box">
+                    <div class="box-header">
+                        <h3><i class="fas fa-hand-holding-usd"></i> Pembayaran Utang (Cicilan)</h3>
+                        <span class="badge" id="paymentCountBadge">0 payments</span>
+                    </div>
+                    <div class="input-group">
+                        <select id="paymentLiability" style="flex:2;">
+                            <option value="">Pilih utang...</option>
+                        </select>
+                        <input type="number" id="paymentAmount" placeholder="Cicilan" style="flex:1;">
+                        <select id="paymentCurrency" class="currency-select-small">
+                            <option value="IDR">IDR</option>
+                            <option value="USD">USD</option>
+                            <option value="PHP">PHP</option>
+                        </select>
+                        <input type="date" id="paymentDate" class="date-input">
+                        <button class="btn btn-sm btn-success" onclick="addDebtPayment()"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div style="font-size:9px;color:var(--text-muted);margin-bottom:5px;">
+                        <i class="fas fa-info-circle"></i> Bayar cicilan akan mengurangi Balance dan Utang
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Tanggal</th><th>Utang</th><th>Jumlah</th><th></th></tr></thead>
+                            <tbody id="paymentTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
+                        <span>💸 Total cicilan: <strong id="totalPaymentAmount">Rp0</strong></span>
+                        <span>📊 Progress pelunasan: <strong id="paymentProgress">0%</strong></span>
+                    </div>
                 </div>
             </div>
 
@@ -1586,10 +1623,12 @@
             document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
             applyLanguage();
             document.getElementById('expenseDate').value = getToday();
+            document.getElementById('paymentDate').value = getToday();
             document.getElementById('goalDeadline').value = getToday();
             fetchRates();
             setInterval(fetchRates, 5000);
             renderAll();
+            updatePaymentSelect();
             showNotification(`👋 Selamat datang${currentUser?.name ? ', ' + currentUser.name : ''}!`, 'success');
 
             // Auto notification check
@@ -1607,19 +1646,16 @@
             const totalExp = getTotalExpenses(currentMonth, mainCurrency);
             const totalBudget = getTotalBudget(mainCurrency);
 
-            // Alert 1: Balance rendah (< 10% dari income)
             if (totalIncome > 0 && balance < totalIncome * 0.1) {
                 showNotification(`⚠️ Balance Anda tinggal ${formatCurrency(balance, mainCurrency)}. Segera isi ulang!`, 'warning');
             }
 
-            // Alert 2: Over budget
             if (totalBudget > 0 && totalExp > totalBudget) {
                 showNotification(`🚨 Anda melebihi budget bulan ini sebesar ${formatCurrency(totalExp - totalBudget, mainCurrency)}!`, 'error');
             } else if (totalBudget > 0 && totalExp > totalBudget * 0.8) {
                 showNotification(`⚠️ Budget Anda sudah terpakai ${Math.round((totalExp/totalBudget)*100)}%. Hati-hati!`, 'warning');
             }
 
-            // Alert 3: Goals deadline mendekat
             const today = new Date();
             goals.forEach(g => {
                 const deadline = new Date(g.deadline);
@@ -1675,7 +1711,23 @@
                         updateRates(nr);
                     }
                 })
-                .catch(() => {});
+                .catch(() => {
+                    // Fallback jika API pertama gagal
+                    fetch('https://api.frankfurter.app/latest?from=USD')
+                        .then(r => r.json())
+                        .then(d => {
+                            if (d.rates) {
+                                const nr = {
+                                    USD_IDR: d.rates.IDR || 15500,
+                                    USD_PHP: d.rates.PHP || 56,
+                                    EUR_USD: d.rates.EUR ? 1 / d.rates.EUR : 1.08,
+                                    GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27,
+                                };
+                                updateRates(nr);
+                            }
+                        })
+                        .catch(() => console.log('Rate API fallback gagal'));
+                });
             fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
                 .then(r => r.json())
                 .then(d => {
@@ -1690,7 +1742,16 @@
                 if (nr[k] !== rates[k]) { rates[k] = nr[k];
                     changed = true; }
             }
-            if (changed) renderAll();
+            if (changed) {
+                // Update tampilan rates
+                document.getElementById('usdIdrRate').textContent = 'Rp ' + Math.round(rates.USD_IDR);
+                document.getElementById('usdPhpRate').textContent = '₱ ' + Math.round(rates.USD_PHP);
+                document.getElementById('eurUsdRate').textContent = '$ ' + rates.EUR_USD.toFixed(4);
+                document.getElementById('gbpUsdRate').textContent = '$ ' + rates.GBP_USD.toFixed(4);
+                document.getElementById('btcUsdRate').textContent = '$ ' + Math.round(rates.BTC_USD).toLocaleString();
+                document.getElementById('rateUpdateTime').textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                renderAll();
+            }
         }
 
         // ============================================================
@@ -1856,13 +1917,78 @@
         }
 
         // ============================================================
+        //  DEBT PAYMENTS
+        // ============================================================
+        function updatePaymentSelect() {
+            const select = document.getElementById('paymentLiability');
+            select.innerHTML = '<option value="">Pilih utang...</option>';
+            liabilities.forEach(l => {
+                const remaining = getRemainingDebt(l.id);
+                if (remaining > 0) {
+                    const opt = document.createElement('option');
+                    opt.value = l.id;
+                    opt.textContent = `${l.name} (${formatCurrency(remaining, mainCurrency)} sisa)`;
+                    select.appendChild(opt);
+                }
+            });
+        }
+
+        function addDebtPayment() {
+            const liabilityId = parseInt(document.getElementById('paymentLiability').value);
+            const amount = parseFloat(document.getElementById('paymentAmount').value);
+            const currency = document.getElementById('paymentCurrency').value;
+            const date = document.getElementById('paymentDate').value || getToday();
+
+            if (!liabilityId || isNaN(amount) || amount <= 0) {
+                showNotification('Pilih utang dan isi jumlah cicilan', 'error');
+                return;
+            }
+
+            const remaining = getRemainingDebt(liabilityId, mainCurrency);
+            const paymentInMain = convertCurrency(amount, currency, mainCurrency);
+            if (paymentInMain > remaining) {
+                showNotification(`Cicilan melebihi sisa utang (${formatCurrency(remaining, mainCurrency)})`, 'error');
+                return;
+            }
+
+            const balance = getBalance(mainCurrency);
+            if (paymentInMain > balance) {
+                if (!confirm(`⚠️ Pembayaran ini (${formatCurrency(amount, currency)}) melebihi balance Anda (${formatCurrency(balance, mainCurrency)}). Lanjutkan?`)) {
+                    return;
+                }
+            }
+
+            debtPayments.push({
+                id: Date.now(),
+                liabilityId,
+                amount,
+                currency,
+                date,
+                month: date.slice(0, 7)
+            });
+
+            document.getElementById('paymentAmount').value = '';
+            renderAll();
+            updatePaymentSelect();
+            showNotification(`💸 Pembayaran cicilan berhasil dicatat! Balance berkurang ${formatCurrency(amount, currency)}`);
+        }
+
+        function deleteDebtPayment(id) {
+            if (confirm('Hapus pembayaran cicilan ini?')) {
+                debtPayments = debtPayments.filter(p => p.id !== id);
+                renderAll();
+                updatePaymentSelect();
+                showNotification('Pembayaran cicilan dihapus');
+            }
+        }
+
+        // ============================================================
         //  EXPORT PDF 📄
         // ============================================================
         function exportPDF() {
             const currentMonth = getCurrentMonth();
             const currency = mainCurrency;
 
-            // Update report content
             document.getElementById('reportDate').textContent = `Periode: ${currentMonth}`;
             document.getElementById('rBalance').textContent = formatCurrency(getBalance(currency), currency);
             document.getElementById('rIncome').textContent = formatCurrency(getTotalIncome(currency), currency);
@@ -1871,7 +1997,6 @@
             document.getElementById('rAssets').textContent = formatCurrency(getTotalAssetValue(currency), currency);
             document.getElementById('rLiabilities').textContent = formatCurrency(getTotalLiabilities(currency), currency);
 
-            // Categories
             const cats = getExpensesByCategory(currentMonth, currency);
             let catHtml = '';
             for (const [key, val] of Object.entries(cats)) {
@@ -1880,7 +2005,6 @@
             if (!catHtml) catHtml = '<div style="color:#6b7a8f;font-size:11px;">Belum ada pengeluaran</div>';
             document.getElementById('rCategories').innerHTML = catHtml;
 
-            // Goals
             let goalHtml = '';
             goals.forEach(g => {
                 const progress = getNetWorth(mainCurrency) / convertCurrency(g.target, g.currency, mainCurrency) * 100;
@@ -1893,7 +2017,6 @@
             if (!goalHtml) goalHtml = '<div style="color:#6b7a8f;font-size:11px;">Belum ada goals</div>';
             document.getElementById('rGoals').innerHTML = goalHtml;
 
-            // Generate PDF
             const element = document.getElementById('reportContent');
             const opt = {
                 margin: 10,
@@ -1980,6 +2103,14 @@
             document.getElementById('goalCount').textContent = goals.length + ' goals';
             document.getElementById('historyCount').textContent = history.length + ' months';
 
+            // Payment summary
+            document.getElementById('totalPaymentAmount').textContent = formatCurrency(totalPayments, currency);
+            const totalDebt = getTotalLiabilities(currency);
+            const totalPaid = getTotalDebtPayments(currency);
+            const paymentProgress = totalDebt > 0 ? Math.round((totalPaid / (totalDebt + totalPaid)) * 100) : 0;
+            document.getElementById('paymentProgress').textContent = paymentProgress + '%';
+            document.getElementById('paymentCountBadge').textContent = debtPayments.length + ' payments';
+
             // Date
             const now = new Date();
             const dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
@@ -1995,6 +2126,7 @@
             renderAssetTable();
             renderGoalList();
             renderHistoryAndChart();
+            renderDebtPaymentList();
 
             // Auto sync
             if (!isGuest && authToken) {
@@ -2251,6 +2383,27 @@
             });
         }
 
+        function renderDebtPaymentList() {
+            const tbody = document.getElementById('paymentTableBody');
+            if (debtPayments.length === 0) {
+                tbody.innerHTML =
+                    '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">Belum ada pembayaran cicilan</td></tr>';
+                return;
+            }
+            const sorted = [...debtPayments].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
+            tbody.innerHTML = sorted.map(p => {
+                const liability = liabilities.find(l => l.id === p.liabilityId);
+                return `
+                    <tr>
+                        <td>${p.date}</td>
+                        <td>${liability ? liability.name : 'Dihapus'}</td>
+                        <td>${formatCurrency(p.amount, p.currency)}</td>
+                        <td><button class="delete-btn" onclick="deleteDebtPayment(${p.id})"><i class="fas fa-times"></i></button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
         // ============================================================
         //  CRUD OPERATIONS
         // ============================================================
@@ -2313,6 +2466,7 @@
             document.getElementById('liabilityAmount').value = '';
             document.getElementById('liabilityInterest').value = '0';
             renderAll();
+            updatePaymentSelect();
             showNotification(`💳 Utang "${name}" berhasil ditambahkan!`);
         }
 
@@ -2326,6 +2480,7 @@
                 }
                 liabilities.splice(idx, 1);
                 renderAll();
+                updatePaymentSelect();
                 showNotification('Utang dihapus');
             }
         }
