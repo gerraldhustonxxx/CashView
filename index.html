@@ -12,9 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ============================================================
-           CSS - LENGKAP
-           ============================================================ */
         :root {
             --bg-primary: #f0f2f5;
             --bg-secondary: #ffffff;
@@ -347,7 +344,7 @@
             <div class="stat-card"><div class="stat-label" id="statLabelTransactionCount">📝 Transaksi</div><div class="stat-value" id="statTransactionCount">0</div></div>
         </div>
 
-        <!-- 3 COLUMN: INCOME, BUDGET, LIABILITIES -->
+        <!-- 3 COLUMN -->
         <div class="three-col">
             <div class="box">
                 <div class="box-header"><h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3><span class="badge" id="incomeCount">0 sources</span></div>
@@ -384,7 +381,7 @@
             </div>
         </div>
 
-        <!-- 2 COLUMN: EXPENSES & DEBT PAYMENTS -->
+        <!-- 2 COLUMN -->
         <div class="two-col">
             <div class="box">
                 <div class="box-header"><h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3><span class="badge" id="expenseCount">0 items</span></div>
@@ -480,6 +477,17 @@
             </div>
         </div>
 
+        <!-- HIDDEN ELEMENTS - FIX ERROR -->
+        <div id="hiddenElements" style="display:none;">
+            <div id="monthlyExpenseTotal"></div>
+            <div id="budgetUsed"></div>
+            <div id="biggestExpense"></div>
+            <div id="totalAssetNow"></div>
+            <div id="totalDepreciation"></div>
+            <div id="totalPaymentAmount"></div>
+            <div id="paymentProgress"></div>
+        </div>
+
         <!-- REPORT -->
         <div id="reportContent" style="display:none;">
             <div class="report-header"><h2>Cash<span>View</span></h2><p id="reportTitle">Laporan Keuangan Bulanan</p><p id="reportDate"></p></div>
@@ -509,7 +517,7 @@
     //  CONFIGURATION
     // ============================================================
     // GANTI DENGAN URL WEB APP ANDA
-    const API_URL = 'https://script.google.com/macros/s/AKfycbybFoNdFAKudLFUf1EZ0W8HssxC-w0yeOI2tCWPDu00gG_FrP2OUz-dBmOkxy4SnV1Qfg/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxtTpmvnkXsD-gxDtWoOzqKhiQASE8W9GQ6S0RJjkVH5rGAiJxBx7ydgU-bFBo2sF00aw/exec';
 
     // ============================================================
     //  STATE
@@ -779,7 +787,7 @@
     }
 
     function applyLanguage() {
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         document.getElementById('authSubtitle').textContent = t.authSubtitle;
         document.getElementById('authLoginTab').textContent = t.loginTab;
         document.getElementById('authRegisterTab').textContent = t.registerTab;
@@ -894,7 +902,10 @@
     //  AUTH FUNCTIONS
     // ============================================================
     function switchAuthTab(tab) {
-        document.querySelectorAll('.auth-tabs button').forEach(b => b.classList.remove('active'));
+        var buttons = document.querySelectorAll('.auth-tabs button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('active');
+        }
         document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
         document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
         document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
@@ -1130,7 +1141,7 @@
         document.getElementById('paymentDate').value = getToday();
         document.getElementById('goalDeadline').value = getToday();
         fetchRates();
-        setInterval(fetchRates, 5000);
+        setInterval(fetchRates, 10000);
         renderAll();
         updatePaymentSelect();
         showNotification('👋 Selamat datang' + (currentUser && currentUser.name ? ', ' + currentUser.name : '') + '!', 'success');
@@ -1159,13 +1170,14 @@
         }
 
         var today = new Date();
-        goals.forEach(function(g) {
+        for (var i = 0; i < goals.length; i++) {
+            var g = goals[i];
             var deadline = new Date(g.deadline);
             var diff = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
             if (diff <= 7 && diff >= 0 && g.status !== 'berhasil' && g.status !== 'gagal') {
                 showNotification('⏰ Goal "' + g.name + '" deadline dalam ' + diff + ' hari!', 'warning');
             }
-        });
+        }
     }
 
     // ============================================================
@@ -1197,11 +1209,11 @@
     }
 
     // ============================================================
-    //  RATES
+    //  RATES - FIXED
     // ============================================================
     function fetchRates() {
-        previousRates = { USD_IDR: rates.USD_IDR, USD_PHP: rates.USD_PHP, EUR_USD: rates.EUR_USD, GBP_USD: rates.GBP_USD, BTC_USD: rates.BTC_USD };
-        fetch('https://api.exchangerate-api.com/v4/latest/USD')
+        // Gunakan Frankfurter API yang lebih stabil
+        fetch('https://api.frankfurter.app/latest?from=USD')
             .then(function(r) { return r.json(); })
             .then(function(d) {
                 if (d.rates) {
@@ -1215,25 +1227,25 @@
                 }
             })
             .catch(function() {
-                fetch('https://api.frankfurter.app/latest?from=USD')
-                    .then(function(r) { return r.json(); })
-                    .then(function(d) {
-                        if (d.rates) {
-                            var nr = {
-                                USD_IDR: d.rates.IDR || 15500,
-                                USD_PHP: d.rates.PHP || 56,
-                                EUR_USD: d.rates.EUR ? 1 / d.rates.EUR : 1.08,
-                                GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27
-                            };
-                            updateRates(nr);
-                        }
-                    })
-                    .catch(function() { console.log('Rate API fallback gagal'); });
+                // Fallback ke static rates
+                console.log('Using fallback rates');
+                var nr = {
+                    USD_IDR: 15500,
+                    USD_PHP: 56,
+                    EUR_USD: 1.08,
+                    GBP_USD: 1.27
+                };
+                updateRates(nr);
             });
+        
+        // BTC rate
         fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
             .then(function(r) { return r.json(); })
             .then(function(d) {
-                if (d.bitcoin && d.bitcoin.usd) { rates.BTC_USD = d.bitcoin.usd; }
+                if (d.bitcoin && d.bitcoin.usd) { 
+                    rates.BTC_USD = d.bitcoin.usd; 
+                    document.getElementById('btcUsdRate').textContent = '$ ' + Math.round(rates.BTC_USD).toLocaleString();
+                }
             })
             .catch(function() {});
     }
@@ -1275,73 +1287,96 @@
     function getBalance(currency) {
         currency = currency || mainCurrency;
         var totalIncome = 0;
-        incomes.forEach(function(i) { totalIncome += convertCurrency(i.amount, i.currency, currency); });
+        for (var i = 0; i < incomes.length; i++) {
+            totalIncome += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
+        }
         var totalExpenses = 0;
-        expenses.forEach(function(e) { totalExpenses += convertCurrency(e.amount, e.currency, currency); });
+        for (var j = 0; j < expenses.length; j++) {
+            totalExpenses += convertCurrency(expenses[j].amount, expenses[j].currency, currency);
+        }
         var totalPayments = 0;
-        debtPayments.forEach(function(p) { totalPayments += convertCurrency(p.amount, p.currency, currency); });
+        for (var k = 0; k < debtPayments.length; k++) {
+            totalPayments += convertCurrency(debtPayments[k].amount, debtPayments[k].currency, currency);
+        }
         return totalIncome - totalExpenses - totalPayments;
     }
 
     function getNetWorth(currency) {
         currency = currency || mainCurrency;
         var totalAsset = 0;
-        assets.forEach(function(a) { totalAsset += convertCurrency(a.value, a.currency, currency); });
+        for (var i = 0; i < assets.length; i++) {
+            totalAsset += convertCurrency(assets[i].value, assets[i].currency, currency);
+        }
         var totalLiabilities = 0;
-        liabilities.forEach(function(l) { totalLiabilities += convertCurrency(l.amount, l.currency, currency); });
+        for (var j = 0; j < liabilities.length; j++) {
+            totalLiabilities += convertCurrency(liabilities[j].amount, liabilities[j].currency, currency);
+        }
         return totalAsset - totalLiabilities;
     }
 
     function getTotalIncome(currency) {
         currency = currency || mainCurrency;
         var total = 0;
-        incomes.forEach(function(i) { total += convertCurrency(i.amount, i.currency, currency); });
+        for (var i = 0; i < incomes.length; i++) {
+            total += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
+        }
         return total;
     }
 
     function getTotalBudget(currency) {
         currency = currency || mainCurrency;
         var total = 0;
-        budgetAllocs.forEach(function(b) { total += convertCurrency(b.amount, b.currency, currency); });
+        for (var i = 0; i < budgetAllocs.length; i++) {
+            total += convertCurrency(budgetAllocs[i].amount, budgetAllocs[i].currency, currency);
+        }
         return total;
     }
 
     function getTotalExpenses(month, currency) {
         currency = currency || mainCurrency;
-        var me = expenses.filter(function(e) { return e.month === month; });
         var total = 0;
-        me.forEach(function(e) { total += convertCurrency(e.amount, e.currency, currency); });
+        for (var i = 0; i < expenses.length; i++) {
+            if (expenses[i].month === month) {
+                total += convertCurrency(expenses[i].amount, expenses[i].currency, currency);
+            }
+        }
         return total;
     }
 
     function getTotalAssetValue(currency) {
         currency = currency || mainCurrency;
         var total = 0;
-        assets.forEach(function(a) { total += convertCurrency(a.value, a.currency, currency); });
+        for (var i = 0; i < assets.length; i++) {
+            total += convertCurrency(assets[i].value, assets[i].currency, currency);
+        }
         return total;
     }
 
     function getTotalDepreciation(currency) {
         currency = currency || mainCurrency;
         var total = 0;
-        assets.forEach(function(a) {
-            var dep = a.value * a.depreciation / 100;
-            total += convertCurrency(dep, a.currency, currency);
-        });
+        for (var i = 0; i < assets.length; i++) {
+            var dep = assets[i].value * assets[i].depreciation / 100;
+            total += convertCurrency(dep, assets[i].currency, currency);
+        }
         return total;
     }
 
     function getTotalLiabilities(currency) {
         currency = currency || mainCurrency;
         var total = 0;
-        liabilities.forEach(function(l) { total += convertCurrency(l.amount, l.currency, currency); });
+        for (var i = 0; i < liabilities.length; i++) {
+            total += convertCurrency(liabilities[i].amount, liabilities[i].currency, currency);
+        }
         return total;
     }
 
     function getTotalDebtPayments(currency) {
         currency = currency || mainCurrency;
         var total = 0;
-        debtPayments.forEach(function(p) { total += convertCurrency(p.amount, p.currency, currency); });
+        for (var i = 0; i < debtPayments.length; i++) {
+            total += convertCurrency(debtPayments[i].amount, debtPayments[i].currency, currency);
+        }
         return total;
     }
 
@@ -1353,24 +1388,25 @@
         }
         if (!liability) return 0;
         var totalPaid = 0;
-        debtPayments.forEach(function(p) {
-            if (p.liabilityId === liabilityId) {
-                totalPaid += convertCurrency(p.amount, p.currency, currency);
+        for (var j = 0; j < debtPayments.length; j++) {
+            if (debtPayments[j].liabilityId === liabilityId) {
+                totalPaid += convertCurrency(debtPayments[j].amount, debtPayments[j].currency, currency);
             }
-        });
+        }
         var totalLiability = convertCurrency(liability.amount, liability.currency, currency);
         return Math.max(0, totalLiability - totalPaid);
     }
 
     function getExpensesByCategory(month, currency) {
         currency = currency || mainCurrency;
-        var me = expenses.filter(function(e) { return e.month === month; });
         var cat = {};
-        me.forEach(function(e) {
-            var key = e.category || 'Lainnya';
-            var val = convertCurrency(e.amount, e.currency, currency);
-            cat[key] = (cat[key] || 0) + val;
-        });
+        for (var i = 0; i < expenses.length; i++) {
+            if (expenses[i].month === month) {
+                var key = expenses[i].category || 'Lainnya';
+                var val = convertCurrency(expenses[i].amount, expenses[i].currency, currency);
+                cat[key] = (cat[key] || 0) + val;
+            }
+        }
         return cat;
     }
 
@@ -1378,19 +1414,21 @@
         if (goals.length === 0) return 0;
         var totalTarget = 0, totalProgress = 0;
         var nw = getNetWorth(mainCurrency);
-        goals.forEach(function(g) {
-            var target = convertCurrency(g.target, g.currency, mainCurrency);
+        for (var i = 0; i < goals.length; i++) {
+            var target = convertCurrency(goals[i].target, goals[i].currency, mainCurrency);
             totalTarget += target;
             totalProgress += Math.min(nw / target, 1);
-        });
+        }
         return Math.round((totalProgress / goals.length) * 100);
     }
 
     function getBiggestExpense(month) {
-        var me = expenses.filter(function(e) { return e.month === month; });
-        if (me.length === 0) return null;
-        var max = me[0];
-        me.forEach(function(e) { if (e.amount > max.amount) max = e; });
+        var max = null;
+        for (var i = 0; i < expenses.length; i++) {
+            if (expenses[i].month === month) {
+                if (!max || expenses[i].amount > max.amount) { max = expenses[i]; }
+            }
+        }
         return max;
     }
 
@@ -1440,7 +1478,8 @@
         var select = document.getElementById('paymentLiability');
         var t = LANGUAGES[lang] || LANGUAGES.id;
         select.innerHTML = '<option value="">' + t.paymentSelect + '</option>';
-        liabilities.forEach(function(l) {
+        for (var i = 0; i < liabilities.length; i++) {
+            var l = liabilities[i];
             var remaining = getRemainingDebt(l.id);
             if (remaining > 0) {
                 var opt = document.createElement('option');
@@ -1448,7 +1487,7 @@
                 opt.textContent = l.name + ' (' + formatCurrency(remaining, mainCurrency) + ' sisa)';
                 select.appendChild(opt);
             }
-        });
+        }
     }
 
     function addDebtPayment() {
@@ -1493,7 +1532,11 @@
 
     function deleteDebtPayment(id) {
         if (confirm('Hapus pembayaran cicilan ini?')) {
-            debtPayments = debtPayments.filter(function(p) { return p.id !== id; });
+            var newPayments = [];
+            for (var i = 0; i < debtPayments.length; i++) {
+                if (debtPayments[i].id !== id) { newPayments.push(debtPayments[i]); }
+            }
+            debtPayments = newPayments;
             renderAll();
             updatePaymentSelect();
             showNotification('Pembayaran cicilan dihapus');
@@ -1525,11 +1568,12 @@
         document.getElementById('rCategories').innerHTML = catHtml;
 
         var goalHtml = '';
-        goals.forEach(function(g) {
+        for (var i = 0; i < goals.length; i++) {
+            var g = goals[i];
             var progress = getNetWorth(mainCurrency) / convertCurrency(g.target, g.currency, mainCurrency) * 100;
             var statusText = g.status === 'berhasil' ? '✅ Berhasil' : (g.status === 'gagal' ? '❌ Gagal' : '⏳ ' + Math.min(progress, 100).toFixed(0) + '%');
             goalHtml += '<div class="report-row"><span class="label">' + g.name + '</span><span class="value">' + formatCurrency(g.target, g.currency) + ' - ' + statusText + '</span></div>';
-        });
+        }
         if (!goalHtml) goalHtml = '<div style="color:#6b7a8f;font-size:11px;">' + t.noGoal + '</div>';
         document.getElementById('rGoals').innerHTML = goalHtml;
 
@@ -1549,7 +1593,7 @@
     }
 
     // ============================================================
-    //  SYNC
+    //  SYNC - FIXED WITH RELOAD
     // ============================================================
     async function syncToSheet() {
         console.log('🔄 Sync button clicked!');
@@ -1593,6 +1637,7 @@
             if (response && response.success) {
                 showNotification('✅ Data berhasil disinkronkan ke Google Sheets!', 'success');
 
+                // ✅ RELOAD DATA DARI CLOUD
                 var reloadResponse = await callAPI('getAllData');
                 if (reloadResponse.success && reloadResponse.data) {
                     incomes = reloadResponse.data.incomes || [];
@@ -1644,11 +1689,27 @@
 
         document.getElementById('totalBalance').textContent = formatCurrency(balance, currency);
         document.getElementById('salaryTotal').textContent = formatCurrency(
-            incomes.filter(function(i) { return i.type === 'salary'; }).reduce(function(s, i) { return s + convertCurrency(i.amount, i.currency, currency); }, 0),
+            (function() {
+                var total = 0;
+                for (var i = 0; i < incomes.length; i++) {
+                    if (incomes[i].type === 'salary') {
+                        total += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
+                    }
+                }
+                return total;
+            })(),
             currency
         );
         document.getElementById('passiveTotal').textContent = formatCurrency(
-            incomes.filter(function(i) { return i.type === 'passive'; }).reduce(function(s, i) { return s + convertCurrency(i.amount, i.currency, currency); }, 0),
+            (function() {
+                var total = 0;
+                for (var i = 0; i < incomes.length; i++) {
+                    if (incomes[i].type === 'passive') {
+                        total += convertCurrency(incomes[i].amount, incomes[i].currency, currency);
+                    }
+                }
+                return total;
+            })(),
             currency
         );
         document.getElementById('totalAssetDisplay').textContent = formatCurrency(totalAsset, currency);
@@ -1721,9 +1782,11 @@
             div.innerHTML = '<div class="empty-state"><i class="fas fa-money-bill-wave"></i>' + t.noIncome + '</div>';
             return;
         }
-        div.innerHTML = incomes.map(function(inc, idx) {
-            return '<div class="income-source-item"><span class="source-name">' + inc.source + ' <span class="source-type">' + inc.type + '</span></span><span class="source-amount">' + formatCurrency(inc.amount, inc.currency) + ' <button class="delete-btn" onclick="deleteIncome(' + idx + ')"><i class="fas fa-times"></i></button></span></div>';
-        }).join('');
+        var html = '';
+        for (var i = 0; i < incomes.length; i++) {
+            html += '<div class="income-source-item"><span class="source-name">' + incomes[i].source + ' <span class="source-type">' + incomes[i].type + '</span></span><span class="source-amount">' + formatCurrency(incomes[i].amount, incomes[i].currency) + ' <button class="delete-btn" onclick="deleteIncome(' + i + ')"><i class="fas fa-times"></i></button></span></div>';
+        }
+        div.innerHTML = html;
     }
 
     function renderBudgetAllocList() {
@@ -1733,9 +1796,12 @@
             div.innerHTML = '<div class="empty-state"><i class="fas fa-sliders-h"></i>' + t.noBudget + '</div>';
             return;
         }
-        div.innerHTML = budgetAllocs.map(function(b, idx) {
-            return '<div class="budget-alloc-item"><span class="budget-cat"><span class="cat-dot" style="background:' + (b.color || '#065f46') + '"></span>' + b.category + '</span><span class="budget-amount">' + formatCurrency(b.amount, b.currency) + ' <button class="delete-btn" onclick="deleteBudgetAlloc(' + idx + ')"><i class="fas fa-times"></i></button></span></div>';
-        }).join('');
+        var html = '';
+        for (var i = 0; i < budgetAllocs.length; i++) {
+            var b = budgetAllocs[i];
+            html += '<div class="budget-alloc-item"><span class="budget-cat"><span class="cat-dot" style="background:' + (b.color || '#065f46') + '"></span>' + b.category + '</span><span class="budget-amount">' + formatCurrency(b.amount, b.currency) + ' <button class="delete-btn" onclick="deleteBudgetAlloc(' + i + ')"><i class="fas fa-times"></i></button></span></div>';
+        }
+        div.innerHTML = html;
     }
 
     function renderLiabilityList() {
@@ -1745,11 +1811,14 @@
             div.innerHTML = '<div class="empty-state"><i class="fas fa-credit-card"></i>' + t.noLiability + '</div>';
             return;
         }
-        div.innerHTML = liabilities.map(function(l, idx) {
+        var html = '';
+        for (var i = 0; i < liabilities.length; i++) {
+            var l = liabilities[i];
             var remaining = getRemainingDebt(l.id, mainCurrency);
             var total = convertCurrency(l.amount, l.currency, mainCurrency);
-            return '<div class="liability-item"><span class="liability-name">' + l.name + (l.interest > 0 ? ' <span style="font-size:7px;color:var(--text-muted);">(' + l.interest + '%)</span>' : '') + '</span><span class="liability-amount">' + formatCurrency(remaining, mainCurrency) + ' / ' + formatCurrency(total, mainCurrency) + ' <button class="delete-btn" onclick="deleteLiability(' + idx + ')"><i class="fas fa-times"></i></button></span></div>';
-        }).join('');
+            html += '<div class="liability-item"><span class="liability-name">' + l.name + (l.interest > 0 ? ' <span style="font-size:7px;color:var(--text-muted);">(' + l.interest + '%)</span>' : '') + '</span><span class="liability-amount">' + formatCurrency(remaining, mainCurrency) + ' / ' + formatCurrency(total, mainCurrency) + ' <button class="delete-btn" onclick="deleteLiability(' + i + ')"><i class="fas fa-times"></i></button></span></div>';
+        }
+        div.innerHTML = html;
     }
 
     function renderExpenseTable() {
@@ -1759,18 +1828,31 @@
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noExpense + '</td></tr>';
             return;
         }
-        var sorted = expenses.slice().sort(function(a, b) { return b.date.localeCompare(a.date) || a.id - b.id; });
-        tbody.innerHTML = sorted.map(function(e) {
+        var sorted = [];
+        for (var i = 0; i < expenses.length; i++) {
+            sorted.push(expenses[i]);
+        }
+        sorted.sort(function(a, b) { return b.date.localeCompare(a.date) || a.id - b.id; });
+        var html = '';
+        for (var j = 0; j < sorted.length; j++) {
+            var e = sorted[j];
             var color = categoryColors[e.category] || '#4a5a6f';
-            return '<tr><td>' + e.date + '</td><td>' + e.desc + '</td><td><span class="cat-dot" style="background:' + color + '"></span>' + (e.category || 'Lainnya') + '</td><td>' + formatCurrency(e.amount, e.currency) + '</td><td><button class="delete-btn" onclick="deleteExpense(' + e.id + ')"><i class="fas fa-times"></i></button></td></tr>';
-        }).join('');
+            html += '<tr><td>' + e.date + '</td><td>' + e.desc + '</td><td><span class="cat-dot" style="background:' + color + '"></span>' + (e.category || 'Lainnya') + '</td><td>' + formatCurrency(e.amount, e.currency) + '</td><td><button class="delete-btn" onclick="deleteExpense(' + e.id + ')"><i class="fas fa-times"></i></button></td></tr>';
+        }
+        tbody.innerHTML = html;
     }
 
     function renderDailySummary() {
         var container = document.getElementById('dailySummary');
         var currentMonth = getCurrentMonth();
-        var me = expenses.filter(function(e) { return e.month === currentMonth; });
         var t = LANGUAGES[lang] || LANGUAGES.id;
+
+        var me = [];
+        for (var i = 0; i < expenses.length; i++) {
+            if (expenses[i].month === currentMonth) {
+                me.push(expenses[i]);
+            }
+        }
 
         if (me.length === 0) {
             container.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:9px;padding:3px;">' + t.noExpense + '</div>';
@@ -1778,19 +1860,26 @@
         }
 
         var groups = {};
-        me.forEach(function(e) {
+        for (var j = 0; j < me.length; j++) {
+            var e = me[j];
             if (!groups[e.date]) groups[e.date] = [];
             groups[e.date].push(e);
-        });
+        }
 
         var dates = Object.keys(groups).sort().reverse().slice(0, 7);
         var dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
-        container.innerHTML = dates.map(function(date) {
-            var total = groups[date].reduce(function(s, e) { return s + convertCurrency(e.amount, e.currency, mainCurrency); }, 0);
+        var html = '';
+        for (var k = 0; k < dates.length; k++) {
+            var date = dates[k];
+            var total = 0;
+            for (var m = 0; m < groups[date].length; m++) {
+                total += convertCurrency(groups[date][m].amount, groups[date][m].currency, mainCurrency);
+            }
             var dn = dayNames[new Date(date + 'T00:00:00').getDay()];
-            return '<div class="day-item"><div class="day-label">' + dn + '</div><div class="day-amount">' + formatCurrency(total, mainCurrency) + '</div><div class="day-count">' + groups[date].length + ' items</div></div>';
-        }).join('');
+            html += '<div class="day-item"><div class="day-label">' + dn + '</div><div class="day-amount">' + formatCurrency(total, mainCurrency) + '</div><div class="day-count">' + groups[date].length + ' items</div></div>';
+        }
+        container.innerHTML = html;
     }
 
     function renderAssetTable() {
@@ -1800,11 +1889,14 @@
             tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noAsset + '</td></tr>';
             return;
         }
-        tbody.innerHTML = assets.map(function(a) {
+        var html = '';
+        for (var i = 0; i < assets.length; i++) {
+            var a = assets[i];
             var depVal = a.value * a.depreciation / 100;
             var finalVal = a.value - depVal;
-            return '<tr><td>' + a.name + '</td><td>' + a.type + '</td><td>' + formatCurrency(a.value, a.currency) + '</td><td>' + a.depreciation + '%</td><td>' + formatCurrency(finalVal, a.currency) + '</td><td><button class="delete-btn" onclick="deleteAsset(' + a.id + ')"><i class="fas fa-times"></i></button></td></tr>';
-        }).join('');
+            html += '<tr><td>' + a.name + '</td><td>' + a.type + '</td><td>' + formatCurrency(a.value, a.currency) + '</td><td>' + a.depreciation + '%</td><td>' + formatCurrency(finalVal, a.currency) + '</td><td><button class="delete-btn" onclick="deleteAsset(' + a.id + ')"><i class="fas fa-times"></i></button></td></tr>';
+        }
+        tbody.innerHTML = html;
     }
 
     function renderGoalList() {
@@ -1816,7 +1908,9 @@
         }
 
         var nw = getNetWorth(mainCurrency);
-        div.innerHTML = goals.map(function(g) {
+        var html = '';
+        for (var i = 0; i < goals.length; i++) {
+            var g = goals[i];
             var targetInMain = convertCurrency(g.target, g.currency, mainCurrency);
             var progress = Math.min((nw / targetInMain) * 100, 100);
             var daysLeft = getDaysUntil(g.deadline);
@@ -1838,8 +1932,9 @@
 
             var isDone = g.status === 'berhasil' || g.status === 'gagal';
 
-            return '<div class="goal-item"><div class="goal-info"><span class="goal-name">' + g.name + '</span><span class="goal-target">Target: ' + formatCurrency(g.target, g.currency) + '</span><span style="font-size:8px;color:var(--text-muted);">📅 ' + g.deadline + ' (' + deadlineText + ')</span></div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;"><span class="goal-status ' + statusClass + '">' + statusText + '</span><div class="goal-progress"><div class="progress-bar"><div class="fill" style="width:' + Math.min(progress, 100) + '%"></div></div><span style="font-size:8px;font-weight:600;min-width:28px;">' + Math.round(progress) + '%</span></div>' + (!isDone ? '<div class="goal-actions"><button class="btn-goal berhasil" onclick="updateGoalStatus(' + g.id + ', \'berhasil\')">✅</button><button class="btn-goal gagal" onclick="updateGoalStatus(' + g.id + ', \'gagal\')">❌</button></div>' : '') + '<button class="delete-btn" onclick="deleteGoal(' + g.id + ')"><i class="fas fa-times"></i></button></div></div>';
-        }).join('');
+            html += '<div class="goal-item"><div class="goal-info"><span class="goal-name">' + g.name + '</span><span class="goal-target">Target: ' + formatCurrency(g.target, g.currency) + '</span><span style="font-size:8px;color:var(--text-muted);">📅 ' + g.deadline + ' (' + deadlineText + ')</span></div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;"><span class="goal-status ' + statusClass + '">' + statusText + '</span><div class="goal-progress"><div class="progress-bar"><div class="fill" style="width:' + Math.min(progress, 100) + '%"></div></div><span style="font-size:8px;font-weight:600;min-width:28px;">' + Math.round(progress) + '%</span></div>' + (!isDone ? '<div class="goal-actions"><button class="btn-goal berhasil" onclick="updateGoalStatus(' + g.id + ', \'berhasil\')">✅</button><button class="btn-goal gagal" onclick="updateGoalStatus(' + g.id + ', \'gagal\')">❌</button></div>' : '') + '<button class="delete-btn" onclick="deleteGoal(' + g.id + ')"><i class="fas fa-times"></i></button></div></div>';
+        }
+        div.innerHTML = html;
     }
 
     function renderHistoryAndChart() {
@@ -1851,16 +1946,27 @@
             return;
         }
 
-        var sorted = history.slice().sort(function(a, b) { return a.month.localeCompare(b.month); });
-        div.innerHTML = sorted.map(function(h) {
-            return '<div class="history-item"><span class="month">' + h.month + '</span><span class="amount">' + formatCurrency(h.netWorth, mainCurrency) + '</span></div>';
-        }).join('');
+        var sorted = [];
+        for (var i = 0; i < history.length; i++) {
+            sorted.push(history[i]);
+        }
+        sorted.sort(function(a, b) { return a.month.localeCompare(b.month); });
+
+        var html = '';
+        for (var j = 0; j < sorted.length; j++) {
+            html += '<div class="history-item"><span class="month">' + sorted[j].month + '</span><span class="amount">' + formatCurrency(sorted[j].netWorth, mainCurrency) + '</span></div>';
+        }
+        div.innerHTML = html;
 
         var ctx = document.getElementById('wealthChart').getContext('2d');
         if (wealthChartInstance) wealthChartInstance.destroy();
 
-        var labels = sorted.map(function(h) { return h.month; });
-        var data = sorted.map(function(h) { return h.netWorth; });
+        var labels = [];
+        var data = [];
+        for (var k = 0; k < sorted.length; k++) {
+            labels.push(sorted[k].month);
+            data.push(sorted[k].netWorth);
+        }
 
         wealthChartInstance = new Chart(ctx, {
             type: 'line',
@@ -1897,14 +2003,22 @@
             tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noPayment + '</td></tr>';
             return;
         }
-        var sorted = debtPayments.slice().sort(function(a, b) { return b.date.localeCompare(a.date) || a.id - b.id; });
-        tbody.innerHTML = sorted.map(function(p) {
+        var sorted = [];
+        for (var i = 0; i < debtPayments.length; i++) {
+            sorted.push(debtPayments[i]);
+        }
+        sorted.sort(function(a, b) { return b.date.localeCompare(a.date) || a.id - b.id; });
+
+        var html = '';
+        for (var j = 0; j < sorted.length; j++) {
+            var p = sorted[j];
             var liability = null;
-            for (var i = 0; i < liabilities.length; i++) {
-                if (liabilities[i].id === p.liabilityId) { liability = liabilities[i]; break; }
+            for (var k = 0; k < liabilities.length; k++) {
+                if (liabilities[k].id === p.liabilityId) { liability = liabilities[k]; break; }
             }
-            return '<tr><td>' + p.date + '</td><td>' + (liability ? liability.name : 'Dihapus') + '</td><td>' + formatCurrency(p.amount, p.currency) + '</td><td><button class="delete-btn" onclick="deleteDebtPayment(' + p.id + ')"><i class="fas fa-times"></i></button></td></tr>';
-        }).join('');
+            html += '<tr><td>' + p.date + '</td><td>' + (liability ? liability.name : 'Dihapus') + '</td><td>' + formatCurrency(p.amount, p.currency) + '</td><td><button class="delete-btn" onclick="deleteDebtPayment(' + p.id + ')"><i class="fas fa-times"></i></button></td></tr>';
+        }
+        tbody.innerHTML = html;
     }
 
     // ============================================================
@@ -1927,7 +2041,15 @@
     }
 
     function deleteIncome(idx) {
-        if (confirm('Hapus sumber pendapatan ini?')) { incomes.splice(idx, 1); renderAll(); showNotification('Pendapatan dihapus'); }
+        if (confirm('Hapus sumber pendapatan ini?')) { 
+            var newIncomes = [];
+            for (var i = 0; i < incomes.length; i++) {
+                if (i !== idx) { newIncomes.push(incomes[i]); }
+            }
+            incomes = newIncomes;
+            renderAll(); 
+            showNotification('Pendapatan dihapus'); 
+        }
     }
 
     function addBudgetAllocation() {
@@ -1947,7 +2069,15 @@
     }
 
     function deleteBudgetAlloc(idx) {
-        if (confirm('Hapus alokasi budget ini?')) { budgetAllocs.splice(idx, 1); renderAll(); showNotification('Alokasi budget dihapus'); }
+        if (confirm('Hapus alokasi budget ini?')) { 
+            var newBudget = [];
+            for (var i = 0; i < budgetAllocs.length; i++) {
+                if (i !== idx) { newBudget.push(budgetAllocs[i]); }
+            }
+            budgetAllocs = newBudget;
+            renderAll(); 
+            showNotification('Alokasi budget dihapus'); 
+        }
     }
 
     function addLiability() {
@@ -1977,9 +2107,17 @@
             }
             if (hasPayments) {
                 if (!confirm('Utang ini sudah ada pembayaran. Hapus semua data pembayaran juga?')) return;
-                debtPayments = debtPayments.filter(function(p) { return p.liabilityId !== liability.id; });
+                var newDebt = [];
+                for (var j = 0; j < debtPayments.length; j++) {
+                    if (debtPayments[j].liabilityId !== liability.id) { newDebt.push(debtPayments[j]); }
+                }
+                debtPayments = newDebt;
             }
-            liabilities.splice(idx, 1);
+            var newLiabilities = [];
+            for (var k = 0; k < liabilities.length; k++) {
+                if (k !== idx) { newLiabilities.push(liabilities[k]); }
+            }
+            liabilities = newLiabilities;
             renderAll();
             updatePaymentSelect();
             showNotification('Utang dihapus');
@@ -2017,7 +2155,11 @@
 
     function deleteExpense(id) {
         if (confirm('Hapus pengeluaran?')) {
-            expenses = expenses.filter(function(e) { return e.id !== id; });
+            var newExpenses = [];
+            for (var i = 0; i < expenses.length; i++) {
+                if (expenses[i].id !== id) { newExpenses.push(expenses[i]); }
+            }
+            expenses = newExpenses;
             renderAll();
             showNotification('Pengeluaran dihapus');
         }
@@ -2041,7 +2183,15 @@
     }
 
     function deleteAsset(id) {
-        if (confirm('Hapus aset?')) { assets = assets.filter(function(a) { return a.id !== id; }); renderAll(); showNotification('Aset dihapus'); }
+        if (confirm('Hapus aset?')) { 
+            var newAssets = [];
+            for (var i = 0; i < assets.length; i++) {
+                if (assets[i].id !== id) { newAssets.push(assets[i]); }
+            }
+            assets = newAssets;
+            renderAll(); 
+            showNotification('Aset dihapus'); 
+        }
     }
 
     function addGoal() {
@@ -2068,14 +2218,30 @@
     }
 
     function deleteGoal(id) {
-        if (confirm('Hapus goal?')) { goals = goals.filter(function(g) { return g.id !== id; }); renderAll(); showNotification('Goal dihapus'); }
+        if (confirm('Hapus goal?')) { 
+            var newGoals = [];
+            for (var i = 0; i < goals.length; i++) {
+                if (goals[i].id !== id) { newGoals.push(goals[i]); }
+            }
+            goals = newGoals;
+            renderAll(); 
+            showNotification('Goal dihapus'); 
+        }
     }
 
     function recordHistory() {
         var currentMonth = getCurrentMonth();
-        if (history.some(function(h) { return h.month === currentMonth; })) {
+        var exists = false;
+        for (var i = 0; i < history.length; i++) {
+            if (history[i].month === currentMonth) { exists = true; break; }
+        }
+        if (exists) {
             if (!confirm('History untuk ' + currentMonth + ' sudah ada. Timpa?')) return;
-            history = history.filter(function(h) { return h.month !== currentMonth; });
+            var newHistory = [];
+            for (var j = 0; j < history.length; j++) {
+                if (history[j].month !== currentMonth) { newHistory.push(history[j]); }
+            }
+            history = newHistory;
         }
         var nw = getNetWorth(mainCurrency);
         history.push({ month: currentMonth, netWorth: nw });
