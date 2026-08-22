@@ -1377,11 +1377,10 @@
         const API_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
 
         // ============================================================
-        //  LANGUAGE DATA - LENGKAP!
+        //  LANGUAGE DATA
         // ============================================================
         const LANGUAGES = {
             id: {
-                // Auth
                 authSubtitle: 'Kelola Keuangan Anda dengan Mudah',
                 loginTab: '🔐 Login',
                 registerTab: '📝 Register',
@@ -1395,14 +1394,11 @@
                 registerBtn: '📝 Register',
                 guestText: 'Lanjutkan sebagai Guest (Data lokal)',
                 authFooterText: 'Data Anda aman dan tersimpan di Google Sheets',
-                // Nav
                 exportText: 'PDF',
                 syncText: 'Sync',
                 logoutText: 'Logout',
                 recordText: 'Rekam Bulan Ini',
-                // Welcome
                 welcome: '👋 Selamat Datang di CashView',
-                // Balance Cards
                 totalBalance: '💰 Total Balance',
                 totalAsset: '📊 Total Aset',
                 totalLiability: '💳 Total Utang',
@@ -1415,16 +1411,14 @@
                 budgetUsed: 'Terpakai',
                 remainingBudget: 'Sisa',
                 netWorthDetail: '🏦 Aset - Utang',
-                liabilityCount: '📝 utang',
-                paymentCount: '📝 pembayaran',
-                // Stats
+                liabilityCount: 'utang',
+                paymentCount: 'pembayaran',
                 totalIncome: '💵 Total Income',
                 totalExpenses: '📉 Total Expenses',
                 monthlyAverage: '📊 Rata-rata Harian',
                 biggestExpense: '💳 Terbesar Bulan Ini',
                 goalProgress: '🎯 Goals Progress',
                 transactionCount: '📝 Transaksi',
-                // Titles
                 incomeTitle: 'Sumber Pendapatan',
                 budgetTitle: 'Alokasi Budget',
                 liabilityTitle: 'Utang / Kewajiban',
@@ -1433,7 +1427,6 @@
                 assetTitle: 'Aset & Penyusutan',
                 goalTitle: 'Goals Finansial',
                 historyTitle: 'Net Worth History',
-                // Placeholders
                 incomePlaceholder: 'Sumber (Salary, Freelance...)',
                 incomeAmount: 'Jumlah',
                 budgetPlaceholder: 'Kategori (Makan, Transport...)',
@@ -1453,7 +1446,6 @@
                 goalName: 'Goal',
                 goalTarget: 'Target',
                 goalDeadline: 'Tenggat Waktu',
-                // Table headers
                 date: 'Tanggal',
                 desc: 'Deskripsi',
                 category: 'Kategori',
@@ -1464,7 +1456,6 @@
                 dep: 'Penyusutan/th',
                 final: 'Nilai akhir',
                 debt: 'Utang',
-                // Labels
                 monthlyTotal: '📌 Total bulan ini',
                 budgetUsedLabel: '📊 Budget terpakai',
                 biggestLabel: '💳 Terbesar',
@@ -1472,10 +1463,8 @@
                 totalDepLabel: '📉 Total penyusutan/th',
                 totalPaymentLabel: '💸 Total cicilan',
                 paymentProgressLabel: '📊 Progress pelunasan',
-                // Buttons
                 recordBtn: 'Rekam Bulan Ini',
                 resetBtn: 'Reset',
-                // Empty states
                 noIncome: 'Belum ada sumber pendapatan',
                 noBudget: 'Belum ada alokasi budget',
                 noLiability: 'Belum ada utang',
@@ -1484,16 +1473,13 @@
                 noAsset: 'Belum ada aset',
                 noGoal: 'Belum ada goals',
                 noHistory: 'Belum ada history',
-                // Days
                 days: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-                // Goal status
                 belum: '⏳ Belum tercapai',
                 berhasil: '✅ Berhasil',
                 gagal: '❌ Gagal',
                 urgent: '⚠️ Mendesak!',
                 daysUntil: 'hari lagi',
                 overdue: 'Terlambat!',
-                // Report
                 reportTitle: 'Laporan Keuangan Bulanan',
                 reportSummary: '📊 Ringkasan',
                 reportBalance: 'Total Balance',
@@ -1505,7 +1491,6 @@
                 reportCategories: '💳 Pengeluaran per Kategori',
                 reportGoals: '🎯 Goals',
                 reportFooter: 'Laporan dibuat otomatis oleh CashView',
-                // Loading
                 loading: 'Memuat data...'
             },
             en: {
@@ -1742,6 +1727,7 @@
         let currentUser = null;
         let authToken = localStorage.getItem('cv_token') || null;
         let isGuest = localStorage.getItem('cv_guest') === 'true';
+        let isSyncing = false;
 
         let incomes = [];
         let budgetAllocs = [];
@@ -1784,7 +1770,7 @@
         function applyLanguage() {
             const t = LANGUAGES[lang] || LANGUAGES.id;
 
-            // Auth page
+            // Auth
             document.getElementById('authSubtitle').textContent = t.authSubtitle;
             document.getElementById('authLoginTab').textContent = t.loginTab;
             document.getElementById('authRegisterTab').textContent = t.registerTab;
@@ -1904,12 +1890,6 @@
             // Loading
             document.getElementById('loadingText').textContent = t.loading;
 
-            // Payment select placeholder
-            const paymentSelect = document.getElementById('paymentLiability');
-            if (paymentSelect.options.length === 1) {
-                paymentSelect.options[0].textContent = t.paymentSelect;
-            }
-
             // Language selector
             document.getElementById('languageSelector').value = lang;
         }
@@ -2015,6 +1995,8 @@
             localStorage.setItem('cv_guest', 'true');
             localStorage.removeItem('cv_token');
             currentUser = { name: 'Guest', email: 'guest@local' };
+            // Coba load data guest dari cloud
+            await loadGuestData();
             loadDashboard();
         }
 
@@ -2039,7 +2021,9 @@
             const params = new URLSearchParams();
             params.append('action', action);
             if (data) params.append('data', JSON.stringify(data));
-            if (authToken && !['login', 'register'].includes(action)) params.append('token', authToken);
+            if (authToken && !['login', 'register', 'syncGuestData', 'getGuestData'].includes(action)) {
+                params.append('token', authToken);
+            }
             try {
                 const response = await fetch(`${API_URL}?${params.toString()}`, { method: 'GET' });
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -2048,6 +2032,51 @@
                 console.error('API Error:', error);
                 return { success: false, error: error.message };
             }
+        }
+
+        // ============================================================
+        //  GUEST SYNC FUNCTIONS
+        // ============================================================
+        async function loadGuestData() {
+            if (!isGuest) return;
+            try {
+                const response = await callAPI('getGuestData');
+                if (response.success && response.data) {
+                    incomes = response.data.incomes || [];
+                    budgetAllocs = response.data.budgetAllocs || [];
+                    liabilities = response.data.liabilities || [];
+                    debtPayments = response.data.debtPayments || [];
+                    expenses = response.data.expenses || [];
+                    assets = response.data.assets || [];
+                    goals = response.data.goals || [];
+                    history = response.data.history || [];
+                    saveLocalData();
+                    showNotification('📥 Data Guest dimuat dari Google Sheets!', 'success');
+                }
+            } catch (error) {
+                console.log('Tidak ada data guest di cloud, gunakan lokal');
+            }
+        }
+
+        async function syncGuestToSheet() {
+            if (isSyncing) return;
+            isSyncing = true;
+            showNotification('🔄 Menyinkronkan data Guest...', 'warning');
+            try {
+                const data = {
+                    incomes, budgetAllocs, liabilities,
+                    debtPayments, expenses, assets, goals, history
+                };
+                const response = await callAPI('syncGuestData', data);
+                if (response.success) {
+                    showNotification('✅ Data Guest berhasil disinkronkan ke Google Sheets!', 'success');
+                } else {
+                    showNotification('❌ Gagal sync: ' + (response.error || 'Unknown error'), 'error');
+                }
+            } catch (error) {
+                showNotification('❌ Error sync: ' + error.message, 'error');
+            }
+            isSyncing = false;
         }
 
         // ============================================================
@@ -2095,6 +2124,17 @@
             assets = JSON.parse(localStorage.getItem('cv_assets')) || [];
             goals = JSON.parse(localStorage.getItem('cv_goals')) || [];
             history = JSON.parse(localStorage.getItem('cv_history')) || [];
+        }
+
+        function saveLocalData() {
+            localStorage.setItem('cv_incomes', JSON.stringify(incomes));
+            localStorage.setItem('cv_budgetAllocs', JSON.stringify(budgetAllocs));
+            localStorage.setItem('cv_liabilities', JSON.stringify(liabilities));
+            localStorage.setItem('cv_debtPayments', JSON.stringify(debtPayments));
+            localStorage.setItem('cv_expenses', JSON.stringify(expenses));
+            localStorage.setItem('cv_assets', JSON.stringify(assets));
+            localStorage.setItem('cv_goals', JSON.stringify(goals));
+            localStorage.setItem('cv_history', JSON.stringify(history));
         }
 
         function initDashboard() {
@@ -2514,6 +2554,43 @@
         }
 
         // ============================================================
+        //  SYNC
+        // ============================================================
+        async function syncToSheet() {
+            if (isSyncing) return;
+            isSyncing = true;
+
+            if (isGuest) {
+                await syncGuestToSheet();
+                isSyncing = false;
+                return;
+            }
+
+            if (!authToken) {
+                showNotification('Login dulu untuk sync ke Google Sheets', 'warning');
+                isSyncing = false;
+                return;
+            }
+
+            showNotification('🔄 Menyinkronkan data ke Google Sheets...', 'warning');
+            try {
+                const data = {
+                    incomes, budgetAllocs, liabilities, debtPayments,
+                    expenses, assets, goals, history
+                };
+                const response = await callAPI('syncData', data);
+                if (response.success) {
+                    showNotification('✅ Data berhasil disinkronkan ke Google Sheets!', 'success');
+                } else {
+                    showNotification('❌ Gagal sync: ' + (response.error || 'Unknown error'), 'error');
+                }
+            } catch (error) {
+                showNotification('❌ Error sync: ' + error.message, 'error');
+            }
+            isSyncing = false;
+        }
+
+        // ============================================================
         //  RENDER ALL
         // ============================================================
         function renderAll() {
@@ -2616,14 +2693,7 @@
             }
 
             // Save to localStorage
-            localStorage.setItem('cv_incomes', JSON.stringify(incomes));
-            localStorage.setItem('cv_budgetAllocs', JSON.stringify(budgetAllocs));
-            localStorage.setItem('cv_liabilities', JSON.stringify(liabilities));
-            localStorage.setItem('cv_debtPayments', JSON.stringify(debtPayments));
-            localStorage.setItem('cv_expenses', JSON.stringify(expenses));
-            localStorage.setItem('cv_assets', JSON.stringify(assets));
-            localStorage.setItem('cv_goals', JSON.stringify(goals));
-            localStorage.setItem('cv_history', JSON.stringify(history));
+            saveLocalData();
         }
 
         // ============================================================
@@ -3091,28 +3161,6 @@
         }
 
         // ============================================================
-        //  SYNC
-        // ============================================================
-        async function syncToSheet() {
-            if (isGuest || !authToken) {
-                showNotification('Login dulu untuk sync ke Google Sheets', 'warning');
-                return;
-            }
-            showNotification('🔄 Menyinkronkan data ke Google Sheets...', 'warning');
-            try {
-                const data = { incomes, budgetAllocs, liabilities, debtPayments, expenses, assets, goals, history };
-                const response = await callAPI('syncData', data);
-                if (response.success) {
-                    showNotification('✅ Data berhasil disinkronkan ke Google Sheets!', 'success');
-                } else {
-                    showNotification('❌ Gagal sync: ' + (response.error || 'Unknown error'), 'error');
-                }
-            } catch (error) {
-                showNotification('❌ Error sync: ' + error.message, 'error');
-            }
-        }
-
-        // ============================================================
         //  NOTIFICATION
         // ============================================================
         function showNotification(msg, type = 'success') {
@@ -3148,6 +3196,7 @@
             if (localStorage.getItem('cv_guest') === 'true') {
                 isGuest = true;
                 currentUser = { name: 'Guest', email: 'guest@local' };
+                await loadGuestData();
                 loadDashboard();
                 return;
             }
