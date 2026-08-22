@@ -621,7 +621,7 @@
             color: var(--text-primary);
         }
 
-        /* Goal Items dengan Checklist */
+        /* Goal Items */
         .goal-item {
             display: flex;
             justify-content: space-between;
@@ -907,12 +907,12 @@
         <div class="auth-container">
             <div class="auth-logo">
                 <h1>Cash<span>View</span></h1>
-                <p>Kelola Keuangan Anda dengan Mudah</p>
+                <p id="authSubtitle">Kelola Keuangan Anda dengan Mudah</p>
             </div>
 
             <div class="auth-tabs">
-                <button class="active" data-tab="login" onclick="switchAuthTab('login')">🔐 Login</button>
-                <button data-tab="register" onclick="switchAuthTab('register')">📝 Register</button>
+                <button class="active" data-tab="login" onclick="switchAuthTab('login')" id="authLoginTab">🔐 Login</button>
+                <button data-tab="register" onclick="switchAuthTab('register')" id="authRegisterTab">📝 Register</button>
             </div>
 
             <div id="authError" class="auth-error"></div>
@@ -920,11 +920,11 @@
 
             <div id="loginForm">
                 <div class="form-group">
-                    <label>📧 Email</label>
+                    <label id="loginEmailLabel">📧 Email</label>
                     <input type="email" id="loginEmail" placeholder="Masukkan email Anda" />
                 </div>
                 <div class="form-group">
-                    <label>🔒 Password</label>
+                    <label id="loginPasswordLabel">🔒 Password</label>
                     <input type="password" id="loginPassword" placeholder="Masukkan password" />
                 </div>
                 <button class="btn-auth" onclick="handleLogin()" id="loginBtn">🔐 Login</button>
@@ -932,32 +932,32 @@
 
             <div id="registerForm" style="display:none;">
                 <div class="form-group">
-                    <label>👤 Nama</label>
+                    <label id="registerNameLabel">👤 Nama</label>
                     <input type="text" id="registerName" placeholder="Masukkan nama Anda" />
                 </div>
                 <div class="form-group">
-                    <label>📧 Email</label>
+                    <label id="registerEmailLabel">📧 Email</label>
                     <input type="email" id="registerEmail" placeholder="Masukkan email Anda" />
                 </div>
                 <div class="form-group">
-                    <label>🔒 Password (min 6 karakter)</label>
+                    <label id="registerPasswordLabel">🔒 Password (min 6 karakter)</label>
                     <input type="password" id="registerPassword" placeholder="Buat password" />
                 </div>
                 <div class="form-group">
-                    <label>🔒 Konfirmasi Password</label>
+                    <label id="registerConfirmLabel">🔒 Konfirmasi Password</label>
                     <input type="password" id="registerConfirm" placeholder="Konfirmasi password" />
                 </div>
                 <button class="btn-auth" onclick="handleRegister()" id="registerBtn">📝 Register</button>
             </div>
 
             <div class="auth-guest">
-                <button onclick="continueAsGuest()">
-                    <i class="fas fa-user"></i> Lanjutkan sebagai Guest (Data lokal)
+                <button onclick="continueAsGuest()" id="guestBtn">
+                    <i class="fas fa-user"></i> <span id="guestText">Lanjutkan sebagai Guest (Data lokal)</span>
                 </button>
             </div>
 
             <div class="auth-footer" style="text-align:center;margin-top:16px;font-size:12px;color:var(--text-muted);">
-                Data Anda aman dan tersimpan di Google Sheets
+                <span id="authFooterText">Data Anda aman dan tersimpan di Google Sheets</span>
             </div>
         </div>
     </div>
@@ -967,7 +967,7 @@
     ============================================================ -->
     <div class="loading-spinner" id="loadingSpinner">
         <i class="fas fa-spinner"></i>
-        <p>Memuat data...</p>
+        <p id="loadingText">Memuat data...</p>
     </div>
 
     <!-- ============================================================
@@ -999,14 +999,14 @@
                     <option value="USD">🇺🇸 USD</option>
                     <option value="PHP">🇵🇭 PHP</option>
                 </select>
-                <button class="btn-export" onclick="exportPDF()" title="Export PDF Report">
-                    <i class="fas fa-file-pdf"></i> PDF
+                <button class="btn-export" onclick="exportPDF()" id="exportBtn">
+                    <i class="fas fa-file-pdf"></i> <span id="exportText">PDF</span>
                 </button>
-                <button class="btn-sm" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.15);" onclick="syncToSheet()">
-                    <i class="fas fa-cloud-upload-alt"></i> Sync
+                <button class="btn-sm" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.15);" onclick="syncToSheet()" id="syncNavBtn">
+                    <i class="fas fa-cloud-upload-alt"></i> <span id="syncText">Sync</span>
                 </button>
-                <button class="btn-sm btn-logout" onclick="handleLogout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                <button class="btn-sm btn-logout" onclick="handleLogout()" id="logoutNavBtn">
+                    <i class="fas fa-sign-out-alt"></i> <span id="logoutText">Logout</span>
                 </button>
             </div>
         </nav>
@@ -1029,8 +1029,8 @@
                 <h1 id="welcomeTitle">👋 Selamat Datang di CashView</h1>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                     <span class="date-display" id="dateDisplay"></span>
-                    <button class="btn btn-sm btn-success" onclick="recordHistory()">
-                        <i class="fas fa-save"></i> <span>Rekam Bulan Ini</span>
+                    <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtnNav">
+                        <i class="fas fa-save"></i> <span id="recordText">Rekam Bulan Ini</span>
                     </button>
                 </div>
             </div>
@@ -1038,52 +1038,52 @@
             <!-- BALANCE CARDS -->
             <div class="balance-cards">
                 <div class="balance-card bg-dark">
-                    <div class="card-label">💰 Total Balance</div>
+                    <div class="card-label" id="labelTotalBalance">💰 Total Balance</div>
                     <div class="card-amount" id="totalBalance">Rp0</div>
                     <div class="card-sub">
-                        <span>💼 Salary: <strong id="salaryTotal">Rp0</strong></span>
-                        <span>📈 Passive: <strong id="passiveTotal">Rp0</strong></span>
+                        <span id="labelSalary">💼 Salary: <strong id="salaryTotal">Rp0</strong></span>
+                        <span id="labelPassive">📈 Passive: <strong id="passiveTotal">Rp0</strong></span>
                     </div>
                     <div class="card-icon"><i class="fas fa-wallet"></i></div>
                 </div>
                 <div class="balance-card bg-green">
-                    <div class="card-label">📊 Total Aset</div>
+                    <div class="card-label" id="labelTotalAsset">📊 Total Aset</div>
                     <div class="card-amount" id="totalAssetDisplay">Rp0</div>
                     <div class="card-sub">
-                        <span>📉 Depresiasi/th: <strong id="depTotal">Rp0</strong></span>
+                        <span id="labelDepreciation">📉 Depresiasi/th: <strong id="depTotal">Rp0</strong></span>
                     </div>
                     <div class="card-icon"><i class="fas fa-chart-line"></i></div>
                 </div>
                 <div class="balance-card bg-red">
-                    <div class="card-label">💳 Total Utang</div>
+                    <div class="card-label" id="labelTotalLiability">💳 Total Utang</div>
                     <div class="card-amount" id="totalLiabilityDisplay">Rp0</div>
                     <div class="card-sub">
-                        <span>📝 <strong id="liabilityCount">0</strong> utang</span>
+                        <span id="labelLiabilityCount">📝 <strong id="liabilityCount">0</strong> utang</span>
                     </div>
                     <div class="card-icon"><i class="fas fa-credit-card"></i></div>
                 </div>
                 <div class="balance-card bg-purple">
-                    <div class="card-label">💸 Total Cicilan</div>
+                    <div class="card-label" id="labelTotalPayments">💸 Total Cicilan</div>
                     <div class="card-amount" id="totalPaymentsDisplay">Rp0</div>
                     <div class="card-sub">
-                        <span>📝 <strong id="paymentCount">0</strong> pembayaran</span>
+                        <span id="labelPaymentCount">📝 <strong id="paymentCount">0</strong> pembayaran</span>
                     </div>
                     <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
                 </div>
                 <div class="balance-card bg-gold">
-                    <div class="card-label">🎯 Net Worth</div>
+                    <div class="card-label" id="labelNetWorth">🎯 Net Worth</div>
                     <div class="card-amount" id="netWorthDisplay">Rp0</div>
                     <div class="card-sub">
-                        <span>🏦 Aset - Utang</span>
+                        <span id="labelNetWorthDetail">🏦 Aset - Utang</span>
                     </div>
                     <div class="card-icon"><i class="fas fa-star"></i></div>
                 </div>
                 <div class="balance-card bg-blue">
-                    <div class="card-label">📋 Budget Bulanan</div>
+                    <div class="card-label" id="labelMonthlyBudget">📋 Budget Bulanan</div>
                     <div class="card-amount" id="budgetDisplay">Rp0</div>
                     <div class="card-sub">
-                        <span>Terpakai: <strong id="budgetUsedPercent">0%</strong></span>
-                        <span>Sisa: <strong id="remainingBudgetDisplay">Rp0</strong></span>
+                        <span id="labelBudgetUsed">Terpakai: <strong id="budgetUsedPercent">0%</strong></span>
+                        <span id="labelRemainingBudget">Sisa: <strong id="remainingBudgetDisplay">Rp0</strong></span>
                     </div>
                     <div class="card-icon"><i class="fas fa-coins"></i></div>
                 </div>
@@ -1092,27 +1092,27 @@
             <!-- STATS -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-label">💵 Total Income</div>
+                    <div class="stat-label" id="statLabelTotalIncome">💵 Total Income</div>
                     <div class="stat-value positive" id="statTotalIncome">Rp0</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">📉 Total Expenses</div>
+                    <div class="stat-label" id="statLabelTotalExpenses">📉 Total Expenses</div>
                     <div class="stat-value negative" id="statTotalExpenses">Rp0</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">📊 Rata-rata Harian</div>
+                    <div class="stat-label" id="statLabelMonthlyAverage">📊 Rata-rata Harian</div>
                     <div class="stat-value" id="statDailyAvg">Rp0</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">💳 Terbesar Bulan Ini</div>
+                    <div class="stat-label" id="statLabelBiggestExpense">💳 Terbesar Bulan Ini</div>
                     <div class="stat-value warning" id="statBiggestExpense">-</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">🎯 Goals Progress</div>
+                    <div class="stat-label" id="statLabelGoalProgress">🎯 Goals Progress</div>
                     <div class="stat-value" id="statGoalProgress">0%</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">📝 Transaksi</div>
+                    <div class="stat-label" id="statLabelTransactionCount">📝 Transaksi</div>
                     <div class="stat-value" id="statTransactionCount">0</div>
                 </div>
             </div>
@@ -1121,7 +1121,7 @@
             <div class="three-col">
                 <div class="box">
                     <div class="box-header">
-                        <h3><i class="fas fa-money-bill-wave"></i> Sumber Pendapatan</h3>
+                        <h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3>
                         <span class="badge" id="incomeCount">0 sources</span>
                     </div>
                     <div class="input-group">
@@ -1145,7 +1145,7 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3><i class="fas fa-sliders-h"></i> Alokasi Budget</h3>
+                        <h3><i class="fas fa-sliders-h"></i> <span id="budgetTitle">Alokasi Budget</span></h3>
                         <span class="badge" id="budgetCount">0 categories</span>
                     </div>
                     <div class="input-group">
@@ -1164,7 +1164,7 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3><i class="fas fa-credit-card"></i> Utang / Kewajiban</h3>
+                        <h3><i class="fas fa-credit-card"></i> <span id="liabilityTitle">Utang / Kewajiban</span></h3>
                         <span class="badge" id="liabilityCountBadge">0 debts</span>
                     </div>
                     <div class="input-group">
@@ -1182,12 +1182,12 @@
                 </div>
             </div>
 
-            <!-- EXPENSES & DEBT PAYMENTS (SIDE BY SIDE) -->
+            <!-- EXPENSES & DEBT PAYMENTS -->
             <div class="two-col">
                 <!-- EXPENSES -->
                 <div class="box">
                     <div class="box-header">
-                        <h3><i class="fas fa-receipt"></i> Lacak Pengeluaran</h3>
+                        <h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3>
                         <span class="badge" id="expenseCount">0 items</span>
                     </div>
                     <div class="input-group">
@@ -1215,21 +1215,21 @@
                     <div class="daily-summary" id="dailySummary"></div>
                     <div class="table-wrap">
                         <table>
-                            <thead><tr><th>Tanggal</th><th>Deskripsi</th><th>Kategori</th><th>Jumlah</th><th></th></tr></thead>
+                            <thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th></th></tr></thead>
                             <tbody id="expenseTableBody"></tbody>
                         </table>
                     </div>
                     <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
-                        <span>📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
-                        <span>📊 Budget terpakai: <strong id="budgetUsed">0%</strong></span>
-                        <span>💳 Terbesar: <strong id="biggestExpense">-</strong></span>
+                        <span id="monthlyTotalLabel">📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
+                        <span id="budgetUsedLabel">📊 Budget terpakai: <strong id="budgetUsed">0%</strong></span>
+                        <span id="biggestLabel">💳 Terbesar: <strong id="biggestExpense">-</strong></span>
                     </div>
                 </div>
 
                 <!-- DEBT PAYMENTS -->
                 <div class="box">
                     <div class="box-header">
-                        <h3><i class="fas fa-hand-holding-usd"></i> Pembayaran Utang (Cicilan)</h3>
+                        <h3><i class="fas fa-hand-holding-usd"></i> <span id="paymentTitle">Pembayaran Utang (Cicilan)</span></h3>
                         <span class="badge" id="paymentCountBadge">0 payments</span>
                     </div>
                     <div class="input-group">
@@ -1246,17 +1246,17 @@
                         <button class="btn btn-sm btn-success" onclick="addDebtPayment()"><i class="fas fa-plus"></i></button>
                     </div>
                     <div style="font-size:9px;color:var(--text-muted);margin-bottom:5px;">
-                        <i class="fas fa-info-circle"></i> Bayar cicilan akan mengurangi Balance dan Utang
+                        <i class="fas fa-info-circle"></i> <span id="paymentInfo">Bayar cicilan akan mengurangi Balance dan Utang</span>
                     </div>
                     <div class="table-wrap">
                         <table>
-                            <thead><tr><th>Tanggal</th><th>Utang</th><th>Jumlah</th><th></th></tr></thead>
+                            <thead><tr><th id="paymentThDate">Tanggal</th><th id="paymentThDebt">Utang</th><th id="paymentThAmount">Jumlah</th><th></th></tr></thead>
                             <tbody id="paymentTableBody"></tbody>
                         </table>
                     </div>
                     <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
-                        <span>💸 Total cicilan: <strong id="totalPaymentAmount">Rp0</strong></span>
-                        <span>📊 Progress pelunasan: <strong id="paymentProgress">0%</strong></span>
+                        <span id="totalPaymentLabel">💸 Total cicilan: <strong id="totalPaymentAmount">Rp0</strong></span>
+                        <span id="paymentProgressLabel">📊 Progress pelunasan: <strong id="paymentProgress">0%</strong></span>
                     </div>
                 </div>
             </div>
@@ -1264,7 +1264,7 @@
             <!-- ASSETS -->
             <div class="box" style="margin-bottom:14px;">
                 <div class="box-header">
-                    <h3><i class="fas fa-building"></i> Aset & Penyusutan</h3>
+                    <h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3>
                     <span class="badge" id="assetCount">0 items</span>
                 </div>
                 <div class="input-group">
@@ -1284,13 +1284,13 @@
                 </div>
                 <div class="table-wrap">
                     <table>
-                        <thead><tr><th>Nama</th><th>Jenis</th><th>Nilai</th><th>Penyusutan/th</th><th>Nilai akhir</th><th></th></tr></thead>
+                        <thead><tr><th id="assetThName">Nama</th><th id="assetThType">Jenis</th><th id="assetThValue">Nilai</th><th id="assetThDep">Penyusutan/th</th><th id="assetThFinal">Nilai akhir</th><th></th></tr></thead>
                         <tbody id="assetTableBody"></tbody>
                     </table>
                 </div>
                 <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
-                    <span>💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
-                    <span>📉 Total penyusutan/th: <strong id="totalDepreciation">Rp0</strong></span>
+                    <span id="totalAssetLabel">💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
+                    <span id="totalDepLabel">📉 Total penyusutan/th: <strong id="totalDepreciation">Rp0</strong></span>
                 </div>
             </div>
 
@@ -1298,7 +1298,7 @@
             <div class="two-col">
                 <div class="box">
                     <div class="box-header">
-                        <h3><i class="fas fa-bullseye"></i> Goals Finansial</h3>
+                        <h3><i class="fas fa-bullseye"></i> <span id="goalTitle">Goals Finansial</span></h3>
                         <span class="badge" id="goalCount">0 goals</span>
                     </div>
                     <div class="input-group">
@@ -1317,12 +1317,12 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3><i class="fas fa-chart-area"></i> Net Worth History</h3>
+                        <h3><i class="fas fa-chart-area"></i> <span id="historyTitle">Net Worth History</span></h3>
                         <span class="badge" id="historyCount">0 months</span>
                     </div>
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
-                        <button class="btn btn-sm btn-success" onclick="recordHistory()"><i class="fas fa-save"></i> Rekam Bulan Ini</button>
-                        <button class="btn btn-sm btn-outline" onclick="resetHistory()"><i class="fas fa-undo"></i> Reset</button>
+                        <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtn"><i class="fas fa-save"></i> <span id="recordBtnText">Rekam Bulan Ini</span></button>
+                        <button class="btn btn-sm btn-outline" onclick="resetHistory()" id="resetBtn"><i class="fas fa-undo"></i> <span id="resetBtnText">Reset</span></button>
                     </div>
                     <div class="chart-wrapper">
                         <canvas id="wealthChart"></canvas>
@@ -1331,32 +1331,32 @@
                 </div>
             </div>
 
-            <!-- HIDDEN REPORT CONTENT FOR PDF -->
+            <!-- REPORT CONTENT -->
             <div id="reportContent" style="display:none;">
                 <div class="report-header">
                     <h2>Cash<span>View</span></h2>
-                    <p>Laporan Keuangan Bulanan</p>
+                    <p id="reportTitle">Laporan Keuangan Bulanan</p>
                     <p id="reportDate"></p>
                 </div>
                 <div class="report-section">
-                    <h4>📊 Ringkasan</h4>
-                    <div class="report-row"><span class="label">Total Balance</span><span class="value" id="rBalance">Rp0</span></div>
-                    <div class="report-row"><span class="label">Total Income</span><span class="value" id="rIncome">Rp0</span></div>
-                    <div class="report-row"><span class="label">Total Expenses</span><span class="value" id="rExpenses">Rp0</span></div>
-                    <div class="report-row"><span class="label">Net Worth</span><span class="value" id="rNetWorth">Rp0</span></div>
-                    <div class="report-row"><span class="label">Total Assets</span><span class="value" id="rAssets">Rp0</span></div>
-                    <div class="report-row"><span class="label">Total Liabilities</span><span class="value" id="rLiabilities">Rp0</span></div>
+                    <h4 id="reportSummary">📊 Ringkasan</h4>
+                    <div class="report-row"><span class="label" id="reportBalance">Total Balance</span><span class="value" id="rBalance">Rp0</span></div>
+                    <div class="report-row"><span class="label" id="reportIncome">Total Income</span><span class="value" id="rIncome">Rp0</span></div>
+                    <div class="report-row"><span class="label" id="reportExpenses">Total Expenses</span><span class="value" id="rExpenses">Rp0</span></div>
+                    <div class="report-row"><span class="label" id="reportNetWorth">Net Worth</span><span class="value" id="rNetWorth">Rp0</span></div>
+                    <div class="report-row"><span class="label" id="reportAssets">Total Assets</span><span class="value" id="rAssets">Rp0</span></div>
+                    <div class="report-row"><span class="label" id="reportLiabilities">Total Liabilities</span><span class="value" id="rLiabilities">Rp0</span></div>
                 </div>
                 <div class="report-section">
-                    <h4>💳 Pengeluaran per Kategori</h4>
+                    <h4 id="reportCategories">💳 Pengeluaran per Kategori</h4>
                     <div id="rCategories"></div>
                 </div>
                 <div class="report-section">
-                    <h4>🎯 Goals</h4>
+                    <h4 id="reportGoals">🎯 Goals</h4>
                     <div id="rGoals"></div>
                 </div>
                 <div style="text-align:center;font-size:10px;color:#6b7a8f;margin-top:10px;border-top:1px solid #e8ecf0;padding-top:8px;">
-                    Laporan dibuat otomatis oleh CashView
+                    <span id="reportFooter">Laporan dibuat otomatis oleh CashView</span>
                 </div>
             </div>
 
@@ -1375,6 +1375,366 @@
         // ============================================================
         // GANTI DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT
         const API_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+
+        // ============================================================
+        //  LANGUAGE DATA - LENGKAP!
+        // ============================================================
+        const LANGUAGES = {
+            id: {
+                // Auth
+                authSubtitle: 'Kelola Keuangan Anda dengan Mudah',
+                loginTab: '🔐 Login',
+                registerTab: '📝 Register',
+                loginEmailLabel: '📧 Email',
+                loginPasswordLabel: '🔒 Password',
+                registerNameLabel: '👤 Nama',
+                registerEmailLabel: '📧 Email',
+                registerPasswordLabel: '🔒 Password (min 6 karakter)',
+                registerConfirmLabel: '🔒 Konfirmasi Password',
+                loginBtn: '🔐 Login',
+                registerBtn: '📝 Register',
+                guestText: 'Lanjutkan sebagai Guest (Data lokal)',
+                authFooterText: 'Data Anda aman dan tersimpan di Google Sheets',
+                // Nav
+                exportText: 'PDF',
+                syncText: 'Sync',
+                logoutText: 'Logout',
+                recordText: 'Rekam Bulan Ini',
+                // Welcome
+                welcome: '👋 Selamat Datang di CashView',
+                // Balance Cards
+                totalBalance: '💰 Total Balance',
+                totalAsset: '📊 Total Aset',
+                totalLiability: '💳 Total Utang',
+                totalPayments: '💸 Total Cicilan',
+                netWorth: '🎯 Net Worth',
+                monthlyBudget: '📋 Budget Bulanan',
+                salary: '💼 Salary',
+                passive: '📈 Passive',
+                depreciation: '📉 Depresiasi/th',
+                budgetUsed: 'Terpakai',
+                remainingBudget: 'Sisa',
+                netWorthDetail: '🏦 Aset - Utang',
+                liabilityCount: '📝 utang',
+                paymentCount: '📝 pembayaran',
+                // Stats
+                totalIncome: '💵 Total Income',
+                totalExpenses: '📉 Total Expenses',
+                monthlyAverage: '📊 Rata-rata Harian',
+                biggestExpense: '💳 Terbesar Bulan Ini',
+                goalProgress: '🎯 Goals Progress',
+                transactionCount: '📝 Transaksi',
+                // Titles
+                incomeTitle: 'Sumber Pendapatan',
+                budgetTitle: 'Alokasi Budget',
+                liabilityTitle: 'Utang / Kewajiban',
+                paymentTitle: 'Pembayaran Utang (Cicilan)',
+                expenseTitle: 'Lacak Pengeluaran',
+                assetTitle: 'Aset & Penyusutan',
+                goalTitle: 'Goals Finansial',
+                historyTitle: 'Net Worth History',
+                // Placeholders
+                incomePlaceholder: 'Sumber (Salary, Freelance...)',
+                incomeAmount: 'Jumlah',
+                budgetPlaceholder: 'Kategori (Makan, Transport...)',
+                budgetAlloc: 'Alokasi',
+                liabilityPlaceholder: 'Nama utang (KPR, Pinjaman...)',
+                liabilityAmount: 'Jumlah',
+                liabilityInterest: 'Bunga %',
+                paymentSelect: 'Pilih utang...',
+                paymentAmount: 'Cicilan',
+                paymentInfo: 'Bayar cicilan akan mengurangi Balance dan Utang',
+                expenseDesc: 'Deskripsi',
+                expenseAmount: 'Jumlah',
+                assetName: 'Nama aset',
+                assetValue: 'Nilai',
+                assetMoving: '🔄 Bergerak',
+                assetFixed: '🏛️ Tidak Bergerak',
+                goalName: 'Goal',
+                goalTarget: 'Target',
+                goalDeadline: 'Tenggat Waktu',
+                // Table headers
+                date: 'Tanggal',
+                desc: 'Deskripsi',
+                category: 'Kategori',
+                amount: 'Jumlah',
+                name: 'Nama',
+                type: 'Jenis',
+                value: 'Nilai',
+                dep: 'Penyusutan/th',
+                final: 'Nilai akhir',
+                debt: 'Utang',
+                // Labels
+                monthlyTotal: '📌 Total bulan ini',
+                budgetUsedLabel: '📊 Budget terpakai',
+                biggestLabel: '💳 Terbesar',
+                totalAssetLabel: '💰 Total Aset',
+                totalDepLabel: '📉 Total penyusutan/th',
+                totalPaymentLabel: '💸 Total cicilan',
+                paymentProgressLabel: '📊 Progress pelunasan',
+                // Buttons
+                recordBtn: 'Rekam Bulan Ini',
+                resetBtn: 'Reset',
+                // Empty states
+                noIncome: 'Belum ada sumber pendapatan',
+                noBudget: 'Belum ada alokasi budget',
+                noLiability: 'Belum ada utang',
+                noPayment: 'Belum ada pembayaran cicilan',
+                noExpense: 'Belum ada pengeluaran',
+                noAsset: 'Belum ada aset',
+                noGoal: 'Belum ada goals',
+                noHistory: 'Belum ada history',
+                // Days
+                days: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+                // Goal status
+                belum: '⏳ Belum tercapai',
+                berhasil: '✅ Berhasil',
+                gagal: '❌ Gagal',
+                urgent: '⚠️ Mendesak!',
+                daysUntil: 'hari lagi',
+                overdue: 'Terlambat!',
+                // Report
+                reportTitle: 'Laporan Keuangan Bulanan',
+                reportSummary: '📊 Ringkasan',
+                reportBalance: 'Total Balance',
+                reportIncome: 'Total Income',
+                reportExpenses: 'Total Expenses',
+                reportNetWorth: 'Net Worth',
+                reportAssets: 'Total Assets',
+                reportLiabilities: 'Total Liabilities',
+                reportCategories: '💳 Pengeluaran per Kategori',
+                reportGoals: '🎯 Goals',
+                reportFooter: 'Laporan dibuat otomatis oleh CashView',
+                // Loading
+                loading: 'Memuat data...'
+            },
+            en: {
+                authSubtitle: 'Manage Your Finances Easily',
+                loginTab: '🔐 Login',
+                registerTab: '📝 Register',
+                loginEmailLabel: '📧 Email',
+                loginPasswordLabel: '🔒 Password',
+                registerNameLabel: '👤 Name',
+                registerEmailLabel: '📧 Email',
+                registerPasswordLabel: '🔒 Password (min 6 characters)',
+                registerConfirmLabel: '🔒 Confirm Password',
+                loginBtn: '🔐 Login',
+                registerBtn: '📝 Register',
+                guestText: 'Continue as Guest (Local data)',
+                authFooterText: 'Your data is safe and stored in Google Sheets',
+                exportText: 'PDF',
+                syncText: 'Sync',
+                logoutText: 'Logout',
+                recordText: 'Record This Month',
+                welcome: '👋 Welcome to CashView',
+                totalBalance: '💰 Total Balance',
+                totalAsset: '📊 Total Assets',
+                totalLiability: '💳 Total Liabilities',
+                totalPayments: '💸 Total Payments',
+                netWorth: '🎯 Net Worth',
+                monthlyBudget: '📋 Monthly Budget',
+                salary: '💼 Salary',
+                passive: '📈 Passive',
+                depreciation: '📉 Depreciation/year',
+                budgetUsed: 'Used',
+                remainingBudget: 'Remaining',
+                netWorthDetail: '🏦 Assets - Liabilities',
+                liabilityCount: 'debts',
+                paymentCount: 'payments',
+                totalIncome: '💵 Total Income',
+                totalExpenses: '📉 Total Expenses',
+                monthlyAverage: '📊 Daily Average',
+                biggestExpense: '💳 Biggest This Month',
+                goalProgress: '🎯 Goals Progress',
+                transactionCount: '📝 Transactions',
+                incomeTitle: 'Income Sources',
+                budgetTitle: 'Budget Allocation',
+                liabilityTitle: 'Liabilities / Debt',
+                paymentTitle: 'Debt Payments (Installments)',
+                expenseTitle: 'Track Expenses',
+                assetTitle: 'Assets & Depreciation',
+                goalTitle: 'Financial Goals',
+                historyTitle: 'Net Worth History',
+                incomePlaceholder: 'Source (Salary, Freelance...)',
+                incomeAmount: 'Amount',
+                budgetPlaceholder: 'Category (Food, Transport...)',
+                budgetAlloc: 'Allocation',
+                liabilityPlaceholder: 'Debt name (Mortgage, Loan...)',
+                liabilityAmount: 'Amount',
+                liabilityInterest: 'Interest %',
+                paymentSelect: 'Select debt...',
+                paymentAmount: 'Installment',
+                paymentInfo: 'Paying installment will reduce Balance and Debt',
+                expenseDesc: 'Description',
+                expenseAmount: 'Amount',
+                assetName: 'Asset name',
+                assetValue: 'Value',
+                assetMoving: '🔄 Moving',
+                assetFixed: '🏛️ Fixed',
+                goalName: 'Goal',
+                goalTarget: 'Target',
+                goalDeadline: 'Deadline',
+                date: 'Date',
+                desc: 'Description',
+                category: 'Category',
+                amount: 'Amount',
+                name: 'Name',
+                type: 'Type',
+                value: 'Value',
+                dep: 'Depreciation/year',
+                final: 'Final value',
+                debt: 'Debt',
+                monthlyTotal: '📌 Monthly total',
+                budgetUsedLabel: '📊 Budget used',
+                biggestLabel: '💳 Biggest',
+                totalAssetLabel: '💰 Total Assets',
+                totalDepLabel: '📉 Total depreciation/year',
+                totalPaymentLabel: '💸 Total payments',
+                paymentProgressLabel: '📊 Payment progress',
+                recordBtn: 'Record This Month',
+                resetBtn: 'Reset',
+                noIncome: 'No income sources yet',
+                noBudget: 'No budget allocations yet',
+                noLiability: 'No liabilities yet',
+                noPayment: 'No debt payments yet',
+                noExpense: 'No expenses yet',
+                noAsset: 'No assets yet',
+                noGoal: 'No goals yet',
+                noHistory: 'No history yet',
+                days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                belum: '⏳ Not achieved yet',
+                berhasil: '✅ Achieved',
+                gagal: '❌ Failed',
+                urgent: '⚠️ Urgent!',
+                daysUntil: 'days left',
+                overdue: 'Overdue!',
+                reportTitle: 'Monthly Financial Report',
+                reportSummary: '📊 Summary',
+                reportBalance: 'Total Balance',
+                reportIncome: 'Total Income',
+                reportExpenses: 'Total Expenses',
+                reportNetWorth: 'Net Worth',
+                reportAssets: 'Total Assets',
+                reportLiabilities: 'Total Liabilities',
+                reportCategories: '💳 Expenses by Category',
+                reportGoals: '🎯 Goals',
+                reportFooter: 'Report generated automatically by CashView',
+                loading: 'Loading data...'
+            },
+            zh: {
+                authSubtitle: '轻松管理您的财务',
+                loginTab: '🔐 登录',
+                registerTab: '📝 注册',
+                loginEmailLabel: '📧 邮箱',
+                loginPasswordLabel: '🔒 密码',
+                registerNameLabel: '👤 姓名',
+                registerEmailLabel: '📧 邮箱',
+                registerPasswordLabel: '🔒 密码 (至少6个字符)',
+                registerConfirmLabel: '🔒 确认密码',
+                loginBtn: '🔐 登录',
+                registerBtn: '📝 注册',
+                guestText: '继续作为访客 (本地数据)',
+                authFooterText: '您的数据安全存储在 Google Sheets 中',
+                exportText: 'PDF',
+                syncText: '同步',
+                logoutText: '退出',
+                recordText: '记录本月',
+                welcome: '👋 欢迎来到 CashView',
+                totalBalance: '💰 总余额',
+                totalAsset: '📊 总资产',
+                totalLiability: '💳 总负债',
+                totalPayments: '💸 总还款',
+                netWorth: '🎯 净资产',
+                monthlyBudget: '📋 月度预算',
+                salary: '💼 工资',
+                passive: '📈 被动收入',
+                depreciation: '📉 年折旧',
+                budgetUsed: '已用',
+                remainingBudget: '剩余',
+                netWorthDetail: '🏦 资产 - 负债',
+                liabilityCount: '笔负债',
+                paymentCount: '笔还款',
+                totalIncome: '💵 总收入',
+                totalExpenses: '📉 总支出',
+                monthlyAverage: '📊 日均支出',
+                biggestExpense: '💳 本月最大支出',
+                goalProgress: '🎯 目标进度',
+                transactionCount: '📝 交易',
+                incomeTitle: '收入来源',
+                budgetTitle: '预算分配',
+                liabilityTitle: '负债/债务',
+                paymentTitle: '还款 (分期付款)',
+                expenseTitle: '追踪支出',
+                assetTitle: '资产与折旧',
+                goalTitle: '财务目标',
+                historyTitle: '净资产历史',
+                incomePlaceholder: '来源 (工资, 自由职业...)',
+                incomeAmount: '金额',
+                budgetPlaceholder: '类别 (餐饮, 交通...)',
+                budgetAlloc: '分配',
+                liabilityPlaceholder: '债务名称 (房贷, 贷款...)',
+                liabilityAmount: '金额',
+                liabilityInterest: '利率 %',
+                paymentSelect: '选择债务...',
+                paymentAmount: '分期付款',
+                paymentInfo: '还款将减少余额和负债',
+                expenseDesc: '描述',
+                expenseAmount: '金额',
+                assetName: '资产名称',
+                assetValue: '价值',
+                assetMoving: '🔄 流动资产',
+                assetFixed: '🏛️ 固定资产',
+                goalName: '目标',
+                goalTarget: '目标金额',
+                goalDeadline: '截止日期',
+                date: '日期',
+                desc: '描述',
+                category: '类别',
+                amount: '金额',
+                name: '名称',
+                type: '类型',
+                value: '价值',
+                dep: '年折旧',
+                final: '最终价值',
+                debt: '负债',
+                monthlyTotal: '📌 本月总计',
+                budgetUsedLabel: '📊 已用预算',
+                biggestLabel: '💳 最大支出',
+                totalAssetLabel: '💰 总资产',
+                totalDepLabel: '📉 年折旧总计',
+                totalPaymentLabel: '💸 总还款',
+                paymentProgressLabel: '📊 还款进度',
+                recordBtn: '记录本月',
+                resetBtn: '重置',
+                noIncome: '暂无收入来源',
+                noBudget: '暂无预算分配',
+                noLiability: '暂无负债',
+                noPayment: '暂无还款记录',
+                noExpense: '暂无支出',
+                noAsset: '暂无资产',
+                noGoal: '暂无目标',
+                noHistory: '暂无历史',
+                days: ['日', '一', '二', '三', '四', '五', '六'],
+                belum: '⏳ 尚未达成',
+                berhasil: '✅ 已达成',
+                gagal: '❌ 失败',
+                urgent: '⚠️ 紧急！',
+                daysUntil: '天后到期',
+                overdue: '已过期！',
+                reportTitle: '月度财务报告',
+                reportSummary: '📊 摘要',
+                reportBalance: '总余额',
+                reportIncome: '总收入',
+                reportExpenses: '总支出',
+                reportNetWorth: '净资产',
+                reportAssets: '总资产',
+                reportLiabilities: '总负债',
+                reportCategories: '💳 支出分类',
+                reportGoals: '🎯 目标',
+                reportFooter: '报告由 CashView 自动生成',
+                loading: '加载数据中...'
+            }
+        };
 
         // ============================================================
         //  STATE
@@ -1412,377 +1772,8 @@
         };
 
         // ============================================================
-        //  LANGUAGE
+        //  LANGUAGE FUNCTIONS
         // ============================================================
-       const LANGUAGES = {
-    id: {
-        welcome: '👋 Selamat Datang di CashView',
-        totalBalance: '💰 Total Balance',
-        totalAsset: '📊 Total Aset',
-        totalLiability: '💳 Total Utang',
-        totalPayments: '💸 Total Cicilan',
-        netWorth: '🎯 Net Worth',
-        monthlyBudget: '📋 Budget Bulanan',
-        salary: '💼 Salary',
-        passive: '📈 Passive',
-        depreciation: '📉 Depresiasi/th',
-        budgetUsed: 'Terpakai',
-        remainingBudget: 'Sisa',
-        netWorthDetail: '🏦 Aset - Utang',
-        totalIncome: '💵 Total Income',
-        totalExpenses: '📉 Total Expenses',
-        monthlyAverage: '📊 Rata-rata Harian',
-        biggestExpense: '💳 Terbesar Bulan Ini',
-        goalProgress: '🎯 Goals Progress',
-        transactionCount: '📝 Transaksi',
-        incomeTitle: 'Sumber Pendapatan',
-        budgetTitle: 'Alokasi Budget',
-        liabilityTitle: 'Utang / Kewajiban',
-        paymentTitle: 'Pembayaran Utang (Cicilan)',
-        expenseTitle: 'Lacak Pengeluaran',
-        assetTitle: 'Aset & Penyusutan',
-        goalTitle: 'Goals Finansial',
-        historyTitle: 'Net Worth History',
-        summaryTitle: 'Ringkasan Bulanan',
-        incomePlaceholder: 'Sumber (Salary, Freelance...)',
-        incomeAmount: 'Jumlah',
-        budgetPlaceholder: 'Kategori (Makan, Transport...)',
-        budgetAlloc: 'Alokasi',
-        liabilityPlaceholder: 'Nama utang (KPR, Pinjaman...)',
-        liabilityAmount: 'Jumlah',
-        liabilityInterest: 'Bunga %',
-        paymentSelect: 'Pilih utang...',
-        paymentAmount: 'Cicilan',
-        paymentInfo: 'Bayar cicilan akan mengurangi Balance dan Utang',
-        expenseDesc: 'Deskripsi',
-        expenseAmount: 'Jumlah',
-        assetName: 'Nama aset',
-        assetValue: 'Nilai',
-        assetMoving: '🔄 Bergerak',
-        assetFixed: '🏛️ Tidak Bergerak',
-        goalName: 'Goal',
-        goalTarget: 'Target',
-        goalDeadline: 'Tenggat Waktu',
-        date: 'Tanggal',
-        desc: 'Deskripsi',
-        category: 'Kategori',
-        amount: 'Jumlah',
-        name: 'Nama',
-        type: 'Jenis',
-        value: 'Nilai',
-        dep: 'Penyusutan/th',
-        final: 'Nilai akhir',
-        monthlyTotal: '📌 Total bulan ini',
-        budgetUsedLabel: '📊 Budget terpakai',
-        biggestLabel: '💳 Terbesar',
-        totalAssetLabel: '💰 Total Aset',
-        totalDepLabel: '📉 Total penyusutan/th',
-        totalPaymentLabel: '💸 Total cicilan',
-        paymentProgressLabel: '📊 Progress pelunasan',
-        recordBtn: 'Rekam Bulan Ini',
-        resetBtn: 'Reset',
-        noIncome: 'Belum ada sumber pendapatan',
-        noBudget: 'Belum ada alokasi budget',
-        noLiability: 'Belum ada utang',
-        noPayment: 'Belum ada pembayaran cicilan',
-        noExpense: 'Belum ada pengeluaran',
-        noAsset: 'Belum ada aset',
-        noGoal: 'Belum ada goals',
-        noHistory: 'Belum ada history',
-        days: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-        urgent: '⚠️ Mendesak!',
-        daysUntil: 'hari lagi',
-        overdue: 'Terlambat!',
-        summaryIncome: '💵 Total Income',
-        summaryExpense: '📉 Total Expenses',
-        summarySavings: '🏦 Savings Rate',
-        summaryNetWorth: '🎯 Net Worth',
-        summaryAvgDaily: '📊 Rata-rata Harian',
-        summaryTopCategory: '🏷️ Kategori Terbanyak',
-        recurring: '🔄 Berulang',
-        oneTime: '📌 Sekali',
-        vsLastMonth: 'vs last month',
-        today: 'Hari ini',
-        debt: '💳 Utang',
-        searchPlaceholder: '🔍 Cari transaksi...',
-        allCategories: 'Semua Kategori',
-        resetFilter: 'Reset',
-        editTitle: '✏️ Edit Transaksi',
-        editDescLabel: 'Deskripsi',
-        editAmountLabel: 'Jumlah',
-        editCurrencyLabel: 'Mata Uang',
-        editCategoryLabel: 'Kategori',
-        editDateLabel: 'Tanggal',
-        saveEdit: '💾 Simpan',
-        cancelEdit: 'Batal',
-        actions: 'Aksi',
-        pieCount: 'kategori',
-        budgetVsCount: 'kategori',
-        exportPDF: '📄 PDF',
-        sync: '🔄 Sync',
-        logout: '🚪 Logout',
-        login: '🔐 Login',
-        register: '📝 Register',
-        guest: 'Lanjutkan sebagai Guest (Data lokal)',
-        authFooter: 'Data Anda aman dan tersimpan di Google Sheets',
-        name: '👤 Nama',
-        email: '📧 Email',
-        password: '🔒 Password',
-        confirmPassword: '🔒 Konfirmasi Password',
-        registerSuccess: '✅ Registrasi berhasil! Silakan login.',
-        loginSuccess: '✅ Login berhasil!',
-        logoutConfirm: 'Yakin ingin logout?',
-        logoutSuccess: '👋 Anda telah logout',
-        noData: 'Belum ada data',
-        loading: 'Memuat data...',
-        welcomeBack: '👋 Selamat datang'
-    },
-    en: {
-        welcome: '👋 Welcome to CashView',
-        totalBalance: '💰 Total Balance',
-        totalAsset: '📊 Total Assets',
-        totalLiability: '💳 Total Liabilities',
-        totalPayments: '💸 Total Payments',
-        netWorth: '🎯 Net Worth',
-        monthlyBudget: '📋 Monthly Budget',
-        salary: '💼 Salary',
-        passive: '📈 Passive',
-        depreciation: '📉 Depreciation/year',
-        budgetUsed: 'Used',
-        remainingBudget: 'Remaining',
-        netWorthDetail: '🏦 Assets - Liabilities',
-        totalIncome: '💵 Total Income',
-        totalExpenses: '📉 Total Expenses',
-        monthlyAverage: '📊 Daily Average',
-        biggestExpense: '💳 Biggest This Month',
-        goalProgress: '🎯 Goals Progress',
-        transactionCount: '📝 Transactions',
-        incomeTitle: 'Income Sources',
-        budgetTitle: 'Budget Allocation',
-        liabilityTitle: 'Liabilities / Debt',
-        paymentTitle: 'Debt Payments (Installments)',
-        expenseTitle: 'Track Expenses',
-        assetTitle: 'Assets & Depreciation',
-        goalTitle: 'Financial Goals',
-        historyTitle: 'Net Worth History',
-        summaryTitle: 'Monthly Summary',
-        incomePlaceholder: 'Source (Salary, Freelance...)',
-        incomeAmount: 'Amount',
-        budgetPlaceholder: 'Category (Food, Transport...)',
-        budgetAlloc: 'Allocation',
-        liabilityPlaceholder: 'Debt name (Mortgage, Loan...)',
-        liabilityAmount: 'Amount',
-        liabilityInterest: 'Interest %',
-        paymentSelect: 'Select debt...',
-        paymentAmount: 'Installment',
-        paymentInfo: 'Paying installment will reduce Balance and Debt',
-        expenseDesc: 'Description',
-        expenseAmount: 'Amount',
-        assetName: 'Asset name',
-        assetValue: 'Value',
-        assetMoving: '🔄 Moving',
-        assetFixed: '🏛️ Fixed',
-        goalName: 'Goal',
-        goalTarget: 'Target',
-        goalDeadline: 'Deadline',
-        date: 'Date',
-        desc: 'Description',
-        category: 'Category',
-        amount: 'Amount',
-        name: 'Name',
-        type: 'Type',
-        value: 'Value',
-        dep: 'Depreciation/year',
-        final: 'Final value',
-        monthlyTotal: '📌 Monthly total',
-        budgetUsedLabel: '📊 Budget used',
-        biggestLabel: '💳 Biggest',
-        totalAssetLabel: '💰 Total Assets',
-        totalDepLabel: '📉 Total depreciation/year',
-        totalPaymentLabel: '💸 Total payments',
-        paymentProgressLabel: '📊 Payment progress',
-        recordBtn: 'Record This Month',
-        resetBtn: 'Reset',
-        noIncome: 'No income sources yet',
-        noBudget: 'No budget allocations yet',
-        noLiability: 'No liabilities yet',
-        noPayment: 'No debt payments yet',
-        noExpense: 'No expenses yet',
-        noAsset: 'No assets yet',
-        noGoal: 'No goals yet',
-        noHistory: 'No history yet',
-        days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        urgent: '⚠️ Urgent!',
-        daysUntil: 'days left',
-        overdue: 'Overdue!',
-        summaryIncome: '💵 Total Income',
-        summaryExpense: '📉 Total Expenses',
-        summarySavings: '🏦 Savings Rate',
-        summaryNetWorth: '🎯 Net Worth',
-        summaryAvgDaily: '📊 Daily Average',
-        summaryTopCategory: '🏷️ Top Category',
-        recurring: '🔄 Recurring',
-        oneTime: '📌 One-time',
-        vsLastMonth: 'vs last month',
-        today: 'Today',
-        debt: '💳 Debt',
-        searchPlaceholder: '🔍 Search transactions...',
-        allCategories: 'All Categories',
-        resetFilter: 'Reset',
-        editTitle: '✏️ Edit Transaction',
-        editDescLabel: 'Description',
-        editAmountLabel: 'Amount',
-        editCurrencyLabel: 'Currency',
-        editCategoryLabel: 'Category',
-        editDateLabel: 'Date',
-        saveEdit: '💾 Save',
-        cancelEdit: 'Cancel',
-        actions: 'Actions',
-        pieCount: 'categories',
-        budgetVsCount: 'categories',
-        exportPDF: '📄 PDF',
-        sync: '🔄 Sync',
-        logout: '🚪 Logout',
-        login: '🔐 Login',
-        register: '📝 Register',
-        guest: 'Continue as Guest (Local data)',
-        authFooter: 'Your data is safe and stored in Google Sheets',
-        name: '👤 Name',
-        email: '📧 Email',
-        password: '🔒 Password',
-        confirmPassword: '🔒 Confirm Password',
-        registerSuccess: '✅ Registration successful! Please login.',
-        loginSuccess: '✅ Login successful!',
-        logoutConfirm: 'Are you sure you want to logout?',
-        logoutSuccess: '👋 You have been logged out',
-        noData: 'No data yet',
-        loading: 'Loading data...',
-        welcomeBack: '👋 Welcome back'
-    },
-    zh: {
-        welcome: '👋 欢迎来到 CashView',
-        totalBalance: '💰 总余额',
-        totalAsset: '📊 总资产',
-        totalLiability: '💳 总负债',
-        totalPayments: '💸 总还款',
-        netWorth: '🎯 净资产',
-        monthlyBudget: '📋 月度预算',
-        salary: '💼 工资',
-        passive: '📈 被动收入',
-        depreciation: '📉 年折旧',
-        budgetUsed: '已用',
-        remainingBudget: '剩余',
-        netWorthDetail: '🏦 资产 - 负债',
-        totalIncome: '💵 总收入',
-        totalExpenses: '📉 总支出',
-        monthlyAverage: '📊 日均支出',
-        biggestExpense: '💳 本月最大支出',
-        goalProgress: '🎯 目标进度',
-        transactionCount: '📝 交易',
-        incomeTitle: '收入来源',
-        budgetTitle: '预算分配',
-        liabilityTitle: '负债/债务',
-        paymentTitle: '还款 (分期付款)',
-        expenseTitle: '追踪支出',
-        assetTitle: '资产与折旧',
-        goalTitle: '财务目标',
-        historyTitle: '净资产历史',
-        summaryTitle: '月度总结',
-        incomePlaceholder: '来源 (工资, 自由职业...)',
-        incomeAmount: '金额',
-        budgetPlaceholder: '类别 (餐饮, 交通...)',
-        budgetAlloc: '分配',
-        liabilityPlaceholder: '债务名称 (房贷, 贷款...)',
-        liabilityAmount: '金额',
-        liabilityInterest: '利率 %',
-        paymentSelect: '选择债务...',
-        paymentAmount: '分期付款',
-        paymentInfo: '还款将减少余额和负债',
-        expenseDesc: '描述',
-        expenseAmount: '金额',
-        assetName: '资产名称',
-        assetValue: '价值',
-        assetMoving: '🔄 流动资产',
-        assetFixed: '🏛️ 固定资产',
-        goalName: '目标',
-        goalTarget: '目标金额',
-        goalDeadline: '截止日期',
-        date: '日期',
-        desc: '描述',
-        category: '类别',
-        amount: '金额',
-        name: '名称',
-        type: '类型',
-        value: '价值',
-        dep: '年折旧',
-        final: '最终价值',
-        monthlyTotal: '📌 本月总计',
-        budgetUsedLabel: '📊 已用预算',
-        biggestLabel: '💳 最大支出',
-        totalAssetLabel: '💰 总资产',
-        totalDepLabel: '📉 年折旧总计',
-        totalPaymentLabel: '💸 总还款',
-        paymentProgressLabel: '📊 还款进度',
-        recordBtn: '记录本月',
-        resetBtn: '重置',
-        noIncome: '暂无收入来源',
-        noBudget: '暂无预算分配',
-        noLiability: '暂无负债',
-        noPayment: '暂无还款记录',
-        noExpense: '暂无支出',
-        noAsset: '暂无资产',
-        noGoal: '暂无目标',
-        noHistory: '暂无历史',
-        days: ['日', '一', '二', '三', '四', '五', '六'],
-        urgent: '⚠️ 紧急！',
-        daysUntil: '天后到期',
-        overdue: '已过期！',
-        summaryIncome: '💵 总收入',
-        summaryExpense: '📉 总支出',
-        summarySavings: '🏦 储蓄率',
-        summaryNetWorth: '🎯 净资产',
-        summaryAvgDaily: '📊 日均支出',
-        summaryTopCategory: '🏷️ 最多类别',
-        recurring: '🔄 重复',
-        oneTime: '📌 一次性',
-        vsLastMonth: '对比上月',
-        today: '今天',
-        debt: '💳 负债',
-        searchPlaceholder: '🔍 搜索交易...',
-        allCategories: '所有类别',
-        resetFilter: '重置',
-        editTitle: '✏️ 编辑交易',
-        editDescLabel: '描述',
-        editAmountLabel: '金额',
-        editCurrencyLabel: '货币',
-        editCategoryLabel: '类别',
-        editDateLabel: '日期',
-        saveEdit: '💾 保存',
-        cancelEdit: '取消',
-        actions: '操作',
-        pieCount: '类别',
-        budgetVsCount: '类别',
-        exportPDF: '📄 PDF',
-        sync: '🔄 同步',
-        logout: '🚪 退出',
-        login: '🔐 登录',
-        register: '📝 注册',
-        guest: '继续作为访客 (本地数据)',
-        authFooter: '您的数据安全存储在 Google Sheets 中',
-        name: '👤 姓名',
-        email: '📧 邮箱',
-        password: '🔒 密码',
-        confirmPassword: '🔒 确认密码',
-        registerSuccess: '✅ 注册成功！请登录。',
-        loginSuccess: '✅ 登录成功！',
-        logoutConfirm: '确定要退出吗？',
-        logoutSuccess: '👋 您已退出',
-        noData: '暂无数据',
-        loading: '加载数据中...',
-        welcomeBack: '👋 欢迎回来'
-    }
-};
-
         function changeLanguage(langCode) {
             lang = langCode;
             localStorage.setItem('cv_lang', langCode);
@@ -1792,7 +1783,134 @@
 
         function applyLanguage() {
             const t = LANGUAGES[lang] || LANGUAGES.id;
+
+            // Auth page
+            document.getElementById('authSubtitle').textContent = t.authSubtitle;
+            document.getElementById('authLoginTab').textContent = t.loginTab;
+            document.getElementById('authRegisterTab').textContent = t.registerTab;
+            document.getElementById('loginEmailLabel').textContent = t.loginEmailLabel;
+            document.getElementById('loginPasswordLabel').textContent = t.loginPasswordLabel;
+            document.getElementById('registerNameLabel').textContent = t.registerNameLabel;
+            document.getElementById('registerEmailLabel').textContent = t.registerEmailLabel;
+            document.getElementById('registerPasswordLabel').textContent = t.registerPasswordLabel;
+            document.getElementById('registerConfirmLabel').textContent = t.registerConfirmLabel;
+            document.getElementById('loginBtn').textContent = t.loginBtn;
+            document.getElementById('registerBtn').textContent = t.registerBtn;
+            document.getElementById('guestText').textContent = t.guestText;
+            document.getElementById('authFooterText').textContent = t.authFooterText;
+
+            // Nav
+            document.getElementById('exportText').textContent = t.exportText;
+            document.getElementById('syncText').textContent = t.syncText;
+            document.getElementById('logoutText').textContent = t.logoutText;
+            document.getElementById('recordText').textContent = t.recordText;
+
+            // Welcome
             document.getElementById('welcomeTitle').textContent = t.welcome;
+
+            // Balance Cards
+            document.getElementById('labelTotalBalance').textContent = t.totalBalance;
+            document.getElementById('labelTotalAsset').textContent = t.totalAsset;
+            document.getElementById('labelTotalLiability').textContent = t.totalLiability;
+            document.getElementById('labelTotalPayments').textContent = t.totalPayments;
+            document.getElementById('labelNetWorth').textContent = t.netWorth;
+            document.getElementById('labelMonthlyBudget').textContent = t.monthlyBudget;
+            document.getElementById('labelSalary').innerHTML = `${t.salary}: <strong id="salaryTotal">Rp0</strong>`;
+            document.getElementById('labelPassive').innerHTML = `${t.passive}: <strong id="passiveTotal">Rp0</strong>`;
+            document.getElementById('labelDepreciation').innerHTML = `${t.depreciation}: <strong id="depTotal">Rp0</strong>`;
+            document.getElementById('labelBudgetUsed').innerHTML = `${t.budgetUsed}: <strong id="budgetUsedPercent">0%</strong>`;
+            document.getElementById('labelRemainingBudget').innerHTML = `${t.remainingBudget}: <strong id="remainingBudgetDisplay">Rp0</strong>`;
+            document.getElementById('labelNetWorthDetail').textContent = t.netWorthDetail;
+            document.getElementById('labelLiabilityCount').innerHTML = `📝 <strong id="liabilityCount">0</strong> ${t.liabilityCount}`;
+            document.getElementById('labelPaymentCount').innerHTML = `📝 <strong id="paymentCount">0</strong> ${t.paymentCount}`;
+
+            // Stats
+            document.getElementById('statLabelTotalIncome').textContent = t.totalIncome;
+            document.getElementById('statLabelTotalExpenses').textContent = t.totalExpenses;
+            document.getElementById('statLabelMonthlyAverage').textContent = t.monthlyAverage;
+            document.getElementById('statLabelBiggestExpense').textContent = t.biggestExpense;
+            document.getElementById('statLabelGoalProgress').textContent = t.goalProgress;
+            document.getElementById('statLabelTransactionCount').textContent = t.transactionCount;
+
+            // Titles
+            document.getElementById('incomeTitle').textContent = t.incomeTitle;
+            document.getElementById('budgetTitle').textContent = t.budgetTitle;
+            document.getElementById('liabilityTitle').textContent = t.liabilityTitle;
+            document.getElementById('paymentTitle').textContent = t.paymentTitle;
+            document.getElementById('expenseTitle').textContent = t.expenseTitle;
+            document.getElementById('assetTitle').textContent = t.assetTitle;
+            document.getElementById('goalTitle').textContent = t.goalTitle;
+            document.getElementById('historyTitle').textContent = t.historyTitle;
+
+            // Placeholders
+            document.getElementById('incomeSource').placeholder = t.incomePlaceholder;
+            document.getElementById('incomeAmount').placeholder = t.incomeAmount;
+            document.getElementById('budgetCategory').placeholder = t.budgetPlaceholder;
+            document.getElementById('budgetAlloc').placeholder = t.budgetAlloc;
+            document.getElementById('liabilityName').placeholder = t.liabilityPlaceholder;
+            document.getElementById('liabilityAmount').placeholder = t.liabilityAmount;
+            document.getElementById('liabilityInterest').placeholder = t.liabilityInterest;
+            document.getElementById('paymentAmount').placeholder = t.paymentAmount;
+            document.getElementById('expenseDesc').placeholder = t.expenseDesc;
+            document.getElementById('expenseAmount').placeholder = t.expenseAmount;
+            document.getElementById('assetName').placeholder = t.assetName;
+            document.getElementById('assetValue').placeholder = t.assetValue;
+            document.getElementById('goalName').placeholder = t.goalName;
+            document.getElementById('goalTarget').placeholder = t.goalTarget;
+            document.getElementById('goalDeadline').placeholder = t.goalDeadline;
+            document.getElementById('paymentInfo').textContent = t.paymentInfo;
+
+            // Table headers
+            document.getElementById('thDate').textContent = t.date;
+            document.getElementById('thDesc').textContent = t.desc;
+            document.getElementById('thCategory').textContent = t.category;
+            document.getElementById('thAmount').textContent = t.amount;
+            document.getElementById('assetThName').textContent = t.name;
+            document.getElementById('assetThType').textContent = t.type;
+            document.getElementById('assetThValue').textContent = t.value;
+            document.getElementById('assetThDep').textContent = t.dep;
+            document.getElementById('assetThFinal').textContent = t.final;
+            document.getElementById('paymentThDate').textContent = t.date;
+            document.getElementById('paymentThDebt').textContent = t.debt;
+            document.getElementById('paymentThAmount').textContent = t.amount;
+
+            // Labels
+            document.getElementById('monthlyTotalLabel').innerHTML = `${t.monthlyTotal}: <strong id="monthlyExpenseTotal">Rp0</strong>`;
+            document.getElementById('budgetUsedLabel').innerHTML = `${t.budgetUsedLabel}: <strong id="budgetUsed">0%</strong>`;
+            document.getElementById('biggestLabel').innerHTML = `${t.biggestLabel}: <strong id="biggestExpense">-</strong>`;
+            document.getElementById('totalAssetLabel').innerHTML = `${t.totalAssetLabel}: <strong id="totalAssetNow">Rp0</strong>`;
+            document.getElementById('totalDepLabel').innerHTML = `${t.totalDepLabel}: <strong id="totalDepreciation">Rp0</strong>`;
+            document.getElementById('totalPaymentLabel').innerHTML = `${t.totalPaymentLabel}: <strong id="totalPaymentAmount">Rp0</strong>`;
+            document.getElementById('paymentProgressLabel').innerHTML = `${t.paymentProgressLabel}: <strong id="paymentProgress">0%</strong>`;
+
+            // Buttons
+            document.getElementById('recordBtn').innerHTML = `<i class="fas fa-save"></i> ${t.recordBtn}`;
+            document.getElementById('resetBtn').innerHTML = `<i class="fas fa-undo"></i> ${t.resetBtn}`;
+            document.getElementById('recordBtnNav').innerHTML = `<i class="fas fa-save"></i> <span id="recordText">${t.recordText}</span>`;
+
+            // Report
+            document.getElementById('reportTitle').textContent = t.reportTitle;
+            document.getElementById('reportSummary').textContent = t.reportSummary;
+            document.getElementById('reportBalance').textContent = t.reportBalance;
+            document.getElementById('reportIncome').textContent = t.reportIncome;
+            document.getElementById('reportExpenses').textContent = t.reportExpenses;
+            document.getElementById('reportNetWorth').textContent = t.reportNetWorth;
+            document.getElementById('reportAssets').textContent = t.reportAssets;
+            document.getElementById('reportLiabilities').textContent = t.reportLiabilities;
+            document.getElementById('reportCategories').textContent = t.reportCategories;
+            document.getElementById('reportGoals').textContent = t.reportGoals;
+            document.getElementById('reportFooter').textContent = t.reportFooter;
+
+            // Loading
+            document.getElementById('loadingText').textContent = t.loading;
+
+            // Payment select placeholder
+            const paymentSelect = document.getElementById('paymentLiability');
+            if (paymentSelect.options.length === 1) {
+                paymentSelect.options[0].textContent = t.paymentSelect;
+            }
+
+            // Language selector
             document.getElementById('languageSelector').value = lang;
         }
 
@@ -1994,13 +2112,12 @@
             updatePaymentSelect();
             showNotification(`👋 Selamat datang${currentUser?.name ? ', ' + currentUser.name : ''}!`, 'success');
 
-            // Auto notification check
             setInterval(checkNotifications, 30000);
             setTimeout(checkNotifications, 3000);
         }
 
         // ============================================================
-        //  NOTIFICATION SYSTEM 🔔
+        //  NOTIFICATION SYSTEM
         // ============================================================
         function checkNotifications() {
             const balance = getBalance(mainCurrency);
@@ -2075,7 +2192,6 @@
                     }
                 })
                 .catch(() => {
-                    // Fallback jika API pertama gagal
                     fetch('https://api.frankfurter.app/latest?from=USD')
                         .then(r => r.json())
                         .then(d => {
@@ -2106,7 +2222,6 @@
                     changed = true; }
             }
             if (changed) {
-                // Update tampilan rates
                 document.getElementById('usdIdrRate').textContent = 'Rp ' + Math.round(rates.USD_IDR);
                 document.getElementById('usdPhpRate').textContent = '₱ ' + Math.round(rates.USD_PHP);
                 document.getElementById('eurUsdRate').textContent = '$ ' + rates.EUR_USD.toFixed(4);
@@ -2276,6 +2391,7 @@
             goal.status = status;
             goal.achievedDate = status === 'berhasil' || status === 'gagal' ? getToday() : null;
             renderAll();
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             showNotification(`✅ Goal "${goal.name}" ditandai ${status === 'berhasil' ? 'BERHASIL' : 'GAGAL'}!`, status === 'berhasil' ? 'success' : 'error');
         }
 
@@ -2284,7 +2400,8 @@
         // ============================================================
         function updatePaymentSelect() {
             const select = document.getElementById('paymentLiability');
-            select.innerHTML = '<option value="">Pilih utang...</option>';
+            const t = LANGUAGES[lang] || LANGUAGES.id;
+            select.innerHTML = `<option value="">${t.paymentSelect}</option>`;
             liabilities.forEach(l => {
                 const remaining = getRemainingDebt(l.id);
                 if (remaining > 0) {
@@ -2346,11 +2463,12 @@
         }
 
         // ============================================================
-        //  EXPORT PDF 📄
+        //  EXPORT PDF
         // ============================================================
         function exportPDF() {
             const currentMonth = getCurrentMonth();
             const currency = mainCurrency;
+            const t = LANGUAGES[lang] || LANGUAGES.id;
 
             document.getElementById('reportDate').textContent = `Periode: ${currentMonth}`;
             document.getElementById('rBalance').textContent = formatCurrency(getBalance(currency), currency);
@@ -2365,7 +2483,7 @@
             for (const [key, val] of Object.entries(cats)) {
                 catHtml += `<div class="report-row"><span class="label">${key}</span><span class="value">${formatCurrency(val, currency)}</span></div>`;
             }
-            if (!catHtml) catHtml = '<div style="color:#6b7a8f;font-size:11px;">Belum ada pengeluaran</div>';
+            if (!catHtml) catHtml = `<div style="color:#6b7a8f;font-size:11px;">${t.noExpense}</div>`;
             document.getElementById('rCategories').innerHTML = catHtml;
 
             let goalHtml = '';
@@ -2377,7 +2495,7 @@
                 goalHtml +=
                     `<div class="report-row"><span class="label">${g.name}</span><span class="value">${formatCurrency(g.target, g.currency)} - ${statusText}</span></div>`;
             });
-            if (!goalHtml) goalHtml = '<div style="color:#6b7a8f;font-size:11px;">Belum ada goals</div>';
+            if (!goalHtml) goalHtml = `<div style="color:#6b7a8f;font-size:11px;">${t.noGoal}</div>`;
             document.getElementById('rGoals').innerHTML = goalHtml;
 
             const element = document.getElementById('reportContent');
@@ -2496,6 +2614,16 @@
                 clearTimeout(window._syncTimeout);
                 window._syncTimeout = setTimeout(() => syncToSheet(), 5000);
             }
+
+            // Save to localStorage
+            localStorage.setItem('cv_incomes', JSON.stringify(incomes));
+            localStorage.setItem('cv_budgetAllocs', JSON.stringify(budgetAllocs));
+            localStorage.setItem('cv_liabilities', JSON.stringify(liabilities));
+            localStorage.setItem('cv_debtPayments', JSON.stringify(debtPayments));
+            localStorage.setItem('cv_expenses', JSON.stringify(expenses));
+            localStorage.setItem('cv_assets', JSON.stringify(assets));
+            localStorage.setItem('cv_goals', JSON.stringify(goals));
+            localStorage.setItem('cv_history', JSON.stringify(history));
         }
 
         // ============================================================
@@ -2503,8 +2631,9 @@
         // ============================================================
         function renderIncomeList() {
             const div = document.getElementById('incomeList');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (incomes.length === 0) {
-                div.innerHTML = '<div class="empty-state"><i class="fas fa-money-bill-wave"></i>Belum ada sumber pendapatan</div>';
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-money-bill-wave"></i>${t.noIncome}</div>`;
                 return;
             }
             div.innerHTML = incomes.map((inc, idx) => `
@@ -2519,8 +2648,9 @@
 
         function renderBudgetAllocList() {
             const div = document.getElementById('budgetAllocList');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (budgetAllocs.length === 0) {
-                div.innerHTML = '<div class="empty-state"><i class="fas fa-sliders-h"></i>Belum ada alokasi budget</div>';
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-sliders-h"></i>${t.noBudget}</div>`;
                 return;
             }
             div.innerHTML = budgetAllocs.map((b, idx) => `
@@ -2538,8 +2668,9 @@
 
         function renderLiabilityList() {
             const div = document.getElementById('liabilityList');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (liabilities.length === 0) {
-                div.innerHTML = '<div class="empty-state"><i class="fas fa-credit-card"></i>Belum ada utang</div>';
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-credit-card"></i>${t.noLiability}</div>`;
                 return;
             }
             div.innerHTML = liabilities.map((l, idx) => {
@@ -2559,9 +2690,10 @@
 
         function renderExpenseTable() {
             const tbody = document.getElementById('expenseTableBody');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (expenses.length === 0) {
                 tbody.innerHTML =
-                    '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">Belum ada pengeluaran</td></tr>';
+                    `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noExpense}</td></tr>`;
                 return;
             }
             const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
@@ -2587,7 +2719,7 @@
 
             if (me.length === 0) {
                 container.innerHTML =
-                    '<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:9px;padding:3px;">Belum ada pengeluaran</div>';
+                    `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:9px;padding:3px;">${t.noExpense}</div>`;
                 return;
             }
 
@@ -2616,9 +2748,10 @@
 
         function renderAssetTable() {
             const tbody = document.getElementById('assetTableBody');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (assets.length === 0) {
                 tbody.innerHTML =
-                    '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:10px;">Belum ada aset</td></tr>';
+                    `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noAsset}</td></tr>`;
                 return;
             }
             tbody.innerHTML = assets.map(a => {
@@ -2639,32 +2772,32 @@
 
         function renderGoalList() {
             const div = document.getElementById('goalList');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (goals.length === 0) {
-                div.innerHTML = '<div class="empty-state"><i class="fas fa-bullseye"></i>Belum ada goals</div>';
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-bullseye"></i>${t.noGoal}</div>`;
                 return;
             }
 
             const nw = getNetWorth(mainCurrency);
-            const t = LANGUAGES[lang] || LANGUAGES.id;
             div.innerHTML = goals.map(g => {
                 const targetInMain = convertCurrency(g.target, g.currency, mainCurrency);
                 const progress = Math.min((nw / targetInMain) * 100, 100);
                 const daysLeft = getDaysUntil(g.deadline);
 
-                let statusText = '⏳ Belum tercapai';
+                let statusText = t.belum;
                 let statusClass = 'belum';
                 if (g.status === 'berhasil') {
-                    statusText = `✅ Berhasil (${g.achievedDate || '-'})`;
+                    statusText = `${t.berhasil} (${g.achievedDate || '-'})`;
                     statusClass = 'berhasil';
                 } else if (g.status === 'gagal') {
-                    statusText = `❌ Gagal (${g.achievedDate || '-'})`;
+                    statusText = `${t.gagal} (${g.achievedDate || '-'})`;
                     statusClass = 'gagal';
                 }
 
                 let deadlineText = '';
-                if (daysLeft < 0) deadlineText = `Terlambat! (${Math.abs(daysLeft)} hari)`;
-                else if (daysLeft <= 7) deadlineText = `⚠️ Mendesak! ${daysLeft} hari`;
-                else deadlineText = `${daysLeft} hari lagi`;
+                if (daysLeft < 0) deadlineText = `${t.overdue} (${Math.abs(daysLeft)} hari)`;
+                else if (daysLeft <= 7) deadlineText = `${t.urgent} ${daysLeft} hari`;
+                else deadlineText = `${daysLeft} ${t.daysUntil}`;
 
                 const isDone = g.status === 'berhasil' || g.status === 'gagal';
 
@@ -2696,8 +2829,9 @@
 
         function renderHistoryAndChart() {
             const div = document.getElementById('historyList');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (history.length === 0) {
-                div.innerHTML = '<div class="empty-state"><i class="fas fa-chart-area"></i>Belum ada history</div>';
+                div.innerHTML = `<div class="empty-state"><i class="fas fa-chart-area"></i>${t.noHistory}</div>`;
                 if (wealthChartInstance) { wealthChartInstance.destroy();
                     wealthChartInstance = null; }
                 return;
@@ -2748,9 +2882,10 @@
 
         function renderDebtPaymentList() {
             const tbody = document.getElementById('paymentTableBody');
+            const t = LANGUAGES[lang] || LANGUAGES.id;
             if (debtPayments.length === 0) {
                 tbody.innerHTML =
-                    '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">Belum ada pembayaran cicilan</td></tr>';
+                    `<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noPayment}</td></tr>`;
                 return;
             }
             const sorted = [...debtPayments].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
