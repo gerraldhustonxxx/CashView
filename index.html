@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ============================================================
-           CSS VARIABLES
+           CSS - LENGKAP
            ============================================================ */
         :root {
             --bg-primary: #f0f2f5;
@@ -23,18 +23,17 @@
             --text-secondary: #4a5a6f;
             --text-muted: #8a9aa8;
             --border-color: #e8ecf0;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
             --radius: 16px;
             --radius-sm: 10px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
             --nav-bg: #0a1628;
             --nav-text: #ffffff;
             --success: #065f46;
             --danger: #b91c1c;
             --warning: #d97706;
             --info: #1a4b6d;
-            --chart-grid: #e8ecf0;
         }
         [data-theme="dark"] {
             --bg-primary: #0a0e1a;
@@ -44,11 +43,10 @@
             --text-secondary: #a8b8d0;
             --text-muted: #6a7a90;
             --border-color: #2a3a5a;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --shadow: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.5);
             --nav-bg: #060a18;
             --nav-text: #e8edf5;
-            --chart-grid: #2a3a5a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); transition: var(--transition); min-height: 100vh; }
@@ -56,7 +54,6 @@
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
 
-        /* AUTH PAGE */
         .auth-page { display: none; min-height: 100vh; justify-content: center; align-items: center; padding: 20px; background: var(--bg-primary); }
         .auth-page.active { display: flex; }
         .auth-container { background: var(--bg-card); border-radius: var(--radius); padding: 40px; max-width: 420px; width: 100%; box-shadow: var(--shadow-hover); border: 1px solid var(--border-color); }
@@ -74,7 +71,7 @@
         .auth-container .form-group { margin-bottom: 16px; }
         .auth-container .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
         .auth-container .form-group input { width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); border: 1.5px solid var(--border-color); font-size: 14px; transition: var(--transition); background: var(--bg-primary); color: var(--text-primary); font-family: 'Inter', sans-serif; }
-        .auth-container .form-group input:focus { outline: none; border-color: #00b894; box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1); }
+        .auth-container .form-group input:focus { outline: none; border-color: #00b894; box-shadow: 0 0 0 3px rgba(0,184,148,0.1); }
         .auth-container .btn-auth { width: 100%; padding: 12px; border: none; border-radius: var(--radius-sm); background: #00b894; color: white; font-size: 15px; font-weight: 700; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; }
         .auth-container .btn-auth:hover { background: #00a381; transform: translateY(-2px); box-shadow: var(--shadow-hover); }
         .auth-container .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
@@ -86,7 +83,6 @@
         .auth-container .auth-guest button { background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; }
         .auth-container .auth-guest button:hover { color: var(--text-primary); }
 
-        /* DASHBOARD */
         .dashboard { display: none; }
         .dashboard.active { display: block; }
         .loading-spinner { display: none; text-align: center; padding: 40px; color: var(--text-muted); }
@@ -94,7 +90,6 @@
         .loading-spinner i { font-size: 32px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* TOP NAV */
         .top-nav { background: var(--nav-bg); padding: 10px 28px; display: flex; justify-content: space-between; align-items: center; color: var(--nav-text); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .top-nav .logo { font-size: 20px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
         .top-nav .logo span { color: #00b894; }
@@ -106,7 +101,6 @@
         .btn-logout { background: rgba(185,28,28,0.3) !important; border-color: rgba(185,28,28,0.3) !important; }
         .btn-logout:hover { background: rgba(185,28,28,0.5) !important; }
 
-        /* RATES BAR */
         .rates-bar { background: var(--bg-secondary); padding: 5px 28px; display: flex; gap: 20px; overflow-x: auto; color: var(--text-secondary); font-size: 11px; border-bottom: 1px solid var(--border-color); position: sticky; top: 56px; z-index: 99; transition: var(--transition); }
         .rates-bar .rate-item { display: flex; gap: 5px; white-space: nowrap; align-items: center; }
         .rates-bar .rate-item .rate-value { color: var(--text-primary); font-weight: 600; }
@@ -114,15 +108,11 @@
         .rates-bar .rate-item .rate-change.up { color: var(--success); background: rgba(6,95,70,0.1); }
         .rates-bar .rate-item .rate-change.down { color: var(--danger); background: rgba(185,28,28,0.1); }
 
-        /* CONTAINER */
         .container { max-width: 1440px; margin: 0 auto; padding: 16px 24px; }
-
-        /* WELCOME */
         .welcome-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
         .welcome-section h1 { font-size: 22px; font-weight: 800; color: var(--text-primary); }
         .welcome-section .date-display { color: var(--text-secondary); font-weight: 500; font-size: 13px; }
 
-        /* BUTTONS */
         .btn { padding: 5px 12px; border-radius: var(--radius-sm); border: none; font-weight: 600; font-size: 10px; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 4px; font-family: 'Inter', sans-serif; }
         .btn-primary { background: var(--nav-bg); color: white; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
@@ -136,8 +126,7 @@
         .btn-export { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 6px 12px; border-radius: 8px; color: var(--nav-text); font-weight: 500; font-size: 11px; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; }
         .btn-export:hover { background: rgba(255,255,255,0.15); }
 
-        /* BALANCE CARDS */
-        .balance-cards { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .balance-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 16px; }
         .balance-card { border-radius: var(--radius); padding: 16px 18px; color: white; position: relative; overflow: hidden; transition: var(--transition); min-height: 95px; }
         .balance-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
         .balance-card::before { content: ''; position: absolute; top: -50%; right: -30%; width: 160px; height: 160px; background: radial-gradient(circle, rgba(255,255,255,0.08), transparent); border-radius: 50%; }
@@ -152,7 +141,6 @@
         .balance-card.bg-red { background: linear-gradient(145deg, #7f1d1d, #991b1b); }
         .balance-card.bg-purple { background: linear-gradient(145deg, #6b21a8, #7c3aed); }
 
-        /* STATS */
         .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 16px; }
         .stat-card { background: var(--bg-card); border-radius: var(--radius-sm); padding: 10px 12px; border: 1px solid var(--border-color); transition: var(--transition); }
         .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
@@ -162,21 +150,18 @@
         .stat-card .stat-value.negative { color: var(--danger); }
         .stat-card .stat-value.warning { color: var(--warning); }
 
-        /* BOX */
         .box { background: var(--bg-card); border-radius: var(--radius); padding: 14px 16px; border: 1px solid var(--border-color); transition: var(--transition); }
         .box:hover { box-shadow: var(--shadow); }
         .box .box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--bg-primary); flex-wrap: wrap; gap: 4px; }
         .box .box-header h3 { font-size: 12px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 5px; }
         .box .box-header .badge { background: var(--bg-primary); padding: 2px 8px; border-radius: 20px; font-size: 8px; font-weight: 600; color: var(--text-secondary); }
 
-        /* INPUTS */
         .input-group { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
         .input-group input, .input-group select { flex: 1; min-width: 50px; padding: 5px 8px; border-radius: var(--radius-sm); border: 1.5px solid var(--border-color); font-size: 10px; transition: var(--transition); background: var(--bg-primary); color: var(--text-primary); font-family: 'Inter', sans-serif; }
         .input-group input:focus, .input-group select:focus { outline: none; border-color: var(--text-primary); box-shadow: 0 0 0 3px rgba(10,22,40,0.08); }
         .input-group .currency-select-small { flex: 0.3; min-width: 45px; }
         .input-group .date-input { flex: 0.5; min-width: 85px; }
 
-        /* TABLES */
         .table-wrap { max-height: 180px; overflow-y: auto; margin-top: 4px; }
         table { width: 100%; border-collapse: collapse; font-size: 10px; }
         th { text-align: left; padding: 4px 5px; background: var(--bg-primary); font-weight: 600; color: var(--text-secondary); position: sticky; top: 0; z-index: 5; font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -184,18 +169,15 @@
         .delete-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 10px; opacity: 0.4; transition: var(--transition); padding: 1px 4px; border-radius: 4px; }
         .delete-btn:hover { opacity: 1; background: rgba(185,28,28,0.08); }
 
-        /* LAYOUTS */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
         .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
 
-        /* DAILY SUMMARY */
         .daily-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 4px; margin: 5px 0; padding: 5px; background: var(--bg-primary); border-radius: var(--radius-sm); }
         .daily-summary .day-item { padding: 3px 5px; background: var(--bg-card); border-radius: 5px; border: 1px solid var(--border-color); text-align: center; }
         .daily-summary .day-item .day-label { font-size: 7px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
         .daily-summary .day-item .day-amount { font-weight: 700; font-size: 10px; margin-top: 1px; color: var(--text-primary); }
         .daily-summary .day-item .day-count { font-size: 7px; color: var(--text-muted); }
 
-        /* GOAL ITEMS */
         .goal-item { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 3px; }
         .goal-item .goal-info { display: flex; flex-direction: column; }
         .goal-item .goal-name { font-weight: 600; font-size: 11px; color: var(--text-primary); }
@@ -211,47 +193,38 @@
         .goal-item .goal-actions .btn-goal.gagal { background: var(--danger); color: white; }
         .goal-item .goal-actions .btn-goal.gagal:hover { background: #991b1b; }
 
-        /* PROGRESS BAR */
         .progress-bar { width: 60px; height: 4px; background: var(--bg-primary); border-radius: 10px; overflow: hidden; }
         .progress-bar .fill { height: 100%; background: var(--success); border-radius: 10px; transition: width 0.8s ease; }
 
-        /* INCOME & BUDGET ITEMS */
         .income-source-item, .budget-alloc-item, .liability-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 3px; font-size: 10px; }
         .income-source-item .source-name, .budget-alloc-item .budget-cat, .liability-item .liability-name { font-weight: 500; color: var(--text-primary); }
         .income-source-item .source-amount, .budget-alloc-item .budget-amount, .liability-item .liability-amount { font-weight: 600; color: var(--text-primary); }
         .income-source-item .source-type { font-size: 7px; color: var(--text-muted); text-transform: uppercase; background: var(--bg-primary); padding: 0 5px; border-radius: 6px; }
 
-        /* HISTORY */
         .history-list { max-height: 80px; overflow-y: auto; margin-top: 5px; }
         .history-item { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--border-color); font-size: 10px; }
         .history-item .month { color: var(--text-secondary); }
         .history-item .amount { font-weight: 600; color: var(--text-primary); }
 
-        /* NOTIFICATION */
         .notification { position: fixed; bottom: 20px; right: 20px; padding: 10px 18px; border-radius: var(--radius-sm); background: var(--nav-bg); color: white; font-weight: 500; font-size: 11px; box-shadow: var(--shadow-hover); z-index: 9999; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); max-width: 350px; display: flex; align-items: center; gap: 6px; }
         .notification.show { transform: translateY(0); opacity: 1; }
         .notification.success { background: var(--success); }
         .notification.error { background: var(--danger); }
         .notification.warning { background: var(--warning); }
 
-        /* THEME TOGGLE */
         .theme-toggle { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 6px 10px; border-radius: 8px; color: var(--nav-text); cursor: pointer; transition: var(--transition); font-size: 12px; }
         .theme-toggle:hover { background: rgba(255,255,255,0.15); }
 
-        /* EMPTY STATE */
         .empty-state { text-align: center; padding: 12px; color: var(--text-muted); font-size: 10px; }
         .empty-state i { font-size: 20px; display: block; margin-bottom: 4px; opacity: 0.3; }
 
-        /* CHART */
         .chart-wrapper { height: 150px; margin-top: 4px; }
 
-        /* RESPONSIVE */
-        @media (max-width: 1200px) { .balance-cards { grid-template-columns: 1fr 1fr 1fr; } .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 1200px) { .balance-cards { grid-template-columns: repeat(3, 1fr); } .stats-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 992px) { .two-col { grid-template-columns: 1fr; } .three-col { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 768px) { .container { padding: 10px 12px; } .balance-cards { grid-template-columns: 1fr 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; } .three-col { grid-template-columns: 1fr; } .top-nav { padding: 8px 12px; } .top-nav .logo { font-size: 16px; } .auth-container { padding: 24px; } .balance-card .card-amount { font-size: 16px; } }
         @media (max-width: 480px) { .balance-cards { grid-template-columns: 1fr 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; } .top-nav .nav-actions select, .top-nav .nav-actions button { font-size: 8px; padding: 3px 6px; } .top-nav .nav-actions .user-info { font-size: 10px; } .auth-container { padding: 16px; } }
 
-        /* REPORT */
         #reportContent { background: white; padding: 20px; border-radius: 8px; }
         #reportContent .report-header { text-align: center; border-bottom: 2px solid #e8ecf0; padding-bottom: 10px; margin-bottom: 15px; }
         #reportContent .report-header h2 { font-size: 22px; font-weight: 800; color: #0a1628; }
@@ -267,9 +240,7 @@
 </head>
 <body>
 
-<!-- ============================================================
-AUTH PAGE
-============================================================ -->
+<!-- AUTH PAGE -->
 <div class="auth-page active" id="authPage">
     <div class="auth-container">
         <div class="auth-logo">
@@ -290,39 +261,19 @@ AUTH PAGE
         <div id="authError" class="auth-error"></div>
         <div id="authSuccess" class="auth-success"></div>
         <div id="loginForm">
-            <div class="form-group">
-                <label id="loginEmailLabel">📧 Email</label>
-                <input type="email" id="loginEmail" placeholder="Masukkan email Anda" />
-            </div>
-            <div class="form-group">
-                <label id="loginPasswordLabel">🔒 Password</label>
-                <input type="password" id="loginPassword" placeholder="Masukkan password" />
-            </div>
+            <div class="form-group"><label id="loginEmailLabel">📧 Email</label><input type="email" id="loginEmail" placeholder="Masukkan email Anda" /></div>
+            <div class="form-group"><label id="loginPasswordLabel">🔒 Password</label><input type="password" id="loginPassword" placeholder="Masukkan password" /></div>
             <button class="btn-auth" onclick="handleLogin()" id="loginBtn">🔐 Login</button>
         </div>
         <div id="registerForm" style="display:none;">
-            <div class="form-group">
-                <label id="registerNameLabel">👤 Nama</label>
-                <input type="text" id="registerName" placeholder="Masukkan nama Anda" />
-            </div>
-            <div class="form-group">
-                <label id="registerEmailLabel">📧 Email</label>
-                <input type="email" id="registerEmail" placeholder="Masukkan email Anda" />
-            </div>
-            <div class="form-group">
-                <label id="registerPasswordLabel">🔒 Password (min 6 karakter)</label>
-                <input type="password" id="registerPassword" placeholder="Buat password" />
-            </div>
-            <div class="form-group">
-                <label id="registerConfirmLabel">🔒 Konfirmasi Password</label>
-                <input type="password" id="registerConfirm" placeholder="Konfirmasi password" />
-            </div>
+            <div class="form-group"><label id="registerNameLabel">👤 Nama</label><input type="text" id="registerName" placeholder="Masukkan nama Anda" /></div>
+            <div class="form-group"><label id="registerEmailLabel">📧 Email</label><input type="email" id="registerEmail" placeholder="Masukkan email Anda" /></div>
+            <div class="form-group"><label id="registerPasswordLabel">🔒 Password (min 6 karakter)</label><input type="password" id="registerPassword" placeholder="Buat password" /></div>
+            <div class="form-group"><label id="registerConfirmLabel">🔒 Konfirmasi Password</label><input type="password" id="registerConfirm" placeholder="Konfirmasi password" /></div>
             <button class="btn-auth" onclick="handleRegister()" id="registerBtn">📝 Register</button>
         </div>
         <div class="auth-guest">
-            <button onclick="continueAsGuest()" id="guestBtn">
-                <i class="fas fa-user"></i> <span id="guestText">Lanjutkan sebagai Guest (Data lokal)</span>
-            </button>
+            <button onclick="continueAsGuest()" id="guestBtn"><i class="fas fa-user"></i> <span id="guestText">Lanjutkan sebagai Guest (Data lokal)</span></button>
         </div>
     </div>
 </div>
@@ -335,7 +286,6 @@ AUTH PAGE
 
 <!-- DASHBOARD -->
 <div class="dashboard" id="dashboard">
-    <!-- TOP NAV -->
     <nav class="top-nav">
         <div class="logo"><i class="fas fa-wallet"></i> Cash<span>View</span></div>
         <div class="nav-actions">
@@ -359,7 +309,6 @@ AUTH PAGE
         </div>
     </nav>
 
-    <!-- RATES BAR -->
     <div class="rates-bar" id="ratesBar">
         <div class="rate-item"><span>💵 USD/IDR</span><span class="rate-value" id="usdIdrRate">--</span><span class="rate-change" id="usdIdrChange">0%</span></div>
         <div class="rate-item"><span>💵 USD/PHP</span><span class="rate-value" id="usdPhpRate">--</span><span class="rate-change" id="usdPhpChange">0%</span></div>
@@ -369,7 +318,6 @@ AUTH PAGE
         <div class="rate-item"><span>📊</span><span class="rate-value" id="rateUpdateTime">--</span></div>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="container" id="dashboardContainer">
         <div class="welcome-section">
             <h1 id="welcomeTitle">👋 Selamat Datang di CashView</h1>
@@ -397,69 +345,38 @@ AUTH PAGE
             <div class="stat-card"><div class="stat-label" id="statLabelBiggestExpense">💳 Terbesar Bulan Ini</div><div class="stat-value warning" id="statBiggestExpense">-</div></div>
             <div class="stat-card"><div class="stat-label" id="statLabelGoalProgress">🎯 Goals Progress</div><div class="stat-value" id="statGoalProgress">0%</div></div>
             <div class="stat-card"><div class="stat-label" id="statLabelTransactionCount">📝 Transaksi</div><div class="stat-value" id="statTransactionCount">0</div></div>
-        </div>        <!-- ============================================================
-        INCOME, BUDGET, LIABILITIES (3 COLUMN)
-        ============================================================ -->
+        </div>
+
+        <!-- 3 COLUMN: INCOME, BUDGET, LIABILITIES -->
         <div class="three-col">
-            <!-- INCOME -->
             <div class="box">
-                <div class="box-header">
-                    <h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3>
-                    <span class="badge" id="incomeCount">0 sources</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-money-bill-wave"></i> <span id="incomeTitle">Sumber Pendapatan</span></h3><span class="badge" id="incomeCount">0 sources</span></div>
                 <div class="input-group">
                     <input type="text" id="incomeSource" placeholder="Sumber (Salary, Freelance...)" style="flex:2;">
                     <input type="number" id="incomeAmount" placeholder="Jumlah" style="flex:1;">
-                    <select id="incomeCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
-                    <select id="incomeType" class="currency-select-small">
-                        <option value="salary">💰 Salary</option>
-                        <option value="passive">📈 Passive</option>
-                        <option value="business">🏢 Business</option>
-                        <option value="investment">📊 Investment</option>
-                    </select>
+                    <select id="incomeCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
+                    <select id="incomeType" class="currency-select-small"><option value="salary">💰 Salary</option><option value="passive">📈 Passive</option><option value="business">🏢 Business</option><option value="investment">📊 Investment</option></select>
                     <button class="btn btn-sm btn-success" onclick="addIncome()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div id="incomeList"></div>
             </div>
-
-            <!-- BUDGET -->
             <div class="box">
-                <div class="box-header">
-                    <h3><i class="fas fa-sliders-h"></i> <span id="budgetTitle">Alokasi Budget</span></h3>
-                    <span class="badge" id="budgetCount">0 categories</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-sliders-h"></i> <span id="budgetTitle">Alokasi Budget</span></h3><span class="badge" id="budgetCount">0 categories</span></div>
                 <div class="input-group">
                     <input type="text" id="budgetCategory" placeholder="Kategori (Makan, Transport...)" style="flex:2;">
                     <input type="number" id="budgetAlloc" placeholder="Alokasi" style="flex:1;">
-                    <select id="budgetCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
+                    <select id="budgetCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                     <input type="color" id="budgetColor" value="#065f46" style="flex:0.2;min-width:30px;padding:2px;border-radius:5px;border:1px solid var(--border-color);background:transparent;cursor:pointer;">
                     <button class="btn btn-sm btn-primary" onclick="addBudgetAllocation()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div id="budgetAllocList"></div>
             </div>
-
-            <!-- LIABILITIES -->
             <div class="box">
-                <div class="box-header">
-                    <h3><i class="fas fa-credit-card"></i> <span id="liabilityTitle">Utang / Kewajiban</span></h3>
-                    <span class="badge" id="liabilityCountBadge">0 debts</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-credit-card"></i> <span id="liabilityTitle">Utang / Kewajiban</span></h3><span class="badge" id="liabilityCountBadge">0 debts</span></div>
                 <div class="input-group">
                     <input type="text" id="liabilityName" placeholder="Nama utang (KPR, Pinjaman...)" style="flex:2;">
                     <input type="number" id="liabilityAmount" placeholder="Jumlah" style="flex:1;">
-                    <select id="liabilityCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
+                    <select id="liabilityCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                     <input type="number" id="liabilityInterest" placeholder="Bunga %" style="flex:0.3;min-width:40px;" value="0">
                     <button class="btn btn-sm btn-danger" onclick="addLiability()"><i class="fas fa-plus"></i></button>
                 </div>
@@ -467,24 +384,14 @@ AUTH PAGE
             </div>
         </div>
 
-        <!-- ============================================================
-        EXPENSES & DEBT PAYMENTS (2 COLUMN)
-        ============================================================ -->
+        <!-- 2 COLUMN: EXPENSES & DEBT PAYMENTS -->
         <div class="two-col">
-            <!-- EXPENSES -->
             <div class="box">
-                <div class="box-header">
-                    <h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3>
-                    <span class="badge" id="expenseCount">0 items</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-receipt"></i> <span id="expenseTitle">Lacak Pengeluaran</span></h3><span class="badge" id="expenseCount">0 items</span></div>
                 <div class="input-group">
                     <input type="text" id="expenseDesc" placeholder="Deskripsi" style="flex:2;">
                     <input type="number" id="expenseAmount" placeholder="Jumlah" style="flex:1;">
-                    <select id="expenseCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
+                    <select id="expenseCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                     <select id="expenseCategory" style="flex:1;min-width:60px;">
                         <option value="Makanan">🍔 Makanan</option>
                         <option value="Transport">🚗 Transport</option>
@@ -501,10 +408,7 @@ AUTH PAGE
                 </div>
                 <div class="daily-summary" id="dailySummary"></div>
                 <div class="table-wrap">
-                    <table>
-                        <thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th></th></tr></thead>
-                        <tbody id="expenseTableBody"></tbody>
-                    </table>
+                    <table><thead><tr><th id="thDate">Tanggal</th><th id="thDesc">Deskripsi</th><th id="thCategory">Kategori</th><th id="thAmount">Jumlah</th><th></th></tr></thead><tbody id="expenseTableBody"></tbody></table>
                 </div>
                 <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
                     <span id="monthlyTotalLabel">📌 Total bulan ini: <strong id="monthlyExpenseTotal">Rp0</strong></span>
@@ -512,34 +416,18 @@ AUTH PAGE
                     <span id="biggestLabel">💳 Terbesar: <strong id="biggestExpense">-</strong></span>
                 </div>
             </div>
-
-            <!-- DEBT PAYMENTS -->
             <div class="box">
-                <div class="box-header">
-                    <h3><i class="fas fa-hand-holding-usd"></i> <span id="paymentTitle">Pembayaran Utang (Cicilan)</span></h3>
-                    <span class="badge" id="paymentCountBadge">0 payments</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-hand-holding-usd"></i> <span id="paymentTitle">Pembayaran Utang (Cicilan)</span></h3><span class="badge" id="paymentCountBadge">0 payments</span></div>
                 <div class="input-group">
-                    <select id="paymentLiability" style="flex:2;">
-                        <option value="">Pilih utang...</option>
-                    </select>
+                    <select id="paymentLiability" style="flex:2;"><option value="">Pilih utang...</option></select>
                     <input type="number" id="paymentAmount" placeholder="Cicilan" style="flex:1;">
-                    <select id="paymentCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
+                    <select id="paymentCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                     <input type="date" id="paymentDate" class="date-input">
                     <button class="btn btn-sm btn-success" onclick="addDebtPayment()"><i class="fas fa-plus"></i></button>
                 </div>
-                <div style="font-size:9px;color:var(--text-muted);margin-bottom:5px;">
-                    <i class="fas fa-info-circle"></i> <span id="paymentInfo">Bayar cicilan akan mengurangi Balance dan Utang</span>
-                </div>
+                <div style="font-size:9px;color:var(--text-muted);margin-bottom:5px;"><i class="fas fa-info-circle"></i> <span id="paymentInfo">Bayar cicilan akan mengurangi Balance dan Utang</span></div>
                 <div class="table-wrap">
-                    <table>
-                        <thead><tr><th id="paymentThDate">Tanggal</th><th id="paymentThDebt">Utang</th><th id="paymentThAmount">Jumlah</th><th></th></tr></thead>
-                        <tbody id="paymentTableBody"></tbody>
-                    </table>
+                    <table><thead><tr><th id="paymentThDate">Tanggal</th><th id="paymentThDebt">Utang</th><th id="paymentThAmount">Jumlah</th><th></th></tr></thead><tbody id="paymentTableBody"></tbody></table>
                 </div>
                 <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
                     <span id="totalPaymentLabel">💸 Total cicilan: <strong id="totalPaymentAmount">Rp0</strong></span>
@@ -548,34 +436,19 @@ AUTH PAGE
             </div>
         </div>
 
-        <!-- ============================================================
-        ASSETS
-        ============================================================ -->
+        <!-- ASSETS -->
         <div class="box" style="margin-bottom:14px;">
-            <div class="box-header">
-                <h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3>
-                <span class="badge" id="assetCount">0 items</span>
-            </div>
+            <div class="box-header"><h3><i class="fas fa-building"></i> <span id="assetTitle">Aset & Penyusutan</span></h3><span class="badge" id="assetCount">0 items</span></div>
             <div class="input-group">
                 <input type="text" id="assetName" placeholder="Nama aset" style="flex:2;">
                 <input type="number" id="assetValue" placeholder="Nilai" style="flex:1;">
-                <select id="assetCurrency" class="currency-select-small">
-                    <option value="IDR">IDR</option>
-                    <option value="USD">USD</option>
-                    <option value="PHP">PHP</option>
-                </select>
-                <select id="assetType" style="flex:1;">
-                    <option value="bergerak">🔄 Bergerak</option>
-                    <option value="tidak bergerak">🏛️ Tidak Bergerak</option>
-                </select>
+                <select id="assetCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
+                <select id="assetType" style="flex:1;"><option value="bergerak">🔄 Bergerak</option><option value="tidak bergerak">🏛️ Tidak Bergerak</option></select>
                 <input type="number" id="assetDepreciation" placeholder="Dep %" style="flex:0.3;min-width:40px;" value="5">
                 <button class="btn btn-sm btn-primary" onclick="addAsset()"><i class="fas fa-plus"></i></button>
             </div>
             <div class="table-wrap">
-                <table>
-                    <thead><tr><th id="assetThName">Nama</th><th id="assetThType">Jenis</th><th id="assetThValue">Nilai</th><th id="assetThDep">Penyusutan/th</th><th id="assetThFinal">Nilai akhir</th><th></th></tr></thead>
-                    <tbody id="assetTableBody"></tbody>
-                </table>
+                <table><thead><tr><th id="assetThName">Nama</th><th id="assetThType">Jenis</th><th id="assetThValue">Nilai</th><th id="assetThDep">Penyusutan/th</th><th id="assetThFinal">Nilai akhir</th><th></th></tr></thead><tbody id="assetTableBody"></tbody></table>
             </div>
             <div style="margin-top:6px;font-size:9px;background:var(--bg-primary);padding:5px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;flex-wrap:wrap;gap:3px;">
                 <span id="totalAssetLabel">💰 Total Aset: <strong id="totalAssetNow">Rp0</strong></span>
@@ -583,56 +456,34 @@ AUTH PAGE
             </div>
         </div>
 
-        <!-- ============================================================
-        GOALS & HISTORY
-        ============================================================ -->
+        <!-- GOALS & HISTORY -->
         <div class="two-col">
             <div class="box">
-                <div class="box-header">
-                    <h3><i class="fas fa-bullseye"></i> <span id="goalTitle">Goals Finansial</span></h3>
-                    <span class="badge" id="goalCount">0 goals</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-bullseye"></i> <span id="goalTitle">Goals Finansial</span></h3><span class="badge" id="goalCount">0 goals</span></div>
                 <div class="input-group">
                     <input type="text" id="goalName" placeholder="Goal" style="flex:2;">
                     <input type="number" id="goalTarget" placeholder="Target" style="flex:1;">
-                    <select id="goalCurrency" class="currency-select-small">
-                        <option value="IDR">IDR</option>
-                        <option value="USD">USD</option>
-                        <option value="PHP">PHP</option>
-                    </select>
+                    <select id="goalCurrency" class="currency-select-small"><option value="IDR">IDR</option><option value="USD">USD</option><option value="PHP">PHP</option></select>
                     <input type="date" id="goalDeadline" class="date-input" style="flex:1.2;">
                     <button class="btn btn-sm btn-success" onclick="addGoal()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div id="goalList"></div>
             </div>
-
             <div class="box">
-                <div class="box-header">
-                    <h3><i class="fas fa-chart-area"></i> <span id="historyTitle">Net Worth History</span></h3>
-                    <span class="badge" id="historyCount">0 months</span>
-                </div>
+                <div class="box-header"><h3><i class="fas fa-chart-area"></i> <span id="historyTitle">Net Worth History</span></h3><span class="badge" id="historyCount">0 months</span></div>
                 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
                     <button class="btn btn-sm btn-success" onclick="recordHistory()" id="recordBtn"><i class="fas fa-save"></i> <span id="recordBtnText">Rekam Bulan Ini</span></button>
                     <button class="btn btn-sm btn-outline" onclick="resetHistory()" id="resetBtn"><i class="fas fa-undo"></i> <span id="resetBtnText">Reset</span></button>
                 </div>
-                <div class="chart-wrapper">
-                    <canvas id="wealthChart"></canvas>
-                </div>
+                <div class="chart-wrapper"><canvas id="wealthChart"></canvas></div>
                 <div class="history-list" id="historyList"></div>
             </div>
         </div>
 
-        <!-- ============================================================
-        REPORT CONTENT (FOR PDF)
-        ============================================================ -->
+        <!-- REPORT -->
         <div id="reportContent" style="display:none;">
-            <div class="report-header">
-                <h2>Cash<span>View</span></h2>
-                <p id="reportTitle">Laporan Keuangan Bulanan</p>
-                <p id="reportDate"></p>
-            </div>
-            <div class="report-section">
-                <h4 id="reportSummary">📊 Ringkasan</h4>
+            <div class="report-header"><h2>Cash<span>View</span></h2><p id="reportTitle">Laporan Keuangan Bulanan</p><p id="reportDate"></p></div>
+            <div class="report-section"><h4 id="reportSummary">📊 Ringkasan</h4>
                 <div class="report-row"><span class="label" id="reportBalance">Total Balance</span><span class="value" id="rBalance">Rp0</span></div>
                 <div class="report-row"><span class="label" id="reportIncome">Total Income</span><span class="value" id="rIncome">Rp0</span></div>
                 <div class="report-row"><span class="label" id="reportExpenses">Total Expenses</span><span class="value" id="rExpenses">Rp0</span></div>
@@ -640,19 +491,10 @@ AUTH PAGE
                 <div class="report-row"><span class="label" id="reportAssets">Total Assets</span><span class="value" id="rAssets">Rp0</span></div>
                 <div class="report-row"><span class="label" id="reportLiabilities">Total Liabilities</span><span class="value" id="rLiabilities">Rp0</span></div>
             </div>
-            <div class="report-section">
-                <h4 id="reportCategories">💳 Pengeluaran per Kategori</h4>
-                <div id="rCategories"></div>
-            </div>
-            <div class="report-section">
-                <h4 id="reportGoals">🎯 Goals</h4>
-                <div id="rGoals"></div>
-            </div>
-            <div style="text-align:center;font-size:10px;color:#6b7a8f;margin-top:10px;border-top:1px solid #e8ecf0;padding-top:8px;">
-                <span id="reportFooter">Laporan dibuat otomatis oleh CashView</span>
-            </div>
+            <div class="report-section"><h4 id="reportCategories">💳 Pengeluaran per Kategori</h4><div id="rCategories"></div></div>
+            <div class="report-section"><h4 id="reportGoals">🎯 Goals</h4><div id="rGoals"></div></div>
+            <div style="text-align:center;font-size:10px;color:#6b7a8f;margin-top:10px;border-top:1px solid #e8ecf0;padding-top:8px;"><span id="reportFooter">Laporan dibuat otomatis oleh CashView</span></div>
         </div>
-
     </div>
 </div>
 
@@ -660,12 +502,14 @@ AUTH PAGE
 <div class="notification" id="notification">
     <i class="fas fa-check-circle"></i>
     <span id="notificationText">Success</span>
-</div><script>
+</div>
+
+<script>
     // ============================================================
     //  CONFIGURATION
     // ============================================================
     // GANTI DENGAN URL WEB APP ANDA
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxMobsJE2j302gjUyGKw4Pf_Wg00_GBidvO_gFrBlVnDuEblwysJc5tko8vHzoRTNXLXQ/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbybFoNdFAKudLFUf1EZ0W8HssxC-w0yeOI2tCWPDu00gG_FrP2OUz-dBmOkxy4SnV1Qfg/exec';
 
     // ============================================================
     //  STATE
@@ -960,14 +804,14 @@ AUTH PAGE
         document.getElementById('labelTotalPayments').textContent = t.totalPayments;
         document.getElementById('labelNetWorth').textContent = t.netWorth;
         document.getElementById('labelMonthlyBudget').textContent = t.monthlyBudget;
-        document.getElementById('labelSalary').innerHTML = `${t.salary}: <strong id="salaryTotal">Rp0</strong>`;
-        document.getElementById('labelPassive').innerHTML = `${t.passive}: <strong id="passiveTotal">Rp0</strong>`;
-        document.getElementById('labelDepreciation').innerHTML = `${t.depreciation}: <strong id="depTotal">Rp0</strong>`;
-        document.getElementById('labelBudgetUsed').innerHTML = `${t.budgetUsed}: <strong id="budgetUsedPercent">0%</strong>`;
-        document.getElementById('labelRemainingBudget').innerHTML = `${t.remainingBudget}: <strong id="remainingBudgetDisplay">Rp0</strong>`;
+        document.getElementById('labelSalary').innerHTML = t.salary + ': <strong id="salaryTotal">Rp0</strong>';
+        document.getElementById('labelPassive').innerHTML = t.passive + ': <strong id="passiveTotal">Rp0</strong>';
+        document.getElementById('labelDepreciation').innerHTML = t.depreciation + ': <strong id="depTotal">Rp0</strong>';
+        document.getElementById('labelBudgetUsed').innerHTML = t.budgetUsed + ': <strong id="budgetUsedPercent">0%</strong>';
+        document.getElementById('labelRemainingBudget').innerHTML = t.remainingBudget + ': <strong id="remainingBudgetDisplay">Rp0</strong>';
         document.getElementById('labelNetWorthDetail').textContent = t.netWorthDetail;
-        document.getElementById('labelLiabilityCount').innerHTML = `📝 <strong id="liabilityCount">0</strong> ${t.liabilityCount}`;
-        document.getElementById('labelPaymentCount').innerHTML = `📝 <strong id="paymentCount">0</strong> ${t.paymentCount}`;
+        document.getElementById('labelLiabilityCount').innerHTML = '📝 <strong id="liabilityCount">0</strong> ' + t.liabilityCount;
+        document.getElementById('labelPaymentCount').innerHTML = '📝 <strong id="paymentCount">0</strong> ' + t.paymentCount;
         document.getElementById('statLabelTotalIncome').textContent = t.totalIncome;
         document.getElementById('statLabelTotalExpenses').textContent = t.totalExpenses;
         document.getElementById('statLabelMonthlyAverage').textContent = t.monthlyAverage;
@@ -1010,16 +854,16 @@ AUTH PAGE
         document.getElementById('paymentThDate').textContent = t.date;
         document.getElementById('paymentThDebt').textContent = t.debt;
         document.getElementById('paymentThAmount').textContent = t.amount;
-        document.getElementById('monthlyTotalLabel').innerHTML = `${t.monthlyTotal}: <strong id="monthlyExpenseTotal">Rp0</strong>`;
-        document.getElementById('budgetUsedLabel').innerHTML = `${t.budgetUsedLabel}: <strong id="budgetUsed">0%</strong>`;
-        document.getElementById('biggestLabel').innerHTML = `${t.biggestLabel}: <strong id="biggestExpense">-</strong>`;
-        document.getElementById('totalAssetLabel').innerHTML = `${t.totalAssetLabel}: <strong id="totalAssetNow">Rp0</strong>`;
-        document.getElementById('totalDepLabel').innerHTML = `${t.totalDepLabel}: <strong id="totalDepreciation">Rp0</strong>`;
-        document.getElementById('totalPaymentLabel').innerHTML = `${t.totalPaymentLabel}: <strong id="totalPaymentAmount">Rp0</strong>`;
-        document.getElementById('paymentProgressLabel').innerHTML = `${t.paymentProgressLabel}: <strong id="paymentProgress">0%</strong>`;
-        document.getElementById('recordBtn').innerHTML = `<i class="fas fa-save"></i> ${t.recordBtn}`;
-        document.getElementById('resetBtn').innerHTML = `<i class="fas fa-undo"></i> ${t.resetBtn}`;
-        document.getElementById('recordBtnNav').innerHTML = `<i class="fas fa-save"></i> <span id="recordText">${t.recordText}</span>`;
+        document.getElementById('monthlyTotalLabel').innerHTML = t.monthlyTotal + ': <strong id="monthlyExpenseTotal">Rp0</strong>';
+        document.getElementById('budgetUsedLabel').innerHTML = t.budgetUsedLabel + ': <strong id="budgetUsed">0%</strong>';
+        document.getElementById('biggestLabel').innerHTML = t.biggestLabel + ': <strong id="biggestExpense">-</strong>';
+        document.getElementById('totalAssetLabel').innerHTML = t.totalAssetLabel + ': <strong id="totalAssetNow">Rp0</strong>';
+        document.getElementById('totalDepLabel').innerHTML = t.totalDepLabel + ': <strong id="totalDepreciation">Rp0</strong>';
+        document.getElementById('totalPaymentLabel').innerHTML = t.totalPaymentLabel + ': <strong id="totalPaymentAmount">Rp0</strong>';
+        document.getElementById('paymentProgressLabel').innerHTML = t.paymentProgressLabel + ': <strong id="paymentProgress">0%</strong>';
+        document.getElementById('recordBtn').innerHTML = '<i class="fas fa-save"></i> ' + t.recordBtn;
+        document.getElementById('resetBtn').innerHTML = '<i class="fas fa-undo"></i> ' + t.resetBtn;
+        document.getElementById('recordBtnNav').innerHTML = '<i class="fas fa-save"></i> <span id="recordText">' + t.recordText + '</span>';
         document.getElementById('reportTitle').textContent = t.reportTitle;
         document.getElementById('reportSummary').textContent = t.reportSummary;
         document.getElementById('reportBalance').textContent = t.reportBalance;
@@ -1051,7 +895,7 @@ AUTH PAGE
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tabs button').forEach(b => b.classList.remove('active'));
-        document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+        document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
         document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
         document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
         document.getElementById('authError').classList.remove('show');
@@ -1059,28 +903,28 @@ AUTH PAGE
     }
 
     function showAuthError(msg) {
-        const el = document.getElementById('authError');
+        var el = document.getElementById('authError');
         el.textContent = msg;
         el.classList.add('show');
         document.getElementById('authSuccess').classList.remove('show');
     }
 
     function showAuthSuccess(msg) {
-        const el = document.getElementById('authSuccess');
+        var el = document.getElementById('authSuccess');
         el.textContent = msg;
         el.classList.add('show');
         document.getElementById('authError').classList.remove('show');
     }
 
     async function handleLogin() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
+        var email = document.getElementById('loginEmail').value.trim();
+        var password = document.getElementById('loginPassword').value;
         if (!email || !password) { showAuthError('Email dan password harus diisi'); return; }
-        const btn = document.getElementById('loginBtn');
+        var btn = document.getElementById('loginBtn');
         btn.disabled = true;
         btn.textContent = '⏳ Loading...';
         try {
-            const response = await callAPI('login', { email, password });
+            var response = await callAPI('login', { email: email, password: password });
             if (response.success) {
                 authToken = response.token;
                 currentUser = response.user;
@@ -1088,7 +932,7 @@ AUTH PAGE
                 localStorage.setItem('cv_guest', 'false');
                 isGuest = false;
                 showAuthSuccess('✅ Login berhasil!');
-                setTimeout(() => loadDashboard(), 500);
+                setTimeout(function() { loadDashboard(); }, 500);
             } else {
                 showAuthError(response.error || 'Login gagal');
             }
@@ -1100,18 +944,18 @@ AUTH PAGE
     }
 
     async function handleRegister() {
-        const name = document.getElementById('registerName').value.trim();
-        const email = document.getElementById('registerEmail').value.trim();
-        const password = document.getElementById('registerPassword').value;
-        const confirm = document.getElementById('registerConfirm').value;
+        var name = document.getElementById('registerName').value.trim();
+        var email = document.getElementById('registerEmail').value.trim();
+        var password = document.getElementById('registerPassword').value;
+        var confirm = document.getElementById('registerConfirm').value;
         if (!name || !email || !password || !confirm) { showAuthError('Semua field harus diisi'); return; }
         if (password.length < 6) { showAuthError('Password minimal 6 karakter'); return; }
         if (password !== confirm) { showAuthError('Password dan konfirmasi tidak sama'); return; }
-        const btn = document.getElementById('registerBtn');
+        var btn = document.getElementById('registerBtn');
         btn.disabled = true;
         btn.textContent = '⏳ Loading...';
         try {
-            const response = await callAPI('register', { name, email, password });
+            var response = await callAPI('register', { name: name, email: email, password: password });
             if (response.success) {
                 authToken = response.token;
                 currentUser = response.user;
@@ -1157,16 +1001,16 @@ AUTH PAGE
     // ============================================================
     //  API
     // ============================================================
-    async function callAPI(action, data = null) {
-        const params = new URLSearchParams();
+    async function callAPI(action, data) {
+        var params = new URLSearchParams();
         params.append('action', action);
         if (data) params.append('data', JSON.stringify(data));
-        if (authToken && !['login', 'register', 'syncGuestData', 'getGuestData'].includes(action)) {
+        if (authToken && ['login', 'register', 'syncGuestData', 'getGuestData'].indexOf(action) === -1) {
             params.append('token', authToken);
         }
         try {
-            const response = await fetch(`${API_URL}?${params.toString()}`, { method: 'GET' });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            var response = await fetch(API_URL + '?' + params.toString(), { method: 'GET' });
+            if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
             return await response.json();
         } catch (error) {
             console.error('API Error:', error);
@@ -1180,7 +1024,7 @@ AUTH PAGE
     async function loadGuestData() {
         if (!isGuest) return;
         try {
-            const response = await callAPI('getGuestData');
+            var response = await callAPI('getGuestData');
             if (response.success && response.data) {
                 incomes = response.data.incomes || [];
                 budgetAllocs = response.data.budgetAllocs || [];
@@ -1202,11 +1046,11 @@ AUTH PAGE
         if (isSyncing) return;
         isSyncing = true;
         try {
-            const data = {
-                incomes, budgetAllocs, liabilities,
-                debtPayments, expenses, assets, goals, history
+            var data = {
+                incomes: incomes, budgetAllocs: budgetAllocs, liabilities: liabilities,
+                debtPayments: debtPayments, expenses: expenses, assets: assets, goals: goals, history: history
             };
-            const response = await callAPI('syncGuestData', data);
+            var response = await callAPI('syncGuestData', data);
             if (response.success) {
                 // Tidak tampilkan notifikasi sukses
             } else {
@@ -1225,10 +1069,10 @@ AUTH PAGE
         document.getElementById('authPage').classList.remove('active');
         document.getElementById('dashboard').classList.add('active');
         document.getElementById('loadingSpinner').classList.add('active');
-        document.getElementById('userName').textContent = currentUser?.name || 'User';
+        document.getElementById('userName').textContent = currentUser ? currentUser.name : 'User';
         try {
             if (!isGuest && authToken) {
-                const response = await callAPI('getAllData');
+                var response = await callAPI('getAllData');
                 if (response.success && response.data) {
                     incomes = response.data.incomes || [];
                     budgetAllocs = response.data.budgetAllocs || [];
@@ -1289,8 +1133,7 @@ AUTH PAGE
         setInterval(fetchRates, 5000);
         renderAll();
         updatePaymentSelect();
-        showNotification(`👋 Selamat datang${currentUser?.name ? ', ' + currentUser.name : ''}!`, 'success');
-
+        showNotification('👋 Selamat datang' + (currentUser && currentUser.name ? ', ' + currentUser.name : '') + '!', 'success');
         setInterval(checkNotifications, 30000);
         setTimeout(checkNotifications, 3000);
     }
@@ -1299,28 +1142,28 @@ AUTH PAGE
     //  NOTIFICATION SYSTEM
     // ============================================================
     function checkNotifications() {
-        const balance = getBalance(mainCurrency);
-        const totalIncome = getTotalIncome(mainCurrency);
-        const currentMonth = getCurrentMonth();
-        const totalExp = getTotalExpenses(currentMonth, mainCurrency);
-        const totalBudget = getTotalBudget(mainCurrency);
+        var balance = getBalance(mainCurrency);
+        var totalIncome = getTotalIncome(mainCurrency);
+        var currentMonth = getCurrentMonth();
+        var totalExp = getTotalExpenses(currentMonth, mainCurrency);
+        var totalBudget = getTotalBudget(mainCurrency);
 
         if (totalIncome > 0 && balance < totalIncome * 0.1) {
-            showNotification(`⚠️ Balance Anda tinggal ${formatCurrency(balance, mainCurrency)}. Segera isi ulang!`, 'warning');
+            showNotification('⚠️ Balance Anda tinggal ' + formatCurrency(balance, mainCurrency) + '. Segera isi ulang!', 'warning');
         }
 
         if (totalBudget > 0 && totalExp > totalBudget) {
-            showNotification(`🚨 Anda melebihi budget bulan ini sebesar ${formatCurrency(totalExp - totalBudget, mainCurrency)}!`, 'error');
+            showNotification('🚨 Anda melebihi budget bulan ini sebesar ' + formatCurrency(totalExp - totalBudget, mainCurrency) + '!', 'error');
         } else if (totalBudget > 0 && totalExp > totalBudget * 0.8) {
-            showNotification(`⚠️ Budget Anda sudah terpakai ${Math.round((totalExp/totalBudget)*100)}%. Hati-hati!`, 'warning');
+            showNotification('⚠️ Budget Anda sudah terpakai ' + Math.round((totalExp/totalBudget)*100) + '%. Hati-hati!', 'warning');
         }
 
-        const today = new Date();
-        goals.forEach(g => {
-            const deadline = new Date(g.deadline);
-            const diff = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+        var today = new Date();
+        goals.forEach(function(g) {
+            var deadline = new Date(g.deadline);
+            var diff = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
             if (diff <= 7 && diff >= 0 && g.status !== 'berhasil' && g.status !== 'gagal') {
-                showNotification(`⏰ Goal "${g.name}" deadline dalam ${diff} hari!`, 'warning');
+                showNotification('⏰ Goal "' + g.name + '" deadline dalam ' + diff + ' hari!', 'warning');
             }
         });
     }
@@ -1328,15 +1171,16 @@ AUTH PAGE
     // ============================================================
     //  CURRENCY
     // ============================================================
-    function formatCurrency(amount, currency = 'IDR') {
-        const symbols = { IDR: 'Rp', USD: '$', PHP: '₱' };
-        const symbol = symbols[currency] || currency;
+    function formatCurrency(amount, currency) {
+        currency = currency || 'IDR';
+        var symbols = { IDR: 'Rp', USD: '$', PHP: '₱' };
+        var symbol = symbols[currency] || currency;
         return symbol + Number(amount).toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     }
 
     function convertCurrency(amount, from, to) {
         if (from === to) return amount;
-        let usd = amount;
+        var usd = amount;
         if (from === 'IDR') usd = amount / rates.USD_IDR;
         else if (from === 'PHP') usd = amount / rates.USD_PHP;
         else if (from === 'USD') usd = amount;
@@ -1356,49 +1200,48 @@ AUTH PAGE
     //  RATES
     // ============================================================
     function fetchRates() {
-        previousRates = { ...rates };
+        previousRates = { USD_IDR: rates.USD_IDR, USD_PHP: rates.USD_PHP, EUR_USD: rates.EUR_USD, GBP_USD: rates.GBP_USD, BTC_USD: rates.BTC_USD };
         fetch('https://api.exchangerate-api.com/v4/latest/USD')
-            .then(r => r.json())
-            .then(d => {
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
                 if (d.rates) {
-                    const nr = {
+                    var nr = {
                         USD_IDR: d.rates.IDR || 15500,
                         USD_PHP: d.rates.PHP || 56,
                         EUR_USD: d.rates.EUR ? 1 / d.rates.EUR : 1.08,
-                        GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27,
+                        GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27
                     };
                     updateRates(nr);
                 }
             })
-            .catch(() => {
+            .catch(function() {
                 fetch('https://api.frankfurter.app/latest?from=USD')
-                    .then(r => r.json())
-                    .then(d => {
+                    .then(function(r) { return r.json(); })
+                    .then(function(d) {
                         if (d.rates) {
-                            const nr = {
+                            var nr = {
                                 USD_IDR: d.rates.IDR || 15500,
                                 USD_PHP: d.rates.PHP || 56,
                                 EUR_USD: d.rates.EUR ? 1 / d.rates.EUR : 1.08,
-                                GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27,
+                                GBP_USD: d.rates.GBP ? 1 / d.rates.GBP : 1.27
                             };
                             updateRates(nr);
                         }
                     })
-                    .catch(() => console.log('Rate API fallback gagal'));
+                    .catch(function() { console.log('Rate API fallback gagal'); });
             });
         fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
-            .then(r => r.json())
-            .then(d => {
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
                 if (d.bitcoin && d.bitcoin.usd) { rates.BTC_USD = d.bitcoin.usd; }
             })
-            .catch(() => {});
+            .catch(function() {});
     }
 
     function updateRates(nr) {
-        let changed = false;
-        for (const k in nr) {
-            if (nr[k] !== rates[k]) { rates[k] = nr[k];
-                changed = true; }
+        var changed = false;
+        for (var k in nr) {
+            if (nr[k] !== rates[k]) { rates[k] = nr[k]; changed = true; }
         }
         if (changed) {
             document.getElementById('usdIdrRate').textContent = 'Rp ' + Math.round(rates.USD_IDR);
@@ -1415,100 +1258,117 @@ AUTH PAGE
     //  CORE FUNCTIONS
     // ============================================================
     function getCurrentMonth() {
-        const d = new Date();
-        return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+        var d = new Date();
+        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
     }
 
     function getLastMonth() {
-        const d = new Date();
+        var d = new Date();
         d.setMonth(d.getMonth() - 1);
-        return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
     }
 
     function getToday() {
         return new Date().toISOString().split('T')[0];
     }
 
-    function getBalance(currency = mainCurrency) {
-        let totalIncome = 0;
-        incomes.forEach(i => totalIncome += convertCurrency(i.amount, i.currency, currency));
-        let totalExpenses = 0;
-        expenses.forEach(e => totalExpenses += convertCurrency(e.amount, e.currency, currency));
-        let totalPayments = 0;
-        debtPayments.forEach(p => totalPayments += convertCurrency(p.amount, p.currency, currency));
+    function getBalance(currency) {
+        currency = currency || mainCurrency;
+        var totalIncome = 0;
+        incomes.forEach(function(i) { totalIncome += convertCurrency(i.amount, i.currency, currency); });
+        var totalExpenses = 0;
+        expenses.forEach(function(e) { totalExpenses += convertCurrency(e.amount, e.currency, currency); });
+        var totalPayments = 0;
+        debtPayments.forEach(function(p) { totalPayments += convertCurrency(p.amount, p.currency, currency); });
         return totalIncome - totalExpenses - totalPayments;
     }
 
-    function getNetWorth(currency = mainCurrency) {
-        let totalAsset = 0;
-        assets.forEach(a => totalAsset += convertCurrency(a.value, a.currency, currency));
-        let totalLiabilities = 0;
-        liabilities.forEach(l => totalLiabilities += convertCurrency(l.amount, l.currency, currency));
+    function getNetWorth(currency) {
+        currency = currency || mainCurrency;
+        var totalAsset = 0;
+        assets.forEach(function(a) { totalAsset += convertCurrency(a.value, a.currency, currency); });
+        var totalLiabilities = 0;
+        liabilities.forEach(function(l) { totalLiabilities += convertCurrency(l.amount, l.currency, currency); });
         return totalAsset - totalLiabilities;
     }
 
-    function getTotalIncome(currency = mainCurrency) {
-        let total = 0;
-        incomes.forEach(i => total += convertCurrency(i.amount, i.currency, currency));
+    function getTotalIncome(currency) {
+        currency = currency || mainCurrency;
+        var total = 0;
+        incomes.forEach(function(i) { total += convertCurrency(i.amount, i.currency, currency); });
         return total;
     }
 
-    function getTotalBudget(currency = mainCurrency) {
-        let total = 0;
-        budgetAllocs.forEach(b => total += convertCurrency(b.amount, b.currency, currency));
+    function getTotalBudget(currency) {
+        currency = currency || mainCurrency;
+        var total = 0;
+        budgetAllocs.forEach(function(b) { total += convertCurrency(b.amount, b.currency, currency); });
         return total;
     }
 
-    function getTotalExpenses(month, currency = mainCurrency) {
-        const me = expenses.filter(e => e.month === month);
-        let total = 0;
-        me.forEach(e => total += convertCurrency(e.amount, e.currency, currency));
+    function getTotalExpenses(month, currency) {
+        currency = currency || mainCurrency;
+        var me = expenses.filter(function(e) { return e.month === month; });
+        var total = 0;
+        me.forEach(function(e) { total += convertCurrency(e.amount, e.currency, currency); });
         return total;
     }
 
-    function getTotalAssetValue(currency = mainCurrency) {
-        let total = 0;
-        assets.forEach(a => total += convertCurrency(a.value, a.currency, currency));
+    function getTotalAssetValue(currency) {
+        currency = currency || mainCurrency;
+        var total = 0;
+        assets.forEach(function(a) { total += convertCurrency(a.value, a.currency, currency); });
         return total;
     }
 
-    function getTotalDepreciation(currency = mainCurrency) {
-        let total = 0;
-        assets.forEach(a => {
-            const dep = a.value * a.depreciation / 100;
+    function getTotalDepreciation(currency) {
+        currency = currency || mainCurrency;
+        var total = 0;
+        assets.forEach(function(a) {
+            var dep = a.value * a.depreciation / 100;
             total += convertCurrency(dep, a.currency, currency);
         });
         return total;
     }
 
-    function getTotalLiabilities(currency = mainCurrency) {
-        let total = 0;
-        liabilities.forEach(l => total += convertCurrency(l.amount, l.currency, currency));
+    function getTotalLiabilities(currency) {
+        currency = currency || mainCurrency;
+        var total = 0;
+        liabilities.forEach(function(l) { total += convertCurrency(l.amount, l.currency, currency); });
         return total;
     }
 
-    function getTotalDebtPayments(currency = mainCurrency) {
-        let total = 0;
-        debtPayments.forEach(p => total += convertCurrency(p.amount, p.currency, currency));
+    function getTotalDebtPayments(currency) {
+        currency = currency || mainCurrency;
+        var total = 0;
+        debtPayments.forEach(function(p) { total += convertCurrency(p.amount, p.currency, currency); });
         return total;
     }
 
-    function getRemainingDebt(liabilityId, currency = mainCurrency) {
-        const liability = liabilities.find(l => l.id === liabilityId);
+    function getRemainingDebt(liabilityId, currency) {
+        currency = currency || mainCurrency;
+        var liability = null;
+        for (var i = 0; i < liabilities.length; i++) {
+            if (liabilities[i].id === liabilityId) { liability = liabilities[i]; break; }
+        }
         if (!liability) return 0;
-        const totalPaid = debtPayments
-            .filter(p => p.liabilityId === liabilityId)
-            .reduce((sum, p) => sum + convertCurrency(p.amount, p.currency, currency), 0);
-        const totalLiability = convertCurrency(liability.amount, liability.currency, currency);
+        var totalPaid = 0;
+        debtPayments.forEach(function(p) {
+            if (p.liabilityId === liabilityId) {
+                totalPaid += convertCurrency(p.amount, p.currency, currency);
+            }
+        });
+        var totalLiability = convertCurrency(liability.amount, liability.currency, currency);
         return Math.max(0, totalLiability - totalPaid);
     }
 
-    function getExpensesByCategory(month, currency = mainCurrency) {
-        const me = expenses.filter(e => e.month === month);
-        const cat = {};
-        me.forEach(e => {
-            const key = e.category || 'Lainnya';
-            const val = convertCurrency(e.amount, e.currency, currency);
+    function getExpensesByCategory(month, currency) {
+        currency = currency || mainCurrency;
+        var me = expenses.filter(function(e) { return e.month === month; });
+        var cat = {};
+        me.forEach(function(e) {
+            var key = e.category || 'Lainnya';
+            var val = convertCurrency(e.amount, e.currency, currency);
             cat[key] = (cat[key] || 0) + val;
         });
         return cat;
@@ -1516,11 +1376,10 @@ AUTH PAGE
 
     function getGoalProgress() {
         if (goals.length === 0) return 0;
-        let totalTarget = 0,
-            totalProgress = 0;
-        const nw = getNetWorth(mainCurrency);
-        goals.forEach(g => {
-            const target = convertCurrency(g.target, g.currency, mainCurrency);
+        var totalTarget = 0, totalProgress = 0;
+        var nw = getNetWorth(mainCurrency);
+        goals.forEach(function(g) {
+            var target = convertCurrency(g.target, g.currency, mainCurrency);
             totalTarget += target;
             totalProgress += Math.min(nw / target, 1);
         });
@@ -1528,112 +1387,113 @@ AUTH PAGE
     }
 
     function getBiggestExpense(month) {
-        const me = expenses.filter(e => e.month === month);
+        var me = expenses.filter(function(e) { return e.month === month; });
         if (me.length === 0) return null;
-        let max = me[0];
-        me.forEach(e => { if (e.amount > max.amount) max = e; });
+        var max = me[0];
+        me.forEach(function(e) { if (e.amount > max.amount) max = e; });
         return max;
     }
 
     function getDaysUntil(dateStr) {
-        const target = new Date(dateStr + 'T00:00:00');
-        const now = new Date();
+        var target = new Date(dateStr + 'T00:00:00');
+        var now = new Date();
         now.setHours(0, 0, 0, 0);
         return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
     }
 
-    function getDailyAverage(month, currency = mainCurrency) {
-        const total = getTotalExpenses(month, currency);
-        const days = new Date(month + '-01').getMonth() === new Date().getMonth() ?
-            new Date().getDate() :
-            new Date(month + '-01').getDaysInMonth();
+    function getDailyAverage(month, currency) {
+        currency = currency || mainCurrency;
+        var total = getTotalExpenses(month, currency);
+        var days = new Date(month + '-01').getMonth() === new Date().getMonth() ? new Date().getDate() : new Date(month + '-01').getDaysInMonth();
         return days > 0 ? total / days : 0;
     }
 
-    function getTopCategory(month, currency = mainCurrency) {
-        const cats = getExpensesByCategory(month, currency);
-        let max = 0,
-            name = null;
-        for (const [k, v] of Object.entries(cats)) {
-            if (v > max) { max = v;
-                name = k; }
+    function getTopCategory(month, currency) {
+        currency = currency || mainCurrency;
+        var cats = getExpensesByCategory(month, currency);
+        var max = 0, name = null;
+        for (var k in cats) {
+            if (cats[k] > max) { max = cats[k]; name = k; }
         }
-        return name ? { name, amount: max } : null;
+        return name ? { name: name, amount: max } : null;
     }
 
     // ============================================================
     //  GOALS CHECKLIST
     // ============================================================
     function updateGoalStatus(id, status) {
-        const goal = goals.find(g => g.id === id);
+        var goal = null;
+        for (var i = 0; i < goals.length; i++) {
+            if (goals[i].id === id) { goal = goals[i]; break; }
+        }
         if (!goal) return;
         goal.status = status;
-        goal.achievedDate = status === 'berhasil' || status === 'gagal' ? getToday() : null;
+        goal.achievedDate = (status === 'berhasil' || status === 'gagal') ? getToday() : null;
         renderAll();
-        showNotification(`✅ Goal "${goal.name}" ditandai ${status === 'berhasil' ? 'BERHASIL' : 'GAGAL'}!`, status === 'berhasil' ? 'success' : 'error');
+        showNotification('✅ Goal "' + goal.name + '" ditandai ' + (status === 'berhasil' ? 'BERHASIL' : 'GAGAL') + '!', status === 'berhasil' ? 'success' : 'error');
     }
 
     // ============================================================
     //  DEBT PAYMENTS
     // ============================================================
     function updatePaymentSelect() {
-        const select = document.getElementById('paymentLiability');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
-        select.innerHTML = `<option value="">${t.paymentSelect}</option>`;
-        liabilities.forEach(l => {
-            const remaining = getRemainingDebt(l.id);
+        var select = document.getElementById('paymentLiability');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
+        select.innerHTML = '<option value="">' + t.paymentSelect + '</option>';
+        liabilities.forEach(function(l) {
+            var remaining = getRemainingDebt(l.id);
             if (remaining > 0) {
-                const opt = document.createElement('option');
+                var opt = document.createElement('option');
                 opt.value = l.id;
-                opt.textContent = `${l.name} (${formatCurrency(remaining, mainCurrency)} sisa)`;
+                opt.textContent = l.name + ' (' + formatCurrency(remaining, mainCurrency) + ' sisa)';
                 select.appendChild(opt);
             }
         });
     }
 
     function addDebtPayment() {
-        const liabilityId = parseInt(document.getElementById('paymentLiability').value);
-        const amount = parseFloat(document.getElementById('paymentAmount').value);
-        const currency = document.getElementById('paymentCurrency').value;
-        const date = document.getElementById('paymentDate').value || getToday();
+        var liabilityId = parseInt(document.getElementById('paymentLiability').value);
+        var amount = parseFloat(document.getElementById('paymentAmount').value);
+        var currency = document.getElementById('paymentCurrency').value;
+        var date = document.getElementById('paymentDate').value || getToday();
 
         if (!liabilityId || isNaN(amount) || amount <= 0) {
             showNotification('Pilih utang dan isi jumlah cicilan', 'error');
             return;
         }
 
-        const remaining = getRemainingDebt(liabilityId, mainCurrency);
-        const paymentInMain = convertCurrency(amount, currency, mainCurrency);
+        var remaining = getRemainingDebt(liabilityId, mainCurrency);
+        var paymentInMain = convertCurrency(amount, currency, mainCurrency);
         if (paymentInMain > remaining) {
-            showNotification(`Cicilan melebihi sisa utang (${formatCurrency(remaining, mainCurrency)})`, 'error');
+            showNotification('Cicilan melebihi sisa utang (' + formatCurrency(remaining, mainCurrency) + ')', 'error');
             return;
         }
 
-        const balance = getBalance(mainCurrency);
+        var balance = getBalance(mainCurrency);
         if (paymentInMain > balance) {
-            if (!confirm(`⚠️ Pembayaran ini (${formatCurrency(amount, currency)}) melebihi balance Anda (${formatCurrency(balance, mainCurrency)}). Lanjutkan?`)) {
+            if (!confirm('⚠️ Pembayaran ini (' + formatCurrency(amount, currency) + ') melebihi balance Anda (' + formatCurrency(balance, mainCurrency) + '). Lanjutkan?')) {
                 return;
             }
         }
 
         debtPayments.push({
             id: Date.now(),
-            liabilityId,
-            amount,
-            currency,
-            date,
+            liabilityId: liabilityId,
+            amount: amount,
+            currency: currency,
+            date: date,
             month: date.slice(0, 7)
         });
 
         document.getElementById('paymentAmount').value = '';
         renderAll();
         updatePaymentSelect();
-        showNotification(`💸 Pembayaran cicilan berhasil dicatat! Balance berkurang ${formatCurrency(amount, currency)}`);
+        showNotification('💸 Pembayaran cicilan berhasil dicatat! Balance berkurang ' + formatCurrency(amount, currency));
     }
 
     function deleteDebtPayment(id) {
         if (confirm('Hapus pembayaran cicilan ini?')) {
-            debtPayments = debtPayments.filter(p => p.id !== id);
+            debtPayments = debtPayments.filter(function(p) { return p.id !== id; });
             renderAll();
             updatePaymentSelect();
             showNotification('Pembayaran cicilan dihapus');
@@ -1644,11 +1504,11 @@ AUTH PAGE
     //  EXPORT PDF
     // ============================================================
     function exportPDF() {
-        const currentMonth = getCurrentMonth();
-        const currency = mainCurrency;
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var currentMonth = getCurrentMonth();
+        var currency = mainCurrency;
+        var t = LANGUAGES[lang] || LANGUAGES.id;
 
-        document.getElementById('reportDate').textContent = `Periode: ${currentMonth}`;
+        document.getElementById('reportDate').textContent = 'Periode: ' + currentMonth;
         document.getElementById('rBalance').textContent = formatCurrency(getBalance(currency), currency);
         document.getElementById('rIncome').textContent = formatCurrency(getTotalIncome(currency), currency);
         document.getElementById('rExpenses').textContent = formatCurrency(getTotalExpenses(currentMonth, currency), currency);
@@ -1656,30 +1516,27 @@ AUTH PAGE
         document.getElementById('rAssets').textContent = formatCurrency(getTotalAssetValue(currency), currency);
         document.getElementById('rLiabilities').textContent = formatCurrency(getTotalLiabilities(currency), currency);
 
-        const cats = getExpensesByCategory(currentMonth, currency);
-        let catHtml = '';
-        for (const [key, val] of Object.entries(cats)) {
-            catHtml += `<div class="report-row"><span class="label">${key}</span><span class="value">${formatCurrency(val, currency)}</span></div>`;
+        var cats = getExpensesByCategory(currentMonth, currency);
+        var catHtml = '';
+        for (var key in cats) {
+            catHtml += '<div class="report-row"><span class="label">' + key + '</span><span class="value">' + formatCurrency(cats[key], currency) + '</span></div>';
         }
-        if (!catHtml) catHtml = `<div style="color:#6b7a8f;font-size:11px;">${t.noExpense}</div>`;
+        if (!catHtml) catHtml = '<div style="color:#6b7a8f;font-size:11px;">' + t.noExpense + '</div>';
         document.getElementById('rCategories').innerHTML = catHtml;
 
-        let goalHtml = '';
-        goals.forEach(g => {
-            const progress = getNetWorth(mainCurrency) / convertCurrency(g.target, g.currency, mainCurrency) * 100;
-            const statusText = g.status === 'berhasil' ? '✅ Berhasil' :
-                g.status === 'gagal' ? '❌ Gagal' :
-                `⏳ ${Math.min(progress, 100).toFixed(0)}%`;
-            goalHtml +=
-                `<div class="report-row"><span class="label">${g.name}</span><span class="value">${formatCurrency(g.target, g.currency)} - ${statusText}</span></div>`;
+        var goalHtml = '';
+        goals.forEach(function(g) {
+            var progress = getNetWorth(mainCurrency) / convertCurrency(g.target, g.currency, mainCurrency) * 100;
+            var statusText = g.status === 'berhasil' ? '✅ Berhasil' : (g.status === 'gagal' ? '❌ Gagal' : '⏳ ' + Math.min(progress, 100).toFixed(0) + '%');
+            goalHtml += '<div class="report-row"><span class="label">' + g.name + '</span><span class="value">' + formatCurrency(g.target, g.currency) + ' - ' + statusText + '</span></div>';
         });
-        if (!goalHtml) goalHtml = `<div style="color:#6b7a8f;font-size:11px;">${t.noGoal}</div>`;
+        if (!goalHtml) goalHtml = '<div style="color:#6b7a8f;font-size:11px;">' + t.noGoal + '</div>';
         document.getElementById('rGoals').innerHTML = goalHtml;
 
-        const element = document.getElementById('reportContent');
-        const opt = {
+        var element = document.getElementById('reportContent');
+        var opt = {
             margin: 10,
-            filename: `CashView_Report_${currentMonth}.pdf`,
+            filename: 'CashView_Report_' + currentMonth + '.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, logging: false },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -1687,12 +1544,12 @@ AUTH PAGE
 
         showNotification('📄 Generating PDF...', 'warning');
         html2pdf().set(opt).from(element).save()
-            .then(() => showNotification('✅ PDF berhasil di-export!', 'success'))
-            .catch((error) => showNotification('❌ Gagal export PDF: ' + error.message, 'error'));
+            .then(function() { showNotification('✅ PDF berhasil di-export!', 'success'); })
+            .catch(function(error) { showNotification('❌ Gagal export PDF: ' + error.message, 'error'); });
     }
 
     // ============================================================
-    //  SYNC - FIXED VERSION
+    //  SYNC
     // ============================================================
     async function syncToSheet() {
         console.log('🔄 Sync button clicked!');
@@ -1717,7 +1574,7 @@ AUTH PAGE
         showNotification('🔄 Menyinkronkan data ke Google Sheets...', 'warning');
 
         try {
-            const data = {
+            var data = {
                 incomes: incomes || [],
                 budgetAllocs: budgetAllocs || [],
                 liabilities: liabilities || [],
@@ -1730,14 +1587,13 @@ AUTH PAGE
 
             console.log('📤 Data to sync:', data);
 
-            const response = await callAPI('syncData', data);
+            var response = await callAPI('syncData', data);
             console.log('📥 Sync response:', response);
 
             if (response && response.success) {
                 showNotification('✅ Data berhasil disinkronkan ke Google Sheets!', 'success');
 
-                // ✅ RELOAD DATA DARI CLOUD
-                const reloadResponse = await callAPI('getAllData');
+                var reloadResponse = await callAPI('getAllData');
                 if (reloadResponse.success && reloadResponse.data) {
                     incomes = reloadResponse.data.incomes || [];
                     budgetAllocs = reloadResponse.data.budgetAllocs || [];
@@ -1752,7 +1608,7 @@ AUTH PAGE
                     console.log('✅ Data reloaded from cloud');
                 }
             } else {
-                showNotification('❌ Gagal sync: ' + (response?.error || 'Unknown error'), 'error');
+                showNotification('❌ Gagal sync: ' + (response ? response.error : 'Unknown error'), 'error');
                 console.error('❌ Sync error:', response);
             }
         } catch (error) {
@@ -1768,34 +1624,31 @@ AUTH PAGE
     //  RENDER ALL
     // ============================================================
     function renderAll() {
-        const currentMonth = getCurrentMonth();
-        const currency = mainCurrency;
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var currentMonth = getCurrentMonth();
+        var currency = mainCurrency;
+        var t = LANGUAGES[lang] || LANGUAGES.id;
 
-        const balance = getBalance(currency);
-        const totalIncome = getTotalIncome(currency);
-        const totalBudget = getTotalBudget(currency);
-        const totalExp = getTotalExpenses(currentMonth, currency);
-        const totalAsset = getTotalAssetValue(currency);
-        const totalDep = getTotalDepreciation(currency);
-        const totalLiabilities = getTotalLiabilities(currency);
-        const totalPayments = getTotalDebtPayments(currency);
-        const netWorth = getNetWorth(currency);
-        const remaining = totalBudget - totalExp;
-        const goalProgress = getGoalProgress();
-        const biggest = getBiggestExpense(currentMonth);
-        const dailyAvg = getDailyAverage(currentMonth, currency);
+        var balance = getBalance(currency);
+        var totalIncome = getTotalIncome(currency);
+        var totalBudget = getTotalBudget(currency);
+        var totalExp = getTotalExpenses(currentMonth, currency);
+        var totalAsset = getTotalAssetValue(currency);
+        var totalDep = getTotalDepreciation(currency);
+        var totalLiabilities = getTotalLiabilities(currency);
+        var totalPayments = getTotalDebtPayments(currency);
+        var netWorth = getNetWorth(currency);
+        var remaining = totalBudget - totalExp;
+        var goalProgress = getGoalProgress();
+        var biggest = getBiggestExpense(currentMonth);
+        var dailyAvg = getDailyAverage(currentMonth, currency);
 
-        // Balance Cards
         document.getElementById('totalBalance').textContent = formatCurrency(balance, currency);
         document.getElementById('salaryTotal').textContent = formatCurrency(
-            incomes.filter(i => i.type === 'salary').reduce((s, i) => s + convertCurrency(i.amount, i.currency,
-                currency), 0),
+            incomes.filter(function(i) { return i.type === 'salary'; }).reduce(function(s, i) { return s + convertCurrency(i.amount, i.currency, currency); }, 0),
             currency
         );
         document.getElementById('passiveTotal').textContent = formatCurrency(
-            incomes.filter(i => i.type === 'passive').reduce((s, i) => s + convertCurrency(i.amount, i.currency,
-                currency), 0),
+            incomes.filter(function(i) { return i.type === 'passive'; }).reduce(function(s, i) { return s + convertCurrency(i.amount, i.currency, currency); }, 0),
             currency
         );
         document.getElementById('totalAssetDisplay').textContent = formatCurrency(totalAsset, currency);
@@ -1806,27 +1659,21 @@ AUTH PAGE
         document.getElementById('paymentCount').textContent = debtPayments.length;
         document.getElementById('netWorthDisplay').textContent = formatCurrency(netWorth, currency);
         document.getElementById('budgetDisplay').textContent = formatCurrency(totalBudget, currency);
-        const budgetUsedPct = totalBudget > 0 ? Math.round((totalExp / totalBudget) * 100) : 0;
+        var budgetUsedPct = totalBudget > 0 ? Math.round((totalExp / totalBudget) * 100) : 0;
         document.getElementById('budgetUsedPercent').textContent = budgetUsedPct + '%';
         document.getElementById('remainingBudgetDisplay').textContent = formatCurrency(remaining, currency);
 
-        // Stats
         document.getElementById('statTotalIncome').textContent = formatCurrency(totalIncome, currency);
         document.getElementById('statTotalExpenses').textContent = formatCurrency(totalExp, currency);
         document.getElementById('statDailyAvg').textContent = formatCurrency(dailyAvg, currency);
-        document.getElementById('statBiggestExpense').textContent = biggest ?
-            formatCurrency(biggest.amount, biggest.currency) : '-';
+        document.getElementById('statBiggestExpense').textContent = biggest ? formatCurrency(biggest.amount, biggest.currency) : '-';
         document.getElementById('statGoalProgress').textContent = goalProgress + '%';
         document.getElementById('statTransactionCount').textContent = expenses.length;
 
-        // Monthly expense
         document.getElementById('monthlyExpenseTotal').textContent = formatCurrency(totalExp, currency);
         document.getElementById('budgetUsed').textContent = budgetUsedPct + '%';
-        document.getElementById('biggestExpense').textContent = biggest ?
-            `${biggest.desc}: ${formatCurrency(biggest.amount, biggest.currency)}` :
-            '-';
+        document.getElementById('biggestExpense').textContent = biggest ? biggest.desc + ': ' + formatCurrency(biggest.amount, biggest.currency) : '-';
 
-        // Counts
         document.getElementById('incomeCount').textContent = incomes.length + ' sources';
         document.getElementById('budgetCount').textContent = budgetAllocs.length + ' categories';
         document.getElementById('liabilityCountBadge').textContent = liabilities.length + ' debts';
@@ -1835,21 +1682,17 @@ AUTH PAGE
         document.getElementById('goalCount').textContent = goals.length + ' goals';
         document.getElementById('historyCount').textContent = history.length + ' months';
 
-        // Payment summary
         document.getElementById('totalPaymentAmount').textContent = formatCurrency(totalPayments, currency);
-        const totalDebt = getTotalLiabilities(currency);
-        const totalPaid = getTotalDebtPayments(currency);
-        const paymentProgress = totalDebt > 0 ? Math.round((totalPaid / (totalDebt + totalPaid)) * 100) : 0;
+        var totalDebt = getTotalLiabilities(currency);
+        var totalPaid = getTotalDebtPayments(currency);
+        var paymentProgress = totalDebt > 0 ? Math.round((totalPaid / (totalDebt + totalPaid)) * 100) : 0;
         document.getElementById('paymentProgress').textContent = paymentProgress + '%';
         document.getElementById('paymentCountBadge').textContent = debtPayments.length + ' payments';
 
-        // Date
-        const now = new Date();
-        const dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-        document.getElementById('dateDisplay').textContent =
-            `${dayNames[now.getDay()]}, ${now.toLocaleDateString('id-ID', { year:'numeric', month:'long', day:'numeric' })}`;
+        var now = new Date();
+        var dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+        document.getElementById('dateDisplay').textContent = dayNames[now.getDay()] + ', ' + now.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
 
-        // Render lists
         renderIncomeList();
         renderBudgetAllocList();
         renderLiabilityList();
@@ -1860,15 +1703,11 @@ AUTH PAGE
         renderHistoryAndChart();
         renderDebtPaymentList();
 
-        // Auto sync - HANYA SEKALI SAAT PERTAMA KALI LOAD
         if (!isGuest && authToken && !hasAutoSynced) {
             hasAutoSynced = true;
-            setTimeout(() => {
-                syncToSheet();
-            }, 3000);
+            setTimeout(function() { syncToSheet(); }, 3000);
         }
 
-        // Save to localStorage
         saveLocalData();
     }
 
@@ -1876,223 +1715,152 @@ AUTH PAGE
     //  RENDER FUNCTIONS
     // ============================================================
     function renderIncomeList() {
-        const div = document.getElementById('incomeList');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var div = document.getElementById('incomeList');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (incomes.length === 0) {
-            div.innerHTML = `<div class="empty-state"><i class="fas fa-money-bill-wave"></i>${t.noIncome}</div>`;
+            div.innerHTML = '<div class="empty-state"><i class="fas fa-money-bill-wave"></i>' + t.noIncome + '</div>';
             return;
         }
-        div.innerHTML = incomes.map((inc, idx) => `
-            <div class="income-source-item">
-                <span class="source-name">${inc.source} <span class="source-type">${inc.type}</span></span>
-                <span class="source-amount">${formatCurrency(inc.amount, inc.currency)} 
-                    <button class="delete-btn" onclick="deleteIncome(${idx})"><i class="fas fa-times"></i></button>
-                </span>
-            </div>
-        `).join('');
+        div.innerHTML = incomes.map(function(inc, idx) {
+            return '<div class="income-source-item"><span class="source-name">' + inc.source + ' <span class="source-type">' + inc.type + '</span></span><span class="source-amount">' + formatCurrency(inc.amount, inc.currency) + ' <button class="delete-btn" onclick="deleteIncome(' + idx + ')"><i class="fas fa-times"></i></button></span></div>';
+        }).join('');
     }
 
     function renderBudgetAllocList() {
-        const div = document.getElementById('budgetAllocList');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var div = document.getElementById('budgetAllocList');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (budgetAllocs.length === 0) {
-            div.innerHTML = `<div class="empty-state"><i class="fas fa-sliders-h"></i>${t.noBudget}</div>`;
+            div.innerHTML = '<div class="empty-state"><i class="fas fa-sliders-h"></i>' + t.noBudget + '</div>';
             return;
         }
-        div.innerHTML = budgetAllocs.map((b, idx) => `
-            <div class="budget-alloc-item">
-                <span class="budget-cat">
-                    <span class="cat-dot" style="background:${b.color || '#065f46'}"></span>
-                    ${b.category}
-                </span>
-                <span class="budget-amount">${formatCurrency(b.amount, b.currency)}
-                    <button class="delete-btn" onclick="deleteBudgetAlloc(${idx})"><i class="fas fa-times"></i></button>
-                </span>
-            </div>
-        `).join('');
+        div.innerHTML = budgetAllocs.map(function(b, idx) {
+            return '<div class="budget-alloc-item"><span class="budget-cat"><span class="cat-dot" style="background:' + (b.color || '#065f46') + '"></span>' + b.category + '</span><span class="budget-amount">' + formatCurrency(b.amount, b.currency) + ' <button class="delete-btn" onclick="deleteBudgetAlloc(' + idx + ')"><i class="fas fa-times"></i></button></span></div>';
+        }).join('');
     }
 
     function renderLiabilityList() {
-        const div = document.getElementById('liabilityList');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var div = document.getElementById('liabilityList');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (liabilities.length === 0) {
-            div.innerHTML = `<div class="empty-state"><i class="fas fa-credit-card"></i>${t.noLiability}</div>`;
+            div.innerHTML = '<div class="empty-state"><i class="fas fa-credit-card"></i>' + t.noLiability + '</div>';
             return;
         }
-        div.innerHTML = liabilities.map((l, idx) => {
-            const remaining = getRemainingDebt(l.id, mainCurrency);
-            const total = convertCurrency(l.amount, l.currency, mainCurrency);
-            return `
-                <div class="liability-item">
-                    <span class="liability-name">${l.name} ${l.interest > 0 ? `<span style="font-size:7px;color:var(--text-muted);">(${l.interest}%)</span>` : ''}</span>
-                    <span class="liability-amount">
-                        ${formatCurrency(remaining, mainCurrency)} / ${formatCurrency(total, mainCurrency)}
-                        <button class="delete-btn" onclick="deleteLiability(${idx})"><i class="fas fa-times"></i></button>
-                    </span>
-                </div>
-            `;
+        div.innerHTML = liabilities.map(function(l, idx) {
+            var remaining = getRemainingDebt(l.id, mainCurrency);
+            var total = convertCurrency(l.amount, l.currency, mainCurrency);
+            return '<div class="liability-item"><span class="liability-name">' + l.name + (l.interest > 0 ? ' <span style="font-size:7px;color:var(--text-muted);">(' + l.interest + '%)</span>' : '') + '</span><span class="liability-amount">' + formatCurrency(remaining, mainCurrency) + ' / ' + formatCurrency(total, mainCurrency) + ' <button class="delete-btn" onclick="deleteLiability(' + idx + ')"><i class="fas fa-times"></i></button></span></div>';
         }).join('');
     }
 
     function renderExpenseTable() {
-        const tbody = document.getElementById('expenseTableBody');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var tbody = document.getElementById('expenseTableBody');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (expenses.length === 0) {
-            tbody.innerHTML =
-                `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noExpense}</td></tr>`;
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noExpense + '</td></tr>';
             return;
         }
-        const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
-        tbody.innerHTML = sorted.map(e => {
-            const color = categoryColors[e.category] || '#4a5a6f';
-            return `
-                <tr>
-                    <td>${e.date}</td>
-                    <td>${e.desc}</td>
-                    <td><span class="cat-dot" style="background:${color}"></span>${e.category || 'Lainnya'}</td>
-                    <td>${formatCurrency(e.amount, e.currency)}</td>
-                    <td><button class="delete-btn" onclick="deleteExpense(${e.id})"><i class="fas fa-times"></i></button></td>
-                </tr>
-            `;
+        var sorted = expenses.slice().sort(function(a, b) { return b.date.localeCompare(a.date) || a.id - b.id; });
+        tbody.innerHTML = sorted.map(function(e) {
+            var color = categoryColors[e.category] || '#4a5a6f';
+            return '<tr><td>' + e.date + '</td><td>' + e.desc + '</td><td><span class="cat-dot" style="background:' + color + '"></span>' + (e.category || 'Lainnya') + '</td><td>' + formatCurrency(e.amount, e.currency) + '</td><td><button class="delete-btn" onclick="deleteExpense(' + e.id + ')"><i class="fas fa-times"></i></button></td></tr>';
         }).join('');
     }
 
     function renderDailySummary() {
-        const container = document.getElementById('dailySummary');
-        const currentMonth = getCurrentMonth();
-        const me = expenses.filter(e => e.month === currentMonth);
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var container = document.getElementById('dailySummary');
+        var currentMonth = getCurrentMonth();
+        var me = expenses.filter(function(e) { return e.month === currentMonth; });
+        var t = LANGUAGES[lang] || LANGUAGES.id;
 
         if (me.length === 0) {
-            container.innerHTML =
-                `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:9px;padding:3px;">${t.noExpense}</div>`;
+            container.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:9px;padding:3px;">' + t.noExpense + '</div>';
             return;
         }
 
-        const groups = {};
-        me.forEach(e => {
+        var groups = {};
+        me.forEach(function(e) {
             if (!groups[e.date]) groups[e.date] = [];
             groups[e.date].push(e);
         });
 
-        const dates = Object.keys(groups).sort().reverse().slice(0, 7);
-        const dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+        var dates = Object.keys(groups).sort().reverse().slice(0, 7);
+        var dayNames = t.days || ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
-        container.innerHTML = dates.map(date => {
-            const total = groups[date].reduce((s, e) => s + convertCurrency(e.amount, e.currency,
-                mainCurrency), 0);
-            const dn = dayNames[new Date(date + 'T00:00:00').getDay()];
-            return `
-                <div class="day-item">
-                    <div class="day-label">${dn}</div>
-                    <div class="day-amount">${formatCurrency(total, mainCurrency)}</div>
-                    <div class="day-count">${groups[date].length} items</div>
-                </div>
-            `;
+        container.innerHTML = dates.map(function(date) {
+            var total = groups[date].reduce(function(s, e) { return s + convertCurrency(e.amount, e.currency, mainCurrency); }, 0);
+            var dn = dayNames[new Date(date + 'T00:00:00').getDay()];
+            return '<div class="day-item"><div class="day-label">' + dn + '</div><div class="day-amount">' + formatCurrency(total, mainCurrency) + '</div><div class="day-count">' + groups[date].length + ' items</div></div>';
         }).join('');
     }
 
     function renderAssetTable() {
-        const tbody = document.getElementById('assetTableBody');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var tbody = document.getElementById('assetTableBody');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (assets.length === 0) {
-            tbody.innerHTML =
-                `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noAsset}</td></tr>`;
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noAsset + '</td></tr>';
             return;
         }
-        tbody.innerHTML = assets.map(a => {
-            const depVal = a.value * a.depreciation / 100;
-            const finalVal = a.value - depVal;
-            return `
-                <tr>
-                    <td>${a.name}</td>
-                    <td>${a.type}</td>
-                    <td>${formatCurrency(a.value, a.currency)}</td>
-                    <td>${a.depreciation}%</td>
-                    <td>${formatCurrency(finalVal, a.currency)}</td>
-                    <td><button class="delete-btn" onclick="deleteAsset(${a.id})"><i class="fas fa-times"></i></button></td>
-                </tr>
-            `;
+        tbody.innerHTML = assets.map(function(a) {
+            var depVal = a.value * a.depreciation / 100;
+            var finalVal = a.value - depVal;
+            return '<tr><td>' + a.name + '</td><td>' + a.type + '</td><td>' + formatCurrency(a.value, a.currency) + '</td><td>' + a.depreciation + '%</td><td>' + formatCurrency(finalVal, a.currency) + '</td><td><button class="delete-btn" onclick="deleteAsset(' + a.id + ')"><i class="fas fa-times"></i></button></td></tr>';
         }).join('');
     }
 
     function renderGoalList() {
-        const div = document.getElementById('goalList');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var div = document.getElementById('goalList');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (goals.length === 0) {
-            div.innerHTML = `<div class="empty-state"><i class="fas fa-bullseye"></i>${t.noGoal}</div>`;
+            div.innerHTML = '<div class="empty-state"><i class="fas fa-bullseye"></i>' + t.noGoal + '</div>';
             return;
         }
 
-        const nw = getNetWorth(mainCurrency);
-        div.innerHTML = goals.map(g => {
-            const targetInMain = convertCurrency(g.target, g.currency, mainCurrency);
-            const progress = Math.min((nw / targetInMain) * 100, 100);
-            const daysLeft = getDaysUntil(g.deadline);
+        var nw = getNetWorth(mainCurrency);
+        div.innerHTML = goals.map(function(g) {
+            var targetInMain = convertCurrency(g.target, g.currency, mainCurrency);
+            var progress = Math.min((nw / targetInMain) * 100, 100);
+            var daysLeft = getDaysUntil(g.deadline);
 
-            let statusText = t.belum;
-            let statusClass = 'belum';
+            var statusText = t.belum;
+            var statusClass = 'belum';
             if (g.status === 'berhasil') {
-                statusText = `${t.berhasil} (${g.achievedDate || '-'})`;
+                statusText = t.berhasil + ' (' + (g.achievedDate || '-') + ')';
                 statusClass = 'berhasil';
             } else if (g.status === 'gagal') {
-                statusText = `${t.gagal} (${g.achievedDate || '-'})`;
+                statusText = t.gagal + ' (' + (g.achievedDate || '-') + ')';
                 statusClass = 'gagal';
             }
 
-            let deadlineText = '';
-            if (daysLeft < 0) deadlineText = `${t.overdue} (${Math.abs(daysLeft)} hari)`;
-            else if (daysLeft <= 7) deadlineText = `${t.urgent} ${daysLeft} hari`;
-            else deadlineText = `${daysLeft} ${t.daysUntil}`;
+            var deadlineText = '';
+            if (daysLeft < 0) deadlineText = t.overdue + ' (' + Math.abs(daysLeft) + ' hari)';
+            else if (daysLeft <= 7) deadlineText = t.urgent + ' ' + daysLeft + ' hari';
+            else deadlineText = daysLeft + ' ' + t.daysUntil;
 
-            const isDone = g.status === 'berhasil' || g.status === 'gagal';
+            var isDone = g.status === 'berhasil' || g.status === 'gagal';
 
-            return `
-                <div class="goal-item">
-                    <div class="goal-info">
-                        <span class="goal-name">${g.name}</span>
-                        <span class="goal-target">Target: ${formatCurrency(g.target, g.currency)}</span>
-                        <span style="font-size:8px;color:var(--text-muted);">📅 ${g.deadline} (${deadlineText})</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-                        <span class="goal-status ${statusClass}">${statusText}</span>
-                        <div class="goal-progress">
-                            <div class="progress-bar"><div class="fill" style="width:${Math.min(progress, 100)}%"></div></div>
-                            <span style="font-size:8px;font-weight:600;min-width:28px;">${Math.round(progress)}%</span>
-                        </div>
-                        ${!isDone ? `
-                            <div class="goal-actions">
-                                <button class="btn-goal berhasil" onclick="updateGoalStatus(${g.id}, 'berhasil')">✅</button>
-                                <button class="btn-goal gagal" onclick="updateGoalStatus(${g.id}, 'gagal')">❌</button>
-                            </div>
-                        ` : ''}
-                        <button class="delete-btn" onclick="deleteGoal(${g.id})"><i class="fas fa-times"></i></button>
-                    </div>
-                </div>
-            `;
+            return '<div class="goal-item"><div class="goal-info"><span class="goal-name">' + g.name + '</span><span class="goal-target">Target: ' + formatCurrency(g.target, g.currency) + '</span><span style="font-size:8px;color:var(--text-muted);">📅 ' + g.deadline + ' (' + deadlineText + ')</span></div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;"><span class="goal-status ' + statusClass + '">' + statusText + '</span><div class="goal-progress"><div class="progress-bar"><div class="fill" style="width:' + Math.min(progress, 100) + '%"></div></div><span style="font-size:8px;font-weight:600;min-width:28px;">' + Math.round(progress) + '%</span></div>' + (!isDone ? '<div class="goal-actions"><button class="btn-goal berhasil" onclick="updateGoalStatus(' + g.id + ', \'berhasil\')">✅</button><button class="btn-goal gagal" onclick="updateGoalStatus(' + g.id + ', \'gagal\')">❌</button></div>' : '') + '<button class="delete-btn" onclick="deleteGoal(' + g.id + ')"><i class="fas fa-times"></i></button></div></div>';
         }).join('');
     }
 
     function renderHistoryAndChart() {
-        const div = document.getElementById('historyList');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var div = document.getElementById('historyList');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (history.length === 0) {
-            div.innerHTML = `<div class="empty-state"><i class="fas fa-chart-area"></i>${t.noHistory}</div>`;
-            if (wealthChartInstance) { wealthChartInstance.destroy();
-                wealthChartInstance = null; }
+            div.innerHTML = '<div class="empty-state"><i class="fas fa-chart-area"></i>' + t.noHistory + '</div>';
+            if (wealthChartInstance) { wealthChartInstance.destroy(); wealthChartInstance = null; }
             return;
         }
 
-        const sorted = [...history].sort((a, b) => a.month.localeCompare(b.month));
-        div.innerHTML = sorted.map(h =>
-            `<div class="history-item"><span class="month">${h.month}</span><span class="amount">${formatCurrency(h.netWorth, mainCurrency)}</span></div>`
-        ).join('');
+        var sorted = history.slice().sort(function(a, b) { return a.month.localeCompare(b.month); });
+        div.innerHTML = sorted.map(function(h) {
+            return '<div class="history-item"><span class="month">' + h.month + '</span><span class="amount">' + formatCurrency(h.netWorth, mainCurrency) + '</span></div>';
+        }).join('');
 
-        const ctx = document.getElementById('wealthChart').getContext('2d');
+        var ctx = document.getElementById('wealthChart').getContext('2d');
         if (wealthChartInstance) wealthChartInstance.destroy();
 
-        const labels = sorted.map(h => h.month);
-        const data = sorted.map(h => h.netWorth);
+        var labels = sorted.map(function(h) { return h.month; });
+        var data = sorted.map(function(h) { return h.netWorth; });
 
         wealthChartInstance = new Chart(ctx, {
             type: 'line',
@@ -2107,7 +1875,7 @@ AUTH PAGE
                     pointBackgroundColor: '#0a1628',
                     pointRadius: 3,
                     tension: 0.3,
-                    fill: true,
+                    fill: true
                 }]
             },
             options: {
@@ -2115,11 +1883,7 @@ AUTH PAGE
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    y: {
-                        beginAtZero: false,
-                        grid: { color: 'var(--chart-grid)' },
-                        ticks: { callback: v => formatCurrency(v, mainCurrency), font: { size: 8 } }
-                    },
+                    y: { beginAtZero: false, grid: { color: 'var(--chart-grid)' }, ticks: { callback: function(v) { return formatCurrency(v, mainCurrency); }, font: { size: 8 } } },
                     x: { grid: { display: false }, ticks: { font: { size: 8 } } }
                 }
             }
@@ -2127,41 +1891,35 @@ AUTH PAGE
     }
 
     function renderDebtPaymentList() {
-        const tbody = document.getElementById('paymentTableBody');
-        const t = LANGUAGES[lang] || LANGUAGES.id;
+        var tbody = document.getElementById('paymentTableBody');
+        var t = LANGUAGES[lang] || LANGUAGES.id;
         if (debtPayments.length === 0) {
-            tbody.innerHTML =
-                `<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">${t.noPayment}</td></tr>`;
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:10px;">' + t.noPayment + '</td></tr>';
             return;
         }
-        const sorted = [...debtPayments].sort((a, b) => b.date.localeCompare(a.date) || a.id - b.id);
-        tbody.innerHTML = sorted.map(p => {
-            const liability = liabilities.find(l => l.id === p.liabilityId);
-            return `
-                <tr>
-                    <td>${p.date}</td>
-                    <td>${liability ? liability.name : 'Dihapus'}</td>
-                    <td>${formatCurrency(p.amount, p.currency)}</td>
-                    <td><button class="delete-btn" onclick="deleteDebtPayment(${p.id})"><i class="fas fa-times"></i></button></td>
-                </tr>
-            `;
+        var sorted = debtPayments.slice().sort(function(a, b) { return b.date.localeCompare(a.date) || a.id - b.id; });
+        tbody.innerHTML = sorted.map(function(p) {
+            var liability = null;
+            for (var i = 0; i < liabilities.length; i++) {
+                if (liabilities[i].id === p.liabilityId) { liability = liabilities[i]; break; }
+            }
+            return '<tr><td>' + p.date + '</td><td>' + (liability ? liability.name : 'Dihapus') + '</td><td>' + formatCurrency(p.amount, p.currency) + '</td><td><button class="delete-btn" onclick="deleteDebtPayment(' + p.id + ')"><i class="fas fa-times"></i></button></td></tr>';
         }).join('');
     }
 
     // ============================================================
     //  CRUD OPERATIONS
     // ============================================================
-
     function addIncome() {
-        const source = document.getElementById('incomeSource').value.trim();
-        const amount = parseFloat(document.getElementById('incomeAmount').value);
-        const currency = document.getElementById('incomeCurrency').value;
-        const type = document.getElementById('incomeType').value;
+        var source = document.getElementById('incomeSource').value.trim();
+        var amount = parseFloat(document.getElementById('incomeAmount').value);
+        var currency = document.getElementById('incomeCurrency').value;
+        var type = document.getElementById('incomeType').value;
         if (!source || isNaN(amount) || amount <= 0) {
             showNotification('Isi sumber dan jumlah dengan benar', 'error');
             return;
         }
-        incomes.push({ source, amount, currency, type });
+        incomes.push({ source: source, amount: amount, currency: currency, type: type });
         document.getElementById('incomeSource').value = '';
         document.getElementById('incomeAmount').value = '';
         renderAll();
@@ -2169,21 +1927,19 @@ AUTH PAGE
     }
 
     function deleteIncome(idx) {
-        if (confirm('Hapus sumber pendapatan ini?')) { incomes.splice(idx, 1);
-            renderAll();
-            showNotification('Pendapatan dihapus'); }
+        if (confirm('Hapus sumber pendapatan ini?')) { incomes.splice(idx, 1); renderAll(); showNotification('Pendapatan dihapus'); }
     }
 
     function addBudgetAllocation() {
-        const category = document.getElementById('budgetCategory').value.trim();
-        const amount = parseFloat(document.getElementById('budgetAlloc').value);
-        const currency = document.getElementById('budgetCurrency').value;
-        const color = document.getElementById('budgetColor').value;
+        var category = document.getElementById('budgetCategory').value.trim();
+        var amount = parseFloat(document.getElementById('budgetAlloc').value);
+        var currency = document.getElementById('budgetCurrency').value;
+        var color = document.getElementById('budgetColor').value;
         if (!category || isNaN(amount) || amount <= 0) {
             showNotification('Isi kategori dan alokasi dengan benar', 'error');
             return;
         }
-        budgetAllocs.push({ category, amount, currency, color });
+        budgetAllocs.push({ category: category, amount: amount, currency: currency, color: color });
         document.getElementById('budgetCategory').value = '';
         document.getElementById('budgetAlloc').value = '';
         renderAll();
@@ -2191,36 +1947,37 @@ AUTH PAGE
     }
 
     function deleteBudgetAlloc(idx) {
-        if (confirm('Hapus alokasi budget ini?')) { budgetAllocs.splice(idx, 1);
-            renderAll();
-            showNotification('Alokasi budget dihapus'); }
+        if (confirm('Hapus alokasi budget ini?')) { budgetAllocs.splice(idx, 1); renderAll(); showNotification('Alokasi budget dihapus'); }
     }
 
     function addLiability() {
-        const name = document.getElementById('liabilityName').value.trim();
-        const amount = parseFloat(document.getElementById('liabilityAmount').value);
-        const currency = document.getElementById('liabilityCurrency').value;
-        const interest = parseFloat(document.getElementById('liabilityInterest').value) || 0;
+        var name = document.getElementById('liabilityName').value.trim();
+        var amount = parseFloat(document.getElementById('liabilityAmount').value);
+        var currency = document.getElementById('liabilityCurrency').value;
+        var interest = parseFloat(document.getElementById('liabilityInterest').value) || 0;
         if (!name || isNaN(amount) || amount <= 0) {
             showNotification('Isi nama dan jumlah utang dengan benar', 'error');
             return;
         }
-        liabilities.push({ id: Date.now(), name, amount, currency, interest });
+        liabilities.push({ id: Date.now(), name: name, amount: amount, currency: currency, interest: interest });
         document.getElementById('liabilityName').value = '';
         document.getElementById('liabilityAmount').value = '';
         document.getElementById('liabilityInterest').value = '0';
         renderAll();
         updatePaymentSelect();
-        showNotification(`💳 Utang "${name}" berhasil ditambahkan!`);
+        showNotification('💳 Utang "' + name + '" berhasil ditambahkan!');
     }
 
     function deleteLiability(idx) {
         if (confirm('Hapus utang ini?')) {
-            const liability = liabilities[idx];
-            const hasPayments = debtPayments.some(p => p.liabilityId === liability.id);
+            var liability = liabilities[idx];
+            var hasPayments = false;
+            for (var i = 0; i < debtPayments.length; i++) {
+                if (debtPayments[i].liabilityId === liability.id) { hasPayments = true; break; }
+            }
             if (hasPayments) {
                 if (!confirm('Utang ini sudah ada pembayaran. Hapus semua data pembayaran juga?')) return;
-                debtPayments = debtPayments.filter(p => p.liabilityId !== liability.id);
+                debtPayments = debtPayments.filter(function(p) { return p.liabilityId !== liability.id; });
             }
             liabilities.splice(idx, 1);
             renderAll();
@@ -2230,70 +1987,68 @@ AUTH PAGE
     }
 
     function addExpense() {
-        const desc = document.getElementById('expenseDesc').value.trim();
-        const amount = parseFloat(document.getElementById('expenseAmount').value);
-        const currency = document.getElementById('expenseCurrency').value;
-        const category = document.getElementById('expenseCategory').value;
-        const date = document.getElementById('expenseDate').value || getToday();
+        var desc = document.getElementById('expenseDesc').value.trim();
+        var amount = parseFloat(document.getElementById('expenseAmount').value);
+        var currency = document.getElementById('expenseCurrency').value;
+        var category = document.getElementById('expenseCategory').value;
+        var date = document.getElementById('expenseDate').value || getToday();
 
         if (!desc || isNaN(amount) || amount <= 0) {
             showNotification('Isi deskripsi dan jumlah dengan benar', 'error');
             return;
         }
 
-        const balance = getBalance(mainCurrency);
-        const expenseInMain = convertCurrency(amount, currency, mainCurrency);
+        var balance = getBalance(mainCurrency);
+        var expenseInMain = convertCurrency(amount, currency, mainCurrency);
         if (expenseInMain > balance) {
-            if (!confirm(
-                    `⚠️ Pengeluaran ini (${formatCurrency(amount, currency)}) melebihi balance Anda (${formatCurrency(balance, mainCurrency)}). Lanjutkan?`
-                    )) { return; }
+            if (!confirm('⚠️ Pengeluaran ini (' + formatCurrency(amount, currency) + ') melebihi balance Anda (' + formatCurrency(balance, mainCurrency) + '). Lanjutkan?')) {
+                return;
+            }
         }
 
-        const month = date.slice(0, 7);
-        const id = Date.now();
-        expenses.push({ id, desc, amount, currency, date, month, category, recurring: false });
+        var month = date.slice(0, 7);
+        var id = Date.now();
+        expenses.push({ id: id, desc: desc, amount: amount, currency: currency, date: date, month: month, category: category, recurring: false });
         document.getElementById('expenseDesc').value = '';
         document.getElementById('expenseAmount').value = '';
         renderAll();
-        showNotification(`💳 ${desc}: ${formatCurrency(amount, currency)} berhasil dicatat!`);
+        showNotification('💳 ' + desc + ': ' + formatCurrency(amount, currency) + ' berhasil dicatat!');
     }
 
     function deleteExpense(id) {
         if (confirm('Hapus pengeluaran?')) {
-            expenses = expenses.filter(e => e.id !== id);
+            expenses = expenses.filter(function(e) { return e.id !== id; });
             renderAll();
             showNotification('Pengeluaran dihapus');
         }
     }
 
     function addAsset() {
-        const name = document.getElementById('assetName').value.trim();
-        const value = parseFloat(document.getElementById('assetValue').value);
-        const currency = document.getElementById('assetCurrency').value;
-        const type = document.getElementById('assetType').value;
-        const depreciation = parseFloat(document.getElementById('assetDepreciation').value) || 5;
+        var name = document.getElementById('assetName').value.trim();
+        var value = parseFloat(document.getElementById('assetValue').value);
+        var currency = document.getElementById('assetCurrency').value;
+        var type = document.getElementById('assetType').value;
+        var depreciation = parseFloat(document.getElementById('assetDepreciation').value) || 5;
         if (!name || isNaN(value) || value <= 0) {
             showNotification('Isi nama dan nilai aset dengan benar', 'error');
             return;
         }
-        assets.push({ id: Date.now(), name, value, currency, type, depreciation });
+        assets.push({ id: Date.now(), name: name, value: value, currency: currency, type: type, depreciation: depreciation });
         document.getElementById('assetName').value = '';
         document.getElementById('assetValue').value = '';
         renderAll();
-        showNotification(`🏦 ${name} berhasil ditambahkan sebagai aset!`);
+        showNotification('🏦 ' + name + ' berhasil ditambahkan sebagai aset!');
     }
 
     function deleteAsset(id) {
-        if (confirm('Hapus aset?')) { assets = assets.filter(a => a.id !== id);
-            renderAll();
-            showNotification('Aset dihapus'); }
+        if (confirm('Hapus aset?')) { assets = assets.filter(function(a) { return a.id !== id; }); renderAll(); showNotification('Aset dihapus'); }
     }
 
     function addGoal() {
-        const name = document.getElementById('goalName').value.trim();
-        const target = parseFloat(document.getElementById('goalTarget').value);
-        const currency = document.getElementById('goalCurrency').value;
-        const deadline = document.getElementById('goalDeadline').value;
+        var name = document.getElementById('goalName').value.trim();
+        var target = parseFloat(document.getElementById('goalTarget').value);
+        var currency = document.getElementById('goalCurrency').value;
+        var deadline = document.getElementById('goalDeadline').value;
 
         if (!name || isNaN(target) || target <= 0) {
             showNotification('Isi nama goal dan target dengan benar', 'error');
@@ -2304,47 +2059,44 @@ AUTH PAGE
             return;
         }
 
-        goals.push({ id: Date.now(), name, target, currency, deadline, status: 'belum', achievedDate: null });
+        goals.push({ id: Date.now(), name: name, target: target, currency: currency, deadline: deadline, status: 'belum', achievedDate: null });
         document.getElementById('goalName').value = '';
         document.getElementById('goalTarget').value = '';
         document.getElementById('goalDeadline').value = '';
         renderAll();
-        showNotification(`🎯 Goal "${name}" berhasil dibuat!`);
+        showNotification('🎯 Goal "' + name + '" berhasil dibuat!');
     }
 
     function deleteGoal(id) {
-        if (confirm('Hapus goal?')) { goals = goals.filter(g => g.id !== id);
-            renderAll();
-            showNotification('Goal dihapus'); }
+        if (confirm('Hapus goal?')) { goals = goals.filter(function(g) { return g.id !== id; }); renderAll(); showNotification('Goal dihapus'); }
     }
 
     function recordHistory() {
-        const currentMonth = getCurrentMonth();
-        if (history.some(h => h.month === currentMonth)) {
-            if (!confirm(`History untuk ${currentMonth} sudah ada. Timpa?`)) return;
-            history = history.filter(h => h.month !== currentMonth);
+        var currentMonth = getCurrentMonth();
+        if (history.some(function(h) { return h.month === currentMonth; })) {
+            if (!confirm('History untuk ' + currentMonth + ' sudah ada. Timpa?')) return;
+            history = history.filter(function(h) { return h.month !== currentMonth; });
         }
-        const nw = getNetWorth(mainCurrency);
+        var nw = getNetWorth(mainCurrency);
         history.push({ month: currentMonth, netWorth: nw });
         renderAll();
-        showNotification(`📊 Net worth untuk ${currentMonth} berhasil direkam!`);
+        showNotification('📊 Net worth untuk ' + currentMonth + ' berhasil direkam!');
     }
 
     function resetHistory() {
-        if (confirm('Hapus semua history net worth?')) { history = [];
-            renderAll();
-            showNotification('History direset'); }
+        if (confirm('Hapus semua history net worth?')) { history = []; renderAll(); showNotification('History direset'); }
     }
 
     // ============================================================
     //  NOTIFICATION
     // ============================================================
-    function showNotification(msg, type = 'success') {
-        const el = document.getElementById('notification');
+    function showNotification(msg, type) {
+        type = type || 'success';
+        var el = document.getElementById('notification');
         document.getElementById('notificationText').textContent = msg;
         el.className = 'notification show ' + type;
         clearTimeout(el._timeout);
-        el._timeout = setTimeout(() => el.classList.remove('show'), 5000);
+        el._timeout = setTimeout(function() { el.classList.remove('show'); }, 5000);
     }
 
     // ============================================================
@@ -2355,9 +2107,9 @@ AUTH PAGE
 
         if (authToken) {
             try {
-                const response = await callAPI('verifyToken');
+                var response = await callAPI('verifyToken');
                 if (response.success && response.valid) {
-                    const profile = await callAPI('getUserProfile');
+                    var profile = await callAPI('getUserProfile');
                     if (profile.success) {
                         currentUser = profile.user;
                         isGuest = false;
